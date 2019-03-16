@@ -2,8 +2,6 @@
 
 Angular app made for the IoT Simulator APP in order to get and receive different types of requests
 
-<!-- ![databseModel](readmeImages/Mockup.jpg) -->
-
 ## Getting Started
 
 Make sure you have installed:
