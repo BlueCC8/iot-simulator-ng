@@ -1,27 +1,49 @@
-# IotSim
+# Project Title
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
+Angular app made for the IoT Simulator APP in order to get and receive different types of requests
 
-## Development server
+<!-- ![databseModel](readmeImages/Mockup.jpg) -->
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Getting Started
 
-## Code scaffolding
+Make sure you have installed:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Node](https://nodejs.org/en/) NodeJS
+- [Angular CLI](https://cli.angular.io/) Angular CLI
 
-## Build
+### Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Run `npm install` the `ng serve`
+- Make sure to have the back-end see `https://gitlab.com/cristian.cernat97/iot-simulator-api.git`
 
-## Running unit tests
+### Installing
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Using git
 
-## Running end-to-end tests
+```
+ git clone https://gitlab.com/cristian.cernat97/iot-simulator-ng.git
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+or download the zip file
 
-## Further help
+## Testing and Middleware
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+...soon...
+
+## Built With
+
+- [Angular](https://angular.io/) JS Framework
+- [Angular Material](https://material.angular.io) Material components for angular
+- [RxJS](https://www.learnrxjs.io/) Reactive Extensions for JavaScript
+
+## Contributing
+
+Go ahead blame me for anything I am still learning
+
+## Versioning
+
+Version 1.0.0
+
+## Authors
+
+- **Cristian Cernat** - (https://gitlab.com/cristian.cernat97)

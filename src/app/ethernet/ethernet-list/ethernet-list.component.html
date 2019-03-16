@@ -1,0 +1,34 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="ethers.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let ether of ethers">
+    <mat-expansion-panel-header>
+      {{ ether.etherName }}
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <p>Standard: {{ ether.etherStandard }}</p>
+    </mat-panel-description>
+    <mat-panel-description>
+      <p>Data rate: {{ ether.etherDataRate }}</p>
+    </mat-panel-description>
+    <div class="post-image" *ngIf="ether.imagePath">
+      <img [src]="ether.imagePath" [alt]="ether.etherName" />
+    </div>
+    <mat-action-row *ngIf="userIsAuthenticated && username === ether.username">
+      <a mat-button color="primary" [routerLink]="['/edit', ether.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(ether.id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator
+  *ngIf="ethers.length > 0"
+  [length]="totalEthers"
+  [pageSize]="ethersPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+>
+</mat-paginator>
+<p class="info-text mat-body-1" *ngIf="ethers.length <= 0 && !isLoading">
+  No ethernets added yet!
+</p>
