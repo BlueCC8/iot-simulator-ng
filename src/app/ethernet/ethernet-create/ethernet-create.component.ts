@@ -5,7 +5,7 @@ import { Ethernet } from '../ethernet.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from '../../header/auth/auth.service';
 @Component({
   selector: 'app-ethernet-create',
   templateUrl: './ethernet-create.component.html',
@@ -18,7 +18,6 @@ export class EthernetCreateComponent implements OnInit, OnDestroy {
   imagePreview: string;
   private mode = 'create';
   private etherId: string;
-  private ethersSub: Subscription;
   private authListenerSubs = new Subscription();
   constructor(
     public ethernetsService: EthernetsService,

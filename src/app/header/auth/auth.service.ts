@@ -30,12 +30,33 @@ export class AuthService {
   getUsername() {
     return this.username;
   }
+  getUserData() {
+    return this.http.get<UserDto>(BACKEND_URL + this.username);
+  }
   createUser(userData: User) {
     this.http.post<{ mess: string; auth: boolean }>(BACKEND_URL + 'signup', userData).subscribe(
       responseData => {
         // console.log(responseData);
         this.authStatusListener.next(true);
         this.router.navigate(['/']);
+      },
+      error => {
+        console.log(error);
+        this.authStatusListener.next(false);
+      }
+    );
+  }
+  updateUser(user: User) {
+    // const userData = new FormData();
+    // userData.append('username', user.username);
+    // userData.append('email', user.email);
+    // userData.append('password', user.password);
+    console.log(user);
+    console.log(this.username);
+
+    this.http.put(BACKEND_URL + this.username, user).subscribe(
+      res => {
+        this.logout();
       },
       error => {
         console.log(error);
@@ -97,7 +118,7 @@ export class AuthService {
       });
   }
   private setAuthTimer(duration: number) {
-    console.log(duration);
+    // console.log(duration);
     this.tokenTimer = window.setTimeout(() => {
       this.logout();
     }, duration * 1000);

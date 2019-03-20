@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    const user = {
+    const user: User = {
       email: form.value.email,
       username: form.value.username,
       password: form.value.password

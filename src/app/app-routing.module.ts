@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EthernetListComponent } from './ethernet/ethernet-list/ethernet-list.component';
 import { EthernetCreateComponent } from './ethernet/ethernet-create/ethernet-create.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './header/auth/auth.guard';
+import { ExploreComponent } from './header/explore/explore.component';
+import { GuideComponent } from './header/guide/guide.component';
+import { AboutComponent } from './header/about/about.component';
 
 const routes: Routes = [
   {
@@ -22,9 +23,24 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    // * Lazy laoding with #Name of module
+    path: 'explore',
+    component: ExploreComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'guide',
+    component: GuideComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    // * Lazy loading with #Name of module
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
+    loadChildren: './header/auth/auth.module#AuthModule'
   }
 ];
 

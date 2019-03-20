@@ -8,6 +8,15 @@
     <li>
       <a mat-button routerLink="/" routerLinkActive="mat-accent">Ethernets list</a>
     </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/explore" routerLinkActive="mat-accent">Explore</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/guide" routerLinkActive="mat-accent">Guide</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/about" routerLinkActive="mat-accent">About</a>
+    </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
     </li>
@@ -15,7 +24,20 @@
       <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Logout</button>
+      <mat-menu #appMenu="matMenu">
+        <ng-template matMenuContent let-name="name">
+          <a mat-menu-item routerLink="/auth/profile">Profile</a>
+          <button mat-menu-item (click)="onLogout()">Logout</button>
+        </ng-template>
+      </mat-menu>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="appMenu"
+        [matMenuTriggerData]="{ name: 'Sally' }"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </li>
   </ul>
 </mat-toolbar>
