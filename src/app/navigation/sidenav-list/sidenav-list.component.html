@@ -3,6 +3,10 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
+  <a mat-list-item routerLink="/playground" (click)="onSidenavClose()" *ngIf="userIsAuthenticated">
+    <mat-icon>play_for_work</mat-icon>
+    <span class="nav-caption">Playground</span>
+  </a>
   <a mat-list-item routerLink="/explore" (click)="onSidenavClose()" *ngIf="userIsAuthenticated">
     <mat-icon>explore</mat-icon>
     <span class="nav-caption">Explore</span>

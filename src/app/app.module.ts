@@ -17,6 +17,7 @@ import { AboutComponent } from './navigation/header/about/about.component';
 import { ExploreComponent } from './navigation/header/explore/explore.component';
 import { GuideComponent } from './navigation/header/guide/guide.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { PlaygroundModule } from './playground/playground.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     BrowserAnimationsModule,
     AngularMaterialModule,
     EthernetModule,
+    PlaygroundModule,
     HttpClientModule,
     FlexLayoutModule
   ],

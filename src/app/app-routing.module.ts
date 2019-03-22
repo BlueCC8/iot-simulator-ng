@@ -6,6 +6,7 @@ import { AuthGuard } from './navigation/header/auth/auth.guard';
 import { ExploreComponent } from './navigation/header/explore/explore.component';
 import { GuideComponent } from './navigation/header/guide/guide.component';
 import { AboutComponent } from './navigation/header/about/about.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'playground',
+    component: PlaygroundComponent,
     canActivate: [AuthGuard]
   },
   {
