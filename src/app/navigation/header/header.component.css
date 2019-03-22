@@ -1,0 +1,49 @@
+a {
+  text-decoration: none;
+  color: white;
+  /* padding: 0;
+  margin: 0; */
+}
+
+/* span a {
+  margin: 1rem;
+}
+
+ul {
+  list-style: none;
+}
+li {
+  display: inline-block;
+  margin: 1rem;
+}
+.spacer {
+  flex: 1 1 auto;
+} */
+.mat-menu-item {
+  color: black;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
+/* a:hover,
+a:active {
+  color: lightgray;
+} */
+
+.navigation-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar {
+  border-radius: 3px;
+}
+
+@media (max-width: 959px) {
+  mat-toolbar {
+    border-radius: 0px;
+  }
+}
