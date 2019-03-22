@@ -31,7 +31,7 @@
       <li *ngIf="userIsAuthenticated">
         <mat-menu #appMenu="matMenu">
           <ng-template matMenuContent let-name="name">
-            <a mat-menu-item routerLink="/auth/profile">Profile</a>
+            <a mat-menu-item routerLink="/auth/profile">Settings</a>
             <button mat-menu-item (click)="onLogout()">Logout</button>
           </ng-template>
         </mat-menu>
