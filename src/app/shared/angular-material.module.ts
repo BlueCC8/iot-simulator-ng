@@ -12,7 +12,6 @@ import {
   MatMenuModule,
   MatSidenavModule,
   MatRadioModule,
-  MatNavList,
   MatListModule
 } from '@angular/material';
 
