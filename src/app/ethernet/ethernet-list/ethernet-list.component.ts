@@ -28,11 +28,12 @@ export class EthernetListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.ethersService.getEthernets(this.ethersPerPage, this.currentPage);
     this.username = this.authService.getUsername();
-
+    console.log('Loading');
     this.ethersSub = this.ethersService
       .getEthernetUpdateListener()
       .subscribe((ethersData: { ethers: Ethernet[]; maxEthers: number }) => {
         this.isLoading = false;
+        console.log('not loading');
         this.ethers = ethersData.ethers;
         this.totalEthers = ethersData.maxEthers;
       });

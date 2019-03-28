@@ -5,9 +5,8 @@ import { ConfigurationListComponent } from './configuration/configuration-list/c
 import { FilterListComponent } from './filter-list/filter-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { PlaygroundComponent } from './playground.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../shared/shared.module';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -16,6 +15,6 @@ import { SharedModule } from '../shared/shared.module';
     SearchBarComponent,
     PlaygroundComponent
   ],
-  imports: [SharedModule]
+  imports: [SharedModule, DragDropModule]
 })
 export class PlaygroundModule {}

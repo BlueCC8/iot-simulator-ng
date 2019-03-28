@@ -1,1 +1,5 @@
-<p>Hello board</p>
+<div class="example-boundary" #board>
+  <div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let item of items">
+    {{ item }}
+  </div>
+</div>
