@@ -1,4 +1,4 @@
-export interface Ethernet {
+export interface EthernetModel {
   id: string;
   etherName: string;
   etherStandard: string;

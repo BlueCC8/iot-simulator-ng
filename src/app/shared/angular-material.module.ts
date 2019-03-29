@@ -32,7 +32,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     MatSidenavModule,
     MatRadioModule,
     MatListModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule
   ],
   exports: [
     MatInputModule,
@@ -48,7 +49,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     MatSidenavModule,
     MatRadioModule,
     MatListModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule {}

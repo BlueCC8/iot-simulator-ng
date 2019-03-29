@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Ethernet } from '../ethernet.model';
+import { EthernetModel } from '../ethernet.model';
 import { EthernetsService } from '../ethernet.service';
 import { PageEvent } from '@angular/material';
 import { AuthService } from '../../navigation/header/auth/auth.service';
@@ -12,7 +12,7 @@ import { AuthService } from '../../navigation/header/auth/auth.service';
   styleUrls: ['./ethernet-list.component.css']
 })
 export class EthernetListComponent implements OnInit, OnDestroy {
-  ethers: Ethernet[] = [];
+  ethers: EthernetModel[] = [];
   userIsAuthenticated = false;
   username: string;
   isLoading = false;
@@ -31,7 +31,7 @@ export class EthernetListComponent implements OnInit, OnDestroy {
     console.log('Loading');
     this.ethersSub = this.ethersService
       .getEthernetUpdateListener()
-      .subscribe((ethersData: { ethers: Ethernet[]; maxEthers: number }) => {
+      .subscribe((ethersData: { ethers: EthernetModel[]; maxEthers: number }) => {
         this.isLoading = false;
         console.log('not loading');
         this.ethers = ethersData.ethers;

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { EthernetsService } from '../ethernet.service';
-import { Ethernet } from '../ethernet.model';
+import { EthernetModel } from '../ethernet.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { AuthService } from '../../navigation/header/auth/auth.service';
   styleUrls: ['/ethernet-create.component.css']
 })
 export class EthernetCreateComponent implements OnInit, OnDestroy {
-  ether: Ethernet;
+  ether: EthernetModel;
   form: FormGroup;
   isLoading = false;
   imagePreview: string;
@@ -91,7 +91,7 @@ export class EthernetCreateComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    const ether: Ethernet = {
+    const ether: EthernetModel = {
       id: null,
       etherName: this.form.value.title,
       etherStandard: this.form.value.standard,

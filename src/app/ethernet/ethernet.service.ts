@@ -3,16 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Ethernet } from './ethernet.model';
-import { EthernetDto as CreateEthernetDto } from './ethernet-create/ethernet-create.dto';
+import { EthernetModel } from './ethernet.model';
+import { EthernetDto } from './ethernet.dto';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 const BACKEND_URL = environment.apiUrl + '/ethernet/';
 @Injectable({ providedIn: 'root' })
 export class EthernetsService {
-  private ethers: Ethernet[] = [];
-  private ethersUpdated = new Subject<{ ethers: Ethernet[]; maxEthers: number }>();
+  private ethers: EthernetModel[] = [];
+  private ethersUpdated = new Subject<{ ethers: EthernetModel[]; maxEthers: number }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -20,7 +20,7 @@ export class EthernetsService {
   getEthernets(pageSize: number, page: number) {
     const queryParams = `?pagesize=${pageSize}&page=${page}`;
     this.http
-      .get<{ ethers: CreateEthernetDto[]; maxEthers: number }>(BACKEND_URL + queryParams)
+      .get<{ ethers: EthernetDto[]; maxEthers: number }>(BACKEND_URL + queryParams)
       .pipe(
         map(ethernetData => {
           return {
@@ -53,9 +53,9 @@ export class EthernetsService {
   }
 
   getEthernet(id: string) {
-    return this.http.get<CreateEthernetDto>(BACKEND_URL + id);
+    return this.http.get<EthernetDto>(BACKEND_URL + id);
   }
-  updateEthernet(ether: Ethernet) {
+  updateEthernet(ether: EthernetModel) {
     const etherData = new FormData();
     etherData.append('etherName', ether.etherName);
     etherData.append('etherStandard', ether.etherStandard);
@@ -66,13 +66,13 @@ export class EthernetsService {
       this.router.navigate(['/']);
     });
   }
-  addEthernet(ether: Ethernet) {
+  addEthernet(ether: EthernetModel) {
     const etherData = new FormData();
     etherData.append('etherName', ether.etherName);
     etherData.append('etherStandard', ether.etherStandard);
     etherData.append('etherDataRate', ether.etherDataRate);
     etherData.append('image', ether.imagePath, ether.etherName);
-    this.http.post<{ ether: Ethernet }>(BACKEND_URL, etherData).subscribe(responseData => {
+    this.http.post<{ ether: EthernetModel }>(BACKEND_URL, etherData).subscribe(responseData => {
       this.router.navigate(['/']);
     });
   }
