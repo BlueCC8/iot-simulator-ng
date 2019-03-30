@@ -4,6 +4,7 @@ import { DevicesService } from 'src/app/device/device.service';
 import { AuthService } from 'src/app/navigation/header/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Device } from 'src/app/device/device.model';
+import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
 
 @Component({
   selector: 'app-filter-list',
@@ -16,7 +17,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
 
   nrSubPanels = 0;
-  devices: Device[] = [];
+  devices: DeviceIntegratedModel[] = [];
   devicesPerPage = null;
   currentPage = null;
   totalDevices = 0;
@@ -32,17 +33,17 @@ export class FilterListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.devicesService.getDevices(this.devicesPerPage, this.currentPage);
+    this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
     this.username = this.authService.getUsername();
     console.log('Loading');
 
     this.devicesSub = this.devicesService
       .getDeviceUpdateListener()
-      .subscribe((devicesData: { devices: Device[]; maxDevices: number }) => {
+      .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.isLoading = false;
         console.log('not loading');
         this.devices = devicesData.devices;
-        this.nrSubPanels = this.countSubPanels(this.devices);
+        console.log(this.devices);
         console.log(this.nrSubPanels);
         this.totalDevices = devicesData.maxDevices;
       });

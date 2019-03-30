@@ -7,14 +7,17 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { PlaygroundComponent } from './playground.component';
 import { SharedModule } from '../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DevicePropertiesPipe } from './filter-list/device-properties.pipe';
 @NgModule({
   declarations: [
     BoardComponent,
     ConfigurationListComponent,
     FilterListComponent,
     SearchBarComponent,
-    PlaygroundComponent
+    PlaygroundComponent,
+    DevicePropertiesPipe
   ],
-  imports: [SharedModule, DragDropModule]
+  imports: [SharedModule, DragDropModule],
+  exports: [DevicePropertiesPipe]
 })
 export class PlaygroundModule {}

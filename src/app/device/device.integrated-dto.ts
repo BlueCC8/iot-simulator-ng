@@ -1,6 +1,6 @@
 import { AppLayerDto } from '../applicationLayer/applicationLayer.dto';
 import { NetLayerDto } from '../networkLayer/networkLayer.dto';
-import { LinkLayerDto } from '../linkLayer/linkLayer.dto';
+import { LinkLayerIntegratedDto } from '../linkLayer/linkLayer.integrated-dto';
 
 export interface DeviceIntegratedDto {
   _id: string;
@@ -8,7 +8,7 @@ export interface DeviceIntegratedDto {
   appLayerID: AppLayerDto;
   tranLayer: string;
   netLayerID: NetLayerDto;
-  linLayerID: LinkLayerDto;
+  linLayerID: LinkLayerIntegratedDto;
   devPrice: string;
   devImgUrl: string;
   username: string;

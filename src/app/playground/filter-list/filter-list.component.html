@@ -1,19 +1,66 @@
 <mat-accordion>
   <mat-expansion-panel *ngFor="let device of devices">
     <mat-expansion-panel-header> {{ device.devName }} </mat-expansion-panel-header>
+    <p>Properties</p>
     <mat-list>
-      <mat-list-item>
-        <h3 matLine>{{ device.devName }}</h3>
-        <p matLine></p>
+      <mat-list-item *ngFor="let prop of (device | deviceProperties | keyvalue)">
+        <p matLine>{{ prop.key }}: {{ prop.value }}</p>
       </mat-list-item>
     </mat-list>
-    <mat-accordion>
+    <mat-accordion *ngIf="device.appLayerID">
       <mat-expansion-panel>
-        <mat-expansion-panel-header> {{ device.devName }} </mat-expansion-panel-header>
-        <mat-list>
+        <mat-expansion-panel-header> {{ device.appLayerID.alName }} </mat-expansion-panel-header>
+        <mat-list *ngFor="let appLayer of (device.appLayerID | deviceProperties | keyvalue)">
           <mat-list-item>
-            <h3 matLine>{{ device.devName }}</h3>
-            <p matLine></p>
+            <p matLine>{{ appLayer.key }}: {{ appLayer.value }}</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion *ngIf="device.linLayerID">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header> {{ device.linLayerID.llName }} </mat-expansion-panel-header>
+        <mat-list *ngFor="let linLayer of (device.linLayerID | deviceProperties | keyvalue)">
+          <mat-list-item>
+            <p matLine>{{ linLayer.key }}: {{ linLayer.value }}</p>
+          </mat-list-item>
+        </mat-list>
+        <mat-accordion *ngIf="device.linLayerID.llEthernetID">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              {{ device.linLayerID.llEthernetID.etherName }}
+            </mat-expansion-panel-header>
+            <mat-list
+              *ngFor="let ether of (device.linLayerID.llEthernetID | deviceProperties | keyvalue)"
+            >
+              <mat-list-item>
+                <p matLine>{{ ether.key }}: {{ ether.value }}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion *ngIf="device.linLayerID.llEthernetID">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              {{ device.linLayerID.llWifiID.wifiName }}
+            </mat-expansion-panel-header>
+            <mat-list
+              *ngFor="let wifi of (device.linLayerID.llWifiID | deviceProperties | keyvalue)"
+            >
+              <mat-list-item>
+                <p matLine>{{ wifi.key }}: {{ wifi.value }}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion *ngIf="device.netLayerID">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header> {{ device.netLayerID.nlName }} </mat-expansion-panel-header>
+        <mat-list *ngFor="let netLayer of (device.netLayerID | deviceProperties | keyvalue)">
+          <mat-list-item>
+            <p matLine>{{ netLayer.key }}: {{ netLayer.value }}</p>
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>

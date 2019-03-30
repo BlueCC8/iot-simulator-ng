@@ -1,4 +1,4 @@
-export interface AppLayer {
+export interface AppLayerModel {
   id: string;
   alName: string;
   alHTTP: boolean;
