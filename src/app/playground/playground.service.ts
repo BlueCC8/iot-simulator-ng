@@ -6,20 +6,21 @@ import {
   transferArrayItem,
   CdkDropList
 } from '@angular/cdk/drag-drop';
+import { DeviceIntegratedModel } from '../device/device.integrated-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaygroundService {
   private filterDevice: any;
-  private deviceSelectedListener = new Subject<any>();
+  private deviceSelectedListener = new Subject<DeviceIntegratedModel>();
   // private dropStatus = new Subject<CdkDragDrop<string[]>>();
 
   getDeviceStatus() {
     return this.deviceSelectedListener.asObservable();
   }
 
-  setDeviceSelected(device: any) {
+  setDeviceSelected(device: DeviceIntegratedModel) {
     console.log('Set device');
     this.filterDevice = device;
     this.deviceSelectedListener.next(device);

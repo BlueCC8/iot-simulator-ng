@@ -3,8 +3,8 @@ import { PlaygroundService } from '../playground.service';
 import { DevicesService } from 'src/app/device/device.service';
 import { AuthService } from 'src/app/navigation/header/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { Device } from 'src/app/device/device.model';
 import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
+import { SearchBarService } from '../search-bar/search-bar.service';
 
 @Component({
   selector: 'app-filter-list',
@@ -12,9 +12,14 @@ import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
   styleUrls: ['./filter-list.component.css']
 })
 export class FilterListComponent implements OnInit, OnDestroy {
+  panelOpenState = false;
   isLoading = false;
   username: string;
   userIsAuthenticated = false;
+  // * Search
+  searchResult: DeviceIntegratedModel[] = [];
+  searchMax: number;
+  searchId: string = null;
 
   nrSubPanels = 0;
   devices: DeviceIntegratedModel[] = [];
@@ -22,11 +27,13 @@ export class FilterListComponent implements OnInit, OnDestroy {
   currentPage = null;
   totalDevices = 0;
 
-  private devicesSub: Subscription;
+  private devicesSub = new Subscription();
   private authListenerSubs = new Subscription();
+  private searchbarSubs = new Subscription();
 
   constructor(
     private playgroundService: PlaygroundService,
+    private searchbarService: SearchBarService,
     private devicesService: DevicesService,
     private authService: AuthService
   ) {}
@@ -35,16 +42,12 @@ export class FilterListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
     this.username = this.authService.getUsername();
-    console.log('Loading');
 
     this.devicesSub = this.devicesService
       .getDeviceUpdateListener()
       .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.isLoading = false;
-        console.log('not loading');
         this.devices = devicesData.devices;
-        console.log(this.devices);
-        console.log(this.nrSubPanels);
         this.totalDevices = devicesData.maxDevices;
       });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
@@ -52,9 +55,21 @@ export class FilterListComponent implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
+
+    this.searchbarSubs = this.searchbarService
+      .getSearchUpdateListener()
+      .subscribe((searchData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
+        this.searchResult = searchData.devices;
+        console.log(this.searchResult);
+        this.searchMax = searchData.maxDevices;
+      });
   }
-  onSelect(node) {
-    this.playgroundService.setDeviceSelected(node);
+  onAddDevice(device: DeviceIntegratedModel) {
+    console.log(device);
+    this.playgroundService.setDeviceSelected(device);
+  }
+  checkExpanded(device: DeviceIntegratedModel) {
+    return this.searchResult.filter(dev => dev.id === device.id).length > 0;
   }
   countSubPanels(obj: object) {
     let counter = 0;
@@ -63,7 +78,9 @@ export class FilterListComponent implements OnInit, OnDestroy {
         counter++;
       }
     });
-    return counter;
+  }
+  onSetPanelState() {
+    this.panelOpenState = false;
   }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();

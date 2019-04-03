@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.deviceSub = this.playgroundService.getDeviceStatus().subscribe(device => {
-      this.items.push(device);
+      this.items.push(device.devName);
     });
   }
   onDrop(event: CdkDragDrop<string[]>) {

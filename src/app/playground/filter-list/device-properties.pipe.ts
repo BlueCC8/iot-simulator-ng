@@ -11,6 +11,7 @@ export class DevicePropertiesPipe implements PipeTransform {
       if (
         typeof obj[key] === 'object' ||
         key === '_id' ||
+        key === 'devImgUrl' ||
         key === '__v' ||
         key === 'id' ||
         key === 'updated_date' ||

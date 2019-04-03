@@ -1,5 +1,10 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let device of devices">
+  <mat-expansion-panel
+    *ngFor="let device of devices; let i = index"
+    #mep="matExpansionPanel"
+    [expanded]="checkExpanded(device)"
+    [attr.data-index]="i"
+  >
     <mat-expansion-panel-header> {{ device.devName }} </mat-expansion-panel-header>
     <p>Properties</p>
     <mat-list>
@@ -65,5 +70,11 @@
         </mat-list>
       </mat-expansion-panel>
     </mat-accordion>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="onAddDevice(device)">
+        Add
+      </button>
+      <button mat-button color="warn" (click)="mep.expanded = false">Close</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

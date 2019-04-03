@@ -8,6 +8,7 @@ import { PlaygroundComponent } from './playground.component';
 import { SharedModule } from '../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DevicePropertiesPipe } from './filter-list/device-properties.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -17,7 +18,7 @@ import { DevicePropertiesPipe } from './filter-list/device-properties.pipe';
     PlaygroundComponent,
     DevicePropertiesPipe
   ],
-  imports: [SharedModule, DragDropModule],
+  imports: [SharedModule, DragDropModule, ReactiveFormsModule],
   exports: [DevicePropertiesPipe]
 })
 export class PlaygroundModule {}

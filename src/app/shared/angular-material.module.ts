@@ -13,9 +13,11 @@ import {
   MatSidenavModule,
   MatRadioModule,
   MatListModule,
-  MatTreeModule
+  MatTreeModule,
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatFormFieldModule
 } from '@angular/material';
-import { CdkTreeModule } from '@angular/cdk/tree';
 
 @NgModule({
   imports: [
@@ -50,7 +52,10 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     MatRadioModule,
     MatListModule,
     MatTreeModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatFormFieldModule
   ]
 })
 export class AngularMaterialModule {}
