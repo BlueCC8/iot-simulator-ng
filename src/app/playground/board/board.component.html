@@ -1,5 +1,16 @@
-<div class="example-boundary" #board>
-  <div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let item of items">
-    {{ item }}
+<div fxLayout="row" fxFlexAlign="center" fxFill>
+  <button (click)="onSaveConfig()" mat-raised-button color="accent" fxFlexAlign="center" fxFill>
+    <span>Save configuration</span>
+  </button>
+</div>
+
+<div fxLayout="row" class="example-boundary" #board>
+  <div
+    class="example-box"
+    cdkDragBoundary=".example-boundary"
+    cdkDrag
+    *ngFor="let device of devices"
+  >
+    <img fxFill *ngIf="device" [src]="device.imgPath" [alt]="device.devName" />
   </div>
 </div>

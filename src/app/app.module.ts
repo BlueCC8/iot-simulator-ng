@@ -18,6 +18,7 @@ import { GuideComponent } from './navigation/header/guide/guide.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { PlaygroundModule } from './playground/playground.module';
 import { SharedModule } from './shared/shared.module';
+import { SaveDialogComponent } from './playground/board/save-dialog/save-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,6 @@ import { SharedModule } from './shared/shared.module';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent]
+  entryComponents: [ErrorComponent, SaveDialogComponent]
 })
 export class AppModule {}

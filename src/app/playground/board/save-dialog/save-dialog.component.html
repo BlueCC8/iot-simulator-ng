@@ -1,0 +1,23 @@
+<form (submit)="onConfirm(confirmForm)" #confirmForm="ngForm">
+  <h1 mat-dialog-title>Your configuration</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input
+        matInput
+        name="configName"
+        ngModel
+        type="text"
+        #configInput="ngModel"
+        placeholder="Configuration name"
+        required
+      />
+      <mat-error *ngIf="configInput.invalid">Please enter an configuration name</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading" cdkFocusInitial>
+      Ok
+    </button>
+  </div>
+</form>

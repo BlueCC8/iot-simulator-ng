@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { PlaygroundService } from '../playground.service';
 import { Subscription } from 'rxjs';
+import { BoardModel } from './board.model';
+import { MatDialog } from '@angular/material';
+import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -9,14 +12,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  items = ['Get up', 'Brush teeth'];
+  devices: BoardModel[] = [];
   deviceSub = new Subscription();
-  constructor(private playgroundService: PlaygroundService) {}
+  constructor(private dialog: MatDialog, private playgroundService: PlaygroundService) {}
 
   ngOnInit() {
     this.deviceSub = this.playgroundService.getDeviceStatus().subscribe(device => {
-      this.items.push(device.devName);
+      this.devices.push({ devName: device.devName, imgPath: device.devImgUrl });
     });
+  }
+  onSaveConfig() {
+    this.dialog.open(SaveDialogComponent, { data: null });
   }
   onDrop(event: CdkDragDrop<string[]>) {
     console.log('Dropped');
