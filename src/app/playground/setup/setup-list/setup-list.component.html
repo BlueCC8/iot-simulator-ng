@@ -1,8 +1,29 @@
-<div>
-  <mat-list>
-    <mat-list-item <!-- *ngFor="let prop of (device | deviceProperties | keyvalue)" -->
-      >
-      <!-- <p matLine>{{ prop.key }}: {{ prop.value }}</p> -->
-    </mat-list-item>
-  </mat-list>
-</div>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion fxLayout="column" multi="true" *ngIf="setups.length > 0 && !isLoading">
+  <mat-expansion-panel fxLayout="column" *ngFor="let setup of setups">
+    <mat-expansion-panel-header>
+      {{ setup.setupName }}
+    </mat-expansion-panel-header>
+
+    <mat-action-row *ngIf="userIsAuthenticated && username === setup.username">
+      <button mat-button color="primary" (click)="openBottomSheet(setup)">
+        Review
+      </button>
+      <button mat-button color="warn" (click)="onDelete(setup.id)">
+        Delete
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator
+  fxLayout="column"
+  *ngIf="setups.length > 0"
+  [length]="totalSetups"
+  [pageSize]="setupsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+>
+</mat-paginator>
+<p class="info-text mat-body-1" *ngIf="setups.length <= 0 && !isLoading">
+  No setups added yet!
+</p>

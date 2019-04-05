@@ -4,4 +4,5 @@ export interface SetupIntegratedDto {
   _id: string;
   configName: string;
   devIDs: [DeviceIntegratedDto];
+  username: string;
 }

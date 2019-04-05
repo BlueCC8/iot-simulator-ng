@@ -26,21 +26,21 @@ export class PlaygroundService {
     this.deviceSelectedListener.next(device);
   }
 
-  dropElement(event: CdkDragDrop<string[]>) {
-    console.log(event);
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log('Try move');
-    } else {
-      console.log('Try transfer');
-      console.log(event.previousContainer.data);
-      console.log(event.container.data);
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  }
+  // dropElement(event: CdkDragDrop<string[]>) {
+  //   console.log(event);
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //     console.log('Try move');
+  //   } else {
+  //     console.log('Try transfer');
+  //     console.log(event.previousContainer.data);
+  //     console.log(event.container.data);
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex
+  //     );
+  //   }
+  // }
 }

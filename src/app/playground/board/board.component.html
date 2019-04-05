@@ -4,12 +4,12 @@
   </button>
 </div>
 
-<div fxLayout="row" class="example-boundary" #board>
+<div fxLayout="row" class="example-boundary" fxFlexAlign="center" #board>
   <div
     class="example-box"
     cdkDragBoundary=".example-boundary"
     cdkDrag
-    *ngFor="let device of devices"
+    *ngFor="let device of boardDevices"
   >
     <img fxFill *ngIf="device" [src]="device.imgPath" [alt]="device.devName" />
   </div>

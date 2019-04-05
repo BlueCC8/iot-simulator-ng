@@ -16,7 +16,8 @@ import {
   MatTreeModule,
   MatAutocompleteModule,
   MatChipsModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatBottomSheetModule
 } from '@angular/material';
 
 @NgModule({
@@ -35,7 +36,8 @@ import {
     MatRadioModule,
     MatListModule,
     MatTreeModule,
-    MatListModule
+    MatListModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatInputModule,
@@ -55,7 +57,8 @@ import {
     MatListModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatBottomSheetModule
   ]
 })
 export class AngularMaterialModule {}

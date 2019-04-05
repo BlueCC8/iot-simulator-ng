@@ -9,7 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DevicePropertiesPipe } from './filter-list/device-properties.pipe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SaveDialogComponent } from './board/save-dialog/save-dialog.component';
+import { SaveDialogComponent } from './save-dialog/save-dialog.component';
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -18,7 +19,8 @@ import { SaveDialogComponent } from './board/save-dialog/save-dialog.component';
     FilterListComponent,
     SearchBarComponent,
     PlaygroundComponent,
-    DevicePropertiesPipe
+    DevicePropertiesPipe,
+    BottomSheetComponent
   ],
   imports: [SharedModule, DragDropModule, ReactiveFormsModule, FormsModule],
   exports: [DevicePropertiesPipe]

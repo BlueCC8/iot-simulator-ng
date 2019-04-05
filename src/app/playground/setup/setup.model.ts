@@ -1,5 +1,6 @@
 export interface SetupModel {
   id: string;
-  configName: string;
-  devIDs: [string];
+  setupName: string;
+  devIDs: string[];
+  username: string;
 }

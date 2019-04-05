@@ -9,7 +9,13 @@ mat-expansion-panel-body {
   padding: 0 10px 16px !important;
 }
 mat-action-row {
-  padding: 10px 8px 10px 24px;
+  padding: 1vw 1vw 1vw 1.2vw;
+}
+mat-action-row,
+button {
+  line-height: 3vw;
+  font-size: 1.2vw;
+  min-width: 0.8vw;
 }
 /* mat-panel-description {
   font-size: 1.5vw !important;

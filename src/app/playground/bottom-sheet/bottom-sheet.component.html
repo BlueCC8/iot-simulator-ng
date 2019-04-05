@@ -1,0 +1,11 @@
+<mat-selection-list
+  #devices
+  [(ngModel)]="selectedDevices"
+  (ngModelChange)="onNgModelChange($event)"
+>
+  <h2>{{ data.setupName }}</h2>
+  <button mat-button color="accent" (click)="onSave(devices)">Save</button>
+  <mat-list-option *ngFor="let device of data.devIDs" [value]="device">
+    {{ device.devName }} :
+  </mat-list-option>
+</mat-selection-list>

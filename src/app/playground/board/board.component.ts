@@ -4,7 +4,8 @@ import { PlaygroundService } from '../playground.service';
 import { Subscription } from 'rxjs';
 import { BoardModel } from './board.model';
 import { MatDialog } from '@angular/material';
-import { SaveDialogComponent } from './save-dialog/save-dialog.component';
+import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
+import { SaveDialogComponent } from '../save-dialog/save-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -12,21 +13,19 @@ import { SaveDialogComponent } from './save-dialog/save-dialog.component';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  devices: BoardModel[] = [];
+  boardDevices: BoardModel[] = [];
+  boardDevicesIDs: string[] = [];
   deviceSub = new Subscription();
   constructor(private dialog: MatDialog, private playgroundService: PlaygroundService) {}
 
   ngOnInit() {
     this.deviceSub = this.playgroundService.getDeviceStatus().subscribe(device => {
-      this.devices.push({ devName: device.devName, imgPath: device.devImgUrl });
+      this.boardDevices.push({ devName: device.devName, imgPath: device.devImgUrl });
+      this.boardDevicesIDs.push(device.id);
     });
   }
   onSaveConfig() {
-    this.dialog.open(SaveDialogComponent, { data: null });
-  }
-  onDrop(event: CdkDragDrop<string[]>) {
-    console.log('Dropped');
-    this.playgroundService.dropElement(event);
+    this.dialog.open(SaveDialogComponent, { data: this.boardDevicesIDs });
   }
   ngOnDestroy() {
     this.deviceSub.unsubscribe();

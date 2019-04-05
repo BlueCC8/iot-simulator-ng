@@ -1,0 +1,19 @@
+mat-expansion-panel-header {
+  font-size: 1.2vw;
+}
+mat-expansion-panel-body {
+  padding: 0 10px 16px !important;
+}
+
+mat-paginator {
+  font-size: 1.2vw;
+}
+mat-action-row {
+  padding: 1vw 1vw 1vw 1.2vw;
+}
+mat-action-row,
+button {
+  line-height: 3vw;
+  font-size: 1.2vw;
+  min-width: 0.8vw;
+}

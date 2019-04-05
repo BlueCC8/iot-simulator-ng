@@ -35,11 +35,11 @@ export class DevicesService {
     } else {
       queryParams = `?populated=${isPopulated}`;
     }
+
     this.http
       .get<{ devices: DeviceIntegratedDto[]; maxDevices: number }>(BACKEND_URL + queryParams)
       .pipe(
         map(devicesData => {
-          console.log(devicesData);
           return {
             devices: devicesData.devices.map(device => {
               if (device.appLayerID) {
@@ -116,7 +116,6 @@ export class DevicesService {
         })
       )
       .subscribe(transformedDevicesData => {
-        console.log(transformedDevicesData.devices);
         this.devices = transformedDevicesData.devices;
         this.devicesUpdated.next({
           devices: [...this.devices],

@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion fxFlex="1 1 90%" fxLayout="column">
   <mat-expansion-panel
     *ngFor="let device of devices; let i = index"
