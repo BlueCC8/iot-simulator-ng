@@ -17,7 +17,10 @@ import {
   MatAutocompleteModule,
   MatChipsModule,
   MatFormFieldModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MatVerticalStepper,
+  MatStep,
+  MatStepperModule
 } from '@angular/material';
 
 @NgModule({
@@ -37,7 +40,8 @@ import {
     MatListModule,
     MatTreeModule,
     MatListModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatStepperModule
   ],
   exports: [
     MatInputModule,
@@ -58,7 +62,8 @@ import {
     MatAutocompleteModule,
     MatChipsModule,
     MatFormFieldModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatStepperModule
   ]
 })
 export class AngularMaterialModule {}

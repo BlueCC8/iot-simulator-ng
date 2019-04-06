@@ -60,7 +60,6 @@ export class DevicesService {
   getDeviceUpdateListener() {
     return this.devicesUpdated.asObservable();
   }
-  // ! Implement in the API the method
   getDevice(id: string) {
     return this.http.get<DeviceIntegratedDto>(BACKEND_URL + id).pipe(
       map(devicesData => {
@@ -96,6 +95,18 @@ export class DevicesService {
   deleteDevice(deviceID: string) {
     return this.http.delete(BACKEND_URL + deviceID);
   }
+  removeUndefProp(obj) {
+    const returnObj = { ...obj };
+    for (const key in returnObj) {
+      if (returnObj.hasOwnProperty(key)) {
+        if (returnObj[key] === undefined) {
+          returnObj[key] = '';
+        }
+      }
+    }
+    return returnObj;
+  }
+
   private mapIntegratedDeviceDto(device: DeviceIntegratedDto): DeviceIntegratedModel {
     if (device.appLayerID) {
       this.appLayer = {

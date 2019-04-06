@@ -1,6 +1,5 @@
 import { AppLayerModel } from '../applicationLayer/applicationLayer.model';
 import { NetLayerModel } from '../networkLayer/networkLayer.model';
-import { LinkLayerModel } from '../linkLayer/linkLayer.model';
 import { LinkLayerIntegratedModel } from '../linkLayer/linkLayer.integrated-model';
 
 export interface DeviceIntegratedModel {

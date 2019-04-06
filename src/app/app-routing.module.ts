@@ -9,8 +9,13 @@ import { AboutComponent } from './navigation/header/about/about.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { DeviceCreateComponent } from './device/device-create/device-create.component';
 import { DeviceListComponent } from './device/device-list/device-list.component';
+import { DoneComponent } from './device/device-create/done/done.component';
 
 const routes: Routes = [
+  {
+    path: 'stepper',
+    component: DoneComponent
+  },
   {
     path: '',
     component: DeviceListComponent
@@ -22,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'edit/:deviceId',
-    component: DeviceCreateComponent,
+    component: DoneComponent,
     canActivate: [AuthGuard]
   },
   {

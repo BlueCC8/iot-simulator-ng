@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="step">
+    <mat-form-field>
+      <input matInput type="text" formControlName="devName" placeholder="Device Name" />
+      <mat-error *ngIf="step.get('devName').invalid">Please enter an device name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="tranLayer" placeholder="Transport Layer" />
+      <mat-error *ngIf="step.get('tranLayer').invalid">Please enter a value</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="devPrice" placeholder="Price" />
+      <mat-error *ngIf="step.get('devPrice').invalid">Please enter a price</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+</mat-card>
