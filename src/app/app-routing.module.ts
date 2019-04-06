@@ -7,20 +7,22 @@ import { ExploreComponent } from './navigation/header/explore/explore.component'
 import { GuideComponent } from './navigation/header/guide/guide.component';
 import { AboutComponent } from './navigation/header/about/about.component';
 import { PlaygroundComponent } from './playground/playground.component';
+import { DeviceCreateComponent } from './device/device-create/device-create.component';
+import { DeviceListComponent } from './device/device-list/device-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EthernetListComponent
+    component: DeviceListComponent
   },
   {
     path: 'create',
-    component: EthernetCreateComponent,
+    component: DeviceCreateComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'edit/:etherId',
-    component: EthernetCreateComponent,
+    path: 'edit/:deviceId',
+    component: DeviceCreateComponent,
     canActivate: [AuthGuard]
   },
   {

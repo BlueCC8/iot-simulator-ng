@@ -20,6 +20,7 @@ import { PlaygroundModule } from './playground/playground.module';
 import { SharedModule } from './shared/shared.module';
 import { SaveDialogComponent } from './playground/save-dialog/save-dialog.component';
 import { BottomSheetComponent } from './playground/bottom-sheet/bottom-sheet.component';
+import { DeviceModule } from './device/device.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { BottomSheetComponent } from './playground/bottom-sheet/bottom-sheet.com
     AngularMaterialModule,
     EthernetModule,
     PlaygroundModule,
+    DeviceModule,
     HttpClientModule,
     SharedModule
   ],
