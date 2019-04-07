@@ -7,11 +7,11 @@ import { AuthService } from 'src/app/navigation/header/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../device.integrated-model';
 @Component({
-  selector: 'app-step-three',
-  templateUrl: './step-three.component.html',
-  styleUrls: ['./step-three.component.css']
+  selector: 'app-step-five',
+  templateUrl: './step-five.component.html',
+  styleUrls: ['./step-five.component.css']
 })
-export class StepThreeComponent implements OnInit, OnDestroy {
+export class StepFiveComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -34,17 +34,17 @@ export class StepThreeComponent implements OnInit, OnDestroy {
       id: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlName: new FormControl(null, {
+      wifiName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlIPv4: new FormControl(null, {
-        validators: [Validators.required]
+      wifiFrequancy: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlIPv6: new FormControl(null, {
-        validators: [Validators.required]
+      wifiRange: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlZig_LoWpan: new FormControl(null, {
-        validators: [Validators.required]
+      wifiDataRate: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       })
     });
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
@@ -62,20 +62,22 @@ export class StepThreeComponent implements OnInit, OnDestroy {
           this.device = this.devicesService.removeUndefProp(this.device);
           console.log(this.device);
           // * Set values
-          this.step.setValue({
-            id: this.device.netLayerID.id,
-            nlName: this.device.netLayerID.nlName,
-            nlIPv4: this.device.netLayerID.nlIPv4,
-            nlIPv6: this.device.netLayerID.nlIPv6,
-            nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
-          });
+          if (this.device.linLayerID.llWifiID) {
+            this.step.setValue({
+              id: this.device.linLayerID.llWifiID.id,
+              wifiName: this.device.linLayerID.llWifiID.wifiName,
+              wifiFrequancy: this.device.linLayerID.llWifiID.wifiFrequancy,
+              wifiRange: this.device.linLayerID.llWifiID.wifiRange,
+              wifiDataRate: this.device.linLayerID.llWifiID.wifiDataRate
+            });
+          }
         });
       } else {
         this.mode = 'create';
         this.deviceId = null;
       }
     });
-    this.formService.stepReady(this.step, 'three');
+    this.formService.stepReady(this.step, 'five');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
 

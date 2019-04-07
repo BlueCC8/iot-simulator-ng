@@ -6,6 +6,7 @@ export interface Device {
   netLayerID: string;
   linLayerID: string;
   devPrice: string;
+  devProducer: string;
   devImgUrl: string;
   username: string;
 }

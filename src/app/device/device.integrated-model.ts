@@ -9,6 +9,7 @@ export interface DeviceIntegratedModel {
   tranLayer: string;
   netLayerID: NetLayerModel;
   linLayerID: LinkLayerIntegratedModel;
+  devProducer: string;
   devPrice: string;
   devImgUrl: string;
   username: string;

@@ -47,6 +47,7 @@ export class SetupService {
                     linLayerID: device.linLayerID,
                     devPrice: device.devPrice,
                     devImgUrl: device.devImgUrl,
+                    devProducer: device.devProducer,
                     id: device._id,
                     username: device.username
                   };

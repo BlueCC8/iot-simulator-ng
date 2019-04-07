@@ -21,6 +21,7 @@ export class StepOneComponent implements OnInit, OnDestroy {
   private authListenerSubs = new Subscription();
   mode: string;
   deviceId: string;
+  isPopulated = true;
 
   ngOnInit() {}
 
@@ -32,6 +33,9 @@ export class StepOneComponent implements OnInit, OnDestroy {
     private formService: FormService
   ) {
     this.step = this.formBuilder.group({
+      id: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
       devName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
@@ -41,9 +45,15 @@ export class StepOneComponent implements OnInit, OnDestroy {
       devPrice: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
+      devProducer: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
       devImgUrl: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
+      }),
+      username: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       })
     });
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
@@ -55,7 +65,7 @@ export class StepOneComponent implements OnInit, OnDestroy {
         this.deviceId = paramMap.get('deviceId');
         this.isLoading = true;
         // * Get instance
-        this.devicesService.getDevice(this.deviceId).subscribe(deviceData => {
+        this.devicesService.getDevice(this.deviceId, this.isPopulated).subscribe(deviceData => {
           this.isLoading = false;
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
@@ -64,10 +74,13 @@ export class StepOneComponent implements OnInit, OnDestroy {
           // console.log(this.ether.imagePath);
           // * Set values
           this.step.setValue({
+            id: this.device.id,
             devName: this.device.devName,
             tranLayer: this.device.tranLayer,
             devPrice: this.device.devPrice,
-            devImgUrl: this.device.devImgUrl
+            devProducer: this.device.devProducer,
+            devImgUrl: this.device.devImgUrl,
+            username: this.device.username
           });
         });
       } else {
@@ -77,15 +90,11 @@ export class StepOneComponent implements OnInit, OnDestroy {
     });
     this.formService.stepReady(this.step, 'one');
   }
-
-  // change(title) {
-  //   this.step.patchValue({ extraName: title });
-  // }
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.step.patchValue({ image: file });
+    this.step.patchValue({ devImgUrl: file });
     // * Revalidate field
-    this.step.get('image').updateValueAndValidity();
+    this.step.get('devImgUrl').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;

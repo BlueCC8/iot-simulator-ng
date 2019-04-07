@@ -63,7 +63,7 @@ export class DeviceCreateComponent implements OnInit, OnDestroy {
         this.deviceId = paramMap.get('deviceId');
         this.isLoading = true;
         // * Get instance
-        this.devicesService.getDevice(this.deviceId).subscribe(deviceData => {
+        this.devicesService.getDevice(this.deviceId, true).subscribe(deviceData => {
           this.isLoading = false;
           this.device = deviceData;
           // console.log(etherData.username);

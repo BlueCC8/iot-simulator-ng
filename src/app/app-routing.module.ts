@@ -26,6 +26,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'createTest',
+    component: EthernetCreateComponent
+  },
+  {
     path: 'edit/:deviceId',
     component: DoneComponent,
     canActivate: [AuthGuard]

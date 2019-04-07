@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="step">
+    <mat-form-field>
+      <input matInput type="text" formControlName="etherName" placeholder="Ethernet Name" />
+      <mat-error *ngIf="step.get('etherName').invalid">Please enter ethernet name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="etherStandard" placeholder="Standard" />
+      <mat-error *ngIf="step.get('etherStandard').invalid"
+        >Please enter a ethernet standard value.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="etherDataRate" placeholder="Data rate" />
+      <mat-error *ngIf="step.get('etherDataRate').invalid">Please enter a data rate</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+</mat-card>

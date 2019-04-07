@@ -7,11 +7,11 @@ import { AuthService } from 'src/app/navigation/header/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../device.integrated-model';
 @Component({
-  selector: 'app-step-three',
-  templateUrl: './step-three.component.html',
-  styleUrls: ['./step-three.component.css']
+  selector: 'app-step-six',
+  templateUrl: './step-six.component.html',
+  styleUrls: ['./step-six.component.css']
 })
-export class StepThreeComponent implements OnInit, OnDestroy {
+export class StepSixComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -34,17 +34,14 @@ export class StepThreeComponent implements OnInit, OnDestroy {
       id: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlName: new FormControl(null, {
+      etherName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlIPv4: new FormControl(null, {
-        validators: [Validators.required]
+      etherStandard: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       }),
-      nlIPv6: new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      nlZig_LoWpan: new FormControl(null, {
-        validators: [Validators.required]
+      etherDataRate: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
       })
     });
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
@@ -62,20 +59,21 @@ export class StepThreeComponent implements OnInit, OnDestroy {
           this.device = this.devicesService.removeUndefProp(this.device);
           console.log(this.device);
           // * Set values
-          this.step.setValue({
-            id: this.device.netLayerID.id,
-            nlName: this.device.netLayerID.nlName,
-            nlIPv4: this.device.netLayerID.nlIPv4,
-            nlIPv6: this.device.netLayerID.nlIPv6,
-            nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
-          });
+          if (this.device.linLayerID.llEthernetID) {
+            this.step.setValue({
+              id: this.device.linLayerID.llEthernetID.id,
+              etherName: this.device.linLayerID.llEthernetID.etherName,
+              etherStandard: this.device.linLayerID.llEthernetID.etherStandard,
+              etherDataRate: this.device.linLayerID.llEthernetID.etherDataRate
+            });
+          }
         });
       } else {
         this.mode = 'create';
         this.deviceId = null;
       }
     });
-    this.formService.stepReady(this.step, 'three');
+    this.formService.stepReady(this.step, 'six');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
 

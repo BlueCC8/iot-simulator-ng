@@ -10,6 +10,9 @@
     <mat-panel-description>
       <p>Transport Layer: {{ device.tranLayer }}</p>
     </mat-panel-description>
+    <mat-panel-description>
+      <p>Producer: {{ device.devProducer }}</p>
+    </mat-panel-description>
     <div class="post-image" *ngIf="device.devImgUrl">
       <img [src]="device.devImgUrl" [alt]="device.devName" />
     </div>

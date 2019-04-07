@@ -20,7 +20,8 @@ import {
   MatBottomSheetModule,
   MatVerticalStepper,
   MatStep,
-  MatStepperModule
+  MatStepperModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 @NgModule({
@@ -41,7 +42,8 @@ import {
     MatTreeModule,
     MatListModule,
     MatBottomSheetModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ],
   exports: [
     MatInputModule,
@@ -63,7 +65,8 @@ import {
     MatChipsModule,
     MatFormFieldModule,
     MatBottomSheetModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ]
 })
 export class AngularMaterialModule {}

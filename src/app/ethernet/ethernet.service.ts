@@ -55,26 +55,38 @@ export class EthernetsService {
   getEthernet(id: string) {
     return this.http.get<EthernetDto>(BACKEND_URL + id);
   }
-  updateEthernet(ether: EthernetModel) {
-    const etherData = new FormData();
-    etherData.append('etherName', ether.etherName);
-    etherData.append('etherStandard', ether.etherStandard);
-    etherData.append('etherDataRate', ether.etherDataRate);
-    etherData.append('image', ether.imagePath, ether.etherName);
+  // updateEthernet(ether: EthernetModel) {
+  //   const etherData = new FormData();
+  //   etherData.append('etherName', ether.etherName);
+  //   etherData.append('etherStandard', ether.etherStandard);
+  //   etherData.append('etherDataRate', ether.etherDataRate);
+  //   etherData.append('image', ether.imagePath, ether.etherName);
 
-    this.http.put(BACKEND_URL + ether.id, etherData).subscribe(res => {
-      this.router.navigate(['/']);
+  //   this.http.put(BACKEND_URL + ether.id, etherData).subscribe(res => {
+  //     this.router.navigate(['/']);
+  //   });
+  // }
+  // addEthernet(ether: EthernetModel) {
+  //   const etherData = new FormData();
+  //   etherData.append('etherName', ether.etherName);
+  //   etherData.append('etherStandard', ether.etherStandard);
+  //   etherData.append('etherDataRate', ether.etherDataRate);
+  //   etherData.append('image', ether.imagePath, ether.etherName);
+  //   this.http.post<{ ether: EthernetModel }>(BACKEND_URL, etherData).subscribe(responseData => {
+  //     this.router.navigate(['/']);
+  //   });
+  // }
+  updateEthernet(ether: EthernetModel) {
+    this.http.put(BACKEND_URL + ether.id, ether).subscribe(res => {
+      // this.router.navigate(['/']);
     });
   }
   addEthernet(ether: EthernetModel) {
-    const etherData = new FormData();
-    etherData.append('etherName', ether.etherName);
-    etherData.append('etherStandard', ether.etherStandard);
-    etherData.append('etherDataRate', ether.etherDataRate);
-    etherData.append('image', ether.imagePath, ether.etherName);
-    this.http.post<{ ether: EthernetModel }>(BACKEND_URL, etherData).subscribe(responseData => {
-      this.router.navigate(['/']);
-    });
+    return this.http.post<EthernetDto>(BACKEND_URL, ether).pipe(
+      map(etherData => {
+        return etherData._id;
+      })
+    );
   }
 
   deleteEthernet(etherID: string) {

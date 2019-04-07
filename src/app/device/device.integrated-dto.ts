@@ -10,6 +10,7 @@ export interface DeviceIntegratedDto {
   netLayerID: NetLayerDto;
   linLayerID: LinkLayerIntegratedDto;
   devPrice: string;
+  devProducer: string;
   devImgUrl: string;
   username: string;
 }

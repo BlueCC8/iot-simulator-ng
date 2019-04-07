@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="step">
+    <mat-form-field>
+      <input matInput type="text" formControlName="wifiName" placeholder="Wifi Name" />
+      <mat-error *ngIf="step.get('wifiName').invalid">Please enter wifi name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="wifiFrequancy" placeholder="Frequancy" />
+      <mat-error *ngIf="step.get('wifiFrequancy').invalid"
+        >Please enter a wifi frequancy value.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="wifiRange" placeholder="Range" />
+      <mat-error *ngIf="step.get('wifiRange').invalid">Please enter a range</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="wifiDataRate" placeholder="Data rate" />
+      <mat-error *ngIf="step.get('wifiDataRate').invalid">Please enter a datarate value</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+</mat-card>

@@ -7,5 +7,6 @@ export interface DeviceDto {
   linLayerID: string;
   devPrice: string;
   devImgUrl: string;
+  devProducer: string;
   username: string;
 }

@@ -6,12 +6,14 @@
       <mat-error *ngIf="step.get('nlName').invalid">Please enter network name.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="checkbox" formControlName="nlIPv4" placeholder="IPv4" />
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="nlIPv4" placeholder="IPv4">IPv4</mat-checkbox>
       <mat-error *ngIf="step.get('nlIPv4').invalid">Please select a value</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="checkbox" formControlName="nlIPv6" placeholder="IPv6" />
-      <mat-error *ngIf="step.get('nlIPv4').invalid">Please select a value</mat-error>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="nlIPv4" placeholder="IPv6">IPv6</mat-checkbox>
+      <mat-error *ngIf="step.get('nlIPv6').invalid">Please select a value</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="nlZig_LoWpan" placeholder="Zigbee/LoWpan" />

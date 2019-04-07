@@ -2,18 +2,41 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="step">
     <mat-form-field>
-      <input matInput type="text" formControlName="devName" placeholder="Device Name" />
-      <mat-error *ngIf="step.get('devName').invalid">Please enter an device name.</mat-error>
+      <input matInput type="text" formControlName="alName" placeholder="Application Layer Name" />
+      <mat-error *ngIf="step.get('alName').invalid"
+        >Please enter an application layer name.</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" formControlName="tranLayer" placeholder="Transport Layer" />
-      <mat-error *ngIf="step.get('tranLayer').invalid">Please enter a value</mat-error>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alHTTP">HTTP</mat-checkbox>
+      <mat-error *ngIf="step.get('alHTTP').invalid">Please select a value</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" formControlName="devPrice" placeholder="Price" />
-      <mat-error *ngIf="step.get('devPrice').invalid">Please enter a price</mat-error>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alCoAp">CoAp</mat-checkbox>
+      <mat-error *ngIf="step.get('alCoAp').invalid">Please select a value</mat-error>
     </mat-form-field>
-
+    <mat-form-field>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alWebSocket">WebSocket</mat-checkbox>
+      <mat-error *ngIf="step.get('alWebSocket').invalid">Please select a value</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alMQTTE">MQTTE</mat-checkbox>
+      <mat-error *ngIf="step.get('alMQTTE').invalid">Please select a value</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alDDS">DDS</mat-checkbox>
+      <mat-error *ngIf="step.get('alDDS').invalid">Please select a value</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="alAMQP">AMQP</mat-checkbox>
+      <mat-error *ngIf="step.get('alAMQP').invalid">Please select a value</mat-error>
+    </mat-form-field>
     <div>
       <button mat-button matStepperNext>Next</button>
     </div>

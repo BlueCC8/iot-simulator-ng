@@ -60,8 +60,10 @@ export class DevicesService {
   getDeviceUpdateListener() {
     return this.devicesUpdated.asObservable();
   }
-  getDevice(id: string) {
-    return this.http.get<DeviceIntegratedDto>(BACKEND_URL + id).pipe(
+  getDevice(id: string, isPopulated: boolean) {
+    let queryParams = '';
+    queryParams = `?populated=${isPopulated}`;
+    return this.http.get<DeviceIntegratedDto>(BACKEND_URL + id + queryParams).pipe(
       map(devicesData => {
         return this.mapIntegratedDeviceDto(devicesData);
       })
@@ -70,24 +72,24 @@ export class DevicesService {
 
   // TODO: Add support for sudocuments
   updateDevice(device: Device) {
-    const deviceData = new FormData();
-    deviceData.append('devName', device.devName);
-    deviceData.append('tranLayer', device.tranLayer);
-    deviceData.append('devPrice', device.devPrice);
-    deviceData.append('image', device.devImgUrl, device.devName);
+    // const deviceData = new FormData();
+    // deviceData.append('devName', device.devName);
+    // deviceData.append('tranLayer', device.tranLayer);
+    // deviceData.append('devPrice', device.devPrice);
+    // deviceData.append('devImgUrl', device.devImgUrl, device.devName);
 
-    this.http.put(BACKEND_URL + device.id, deviceData).subscribe(res => {
+    this.http.put(BACKEND_URL + device.id, device).subscribe(res => {
       this.router.navigate(['/']);
     });
   }
   // TODO: Add support for sudocuments
   addDevice(device: Device) {
-    const deviceData = new FormData();
-    deviceData.append('devName', device.devName);
-    deviceData.append('tranLayer', device.tranLayer);
-    deviceData.append('devPrice', device.devPrice);
-    deviceData.append('image', device.devImgUrl, device.devName);
-    this.http.post<{ device: Device }>(BACKEND_URL, deviceData).subscribe(responseData => {
+    // const deviceData = new FormData();
+    // deviceData.append('devName', device.devName);
+    // deviceData.append('tranLayer', device.tranLayer);
+    // deviceData.append('devPrice', device.devPrice);
+    // deviceData.append('devImgUrl', device.devImgUrl, device.devName);
+    this.http.post<{ device: Device }>(BACKEND_URL, device).subscribe(responseData => {
       this.router.navigate(['/']);
     });
   }
@@ -172,6 +174,7 @@ export class DevicesService {
       netLayerID: this.netLayer,
       linLayerID: this.linLayer,
       devPrice: device.devPrice,
+      devProducer: device.devProducer,
       devImgUrl: device.devImgUrl,
       id: device._id,
       username: device.username

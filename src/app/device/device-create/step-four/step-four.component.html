@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="step">
+    <mat-form-field>
+      <input matInput type="text" formControlName="llName" placeholder="Link Layer Name" />
+      <mat-error *ngIf="step.get('llName').invalid">Please enter link layer name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="llPriorityType" placeholder="Priority type" />
+      <mat-error *ngIf="step.get('llPriorityType').invalid"
+        >Please enter a priority type name.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="llRole" placeholder="Role Name" />
+      <mat-error *ngIf="step.get('llRole').invalid">Please enter a role name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="llBluetooth" placeholder="Bluetooth support" />
+      <mat-error *ngIf="step.get('llBluetooth').invalid"
+        >Please enter a bluetooth support</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="llLrWpanType" placeholder="LrWpan type" />
+      <mat-error *ngIf="step.get('llLrWpanType').invalid"
+        >Please enter a LrWpan type name.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="llCelullar" placeholder="Cellular support" />
+      <mat-error *ngIf="step.get('llCelullar').invalid">Please enter a celullar version</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput style="display: none" />
+      <mat-checkbox formControlName="llNFC">NFC</mat-checkbox>
+      <mat-error *ngIf="step.get('llNFC').invalid">Please select a value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="llProducer" placeholder="Manufacturer" />
+      <mat-error *ngIf="step.get('llProducer').invalid">Please enter a value</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+</mat-card>
