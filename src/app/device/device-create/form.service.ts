@@ -106,7 +106,6 @@ export class FormService {
         device.devImgUrl = val.devImgUrl;
         device.devProducer = val.devProducer;
         device.username = val.username;
-        console.log(device.devImgUrl);
       })
     );
     this.stepTwo.subscribe(form =>

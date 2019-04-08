@@ -1,43 +1,48 @@
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
-      <input
-        matInput
-        name="username"
-        ngModel
-        type="text"
-        placeholder="Username"
-        #usernameInput="ngModel"
-        required
-      />
-      <mat-error *ngIf="usernameInput.invalid">Please enter an valid username.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        name="email"
-        ngModel
-        type="email"
-        placeholder="Email"
-        #emailInput="ngModel"
-        required
-        email
-      />
-      <mat-error *ngIf="emailInput.invalid">Please enter an valid email.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        name="password"
-        ngModel
-        type="password"
-        #passwordInput="ngModel"
-        placeholder="Password"
-        required
-      />
-      <mat-error *ngIf="passwordInput.invalid">Please enter an valid password.</mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
-  </form>
-</mat-card>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-card fxLayout="column" fxFlex="80%" fxFlex.gt-sm="60%">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+      <mat-form-field>
+        <input
+          matInput
+          name="username"
+          ngModel
+          type="text"
+          placeholder="Username"
+          #usernameInput="ngModel"
+          required
+        />
+        <mat-error *ngIf="usernameInput.invalid">Please enter an valid username.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="email"
+          ngModel
+          type="email"
+          placeholder="Email"
+          #emailInput="ngModel"
+          required
+          email
+        />
+        <mat-error *ngIf="emailInput.invalid">Please enter an valid email.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="password"
+          ngModel
+          [type]="hide ? 'password' : 'text'"
+          #passwordInput="ngModel"
+          placeholder="Password"
+          required
+        />
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
+        <mat-error *ngIf="passwordInput.invalid">Please enter an valid password.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
+    </form>
+  </mat-card>
+</div>

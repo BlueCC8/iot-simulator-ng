@@ -1,5 +1,12 @@
 <div fxLayout="row" fxFlexAlign="center" fxFill>
-  <button (click)="onSaveConfig()" mat-raised-button color="accent" fxFlexAlign="center" fxFill>
+  <button
+    (click)="onSaveConfig()"
+    mat-raised-button
+    matTooltip="Save your configuration here"
+    color="accent"
+    fxFlexAlign="center"
+    fxFill
+  >
     <span>Save configuration</span>
   </button>
 </div>
@@ -11,6 +18,12 @@
     cdkDrag
     *ngFor="let device of boardDevices"
   >
-    <img fxFill *ngIf="device" [src]="device.imgPath" [alt]="device.devName" />
+    <img
+      matTooltip="Drag me around"
+      fxFill
+      *ngIf="device"
+      [src]="device.imgPath"
+      [alt]="device.devName"
+    />
   </div>
 </div>

@@ -1,4 +1,4 @@
-mat-expansion-panel-header {
+/* mat-expansion-panel-header {
   font-size: 1.2vw;
 }
 mat-expansion-panel-body {
@@ -16,4 +16,34 @@ button {
   line-height: 3vw;
   font-size: 1.2vw;
   min-width: 0.8vw;
+} */
+.example-tooltip-red {
+  background: #b71c1c;
+}
+::ng-deep .mat-expansion-panel-header {
+  height: 1.2vw;
+  padding: 0px 10px !important;
+  height: 30px !important;
+  /* background-color: rgba(0, 0, 0, 0.1) !important; */
+}
+
+@media only screen and (max-width: 599px) {
+  ::ng-deep .mat-expansion-panel-header {
+    font-size: 8px !important;
+    height: 30px !important;
+  }
+  ::ng-deep .mat-list-item {
+    font-size: 8px !important;
+    height: 20px !important;
+  }
+  mat-action-row,
+  button {
+    line-height: 10px !important;
+    font-size: 8px !important;
+    padding: 5px !important;
+    min-width: 10px !important;
+  }
+  mat-toolbar {
+    font-size: 12px;
+  }
 }

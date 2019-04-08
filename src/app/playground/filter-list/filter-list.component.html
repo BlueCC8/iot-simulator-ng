@@ -1,4 +1,7 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<mat-toolbar color="primary">
+  <span>Devices</span>
+</mat-toolbar>
 <mat-accordion fxFlex="1 1 90%" fxLayout="column">
   <mat-expansion-panel
     *ngFor="let device of devices; let i = index"
@@ -11,7 +14,7 @@
       <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
         {{ device.devName }}
       </mat-panel-title>
-      <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx">
+      <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
         <mat-icon>important_devices</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -26,7 +29,7 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.appLayerID.alName }}</mat-panel-title
           >
-          <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx">
+          <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
               >settings_input_antenna</mat-icon
             >
@@ -45,7 +48,7 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.linLayerID.llName }}
           </mat-panel-title>
-          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx">
+          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"> insert_link</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -60,7 +63,7 @@
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llEthernetID.etherName }}</mat-panel-title
               >
-              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx">
+              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
                   >settings_ethernet</mat-icon
                 >
@@ -81,7 +84,7 @@
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llWifiID.wifiName }}</mat-panel-title
               >
-              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx">
+              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">network_wifi</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -102,7 +105,7 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.netLayerID.nlName }}
           </mat-panel-title>
-          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx">
+          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">share</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>

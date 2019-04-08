@@ -21,7 +21,8 @@ import {
   MatVerticalStepper,
   MatStep,
   MatStepperModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 @NgModule({
@@ -43,7 +44,8 @@ import {
     MatListModule,
     MatBottomSheetModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ],
   exports: [
     MatInputModule,
@@ -66,7 +68,8 @@ import {
     MatFormFieldModule,
     MatBottomSheetModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ]
 })
 export class AngularMaterialModule {}

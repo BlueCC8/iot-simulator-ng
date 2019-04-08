@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  hide = true;
   isLoading = false;
   private authStatusSub: Subscription;
   constructor(private authService: AuthService) {}

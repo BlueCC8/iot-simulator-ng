@@ -29,7 +29,7 @@ export class DoneComponent implements OnInit, OnDestroy {
   // stepSix;
   isLoading = false;
   isLinear = false;
-  diagnostics = true;
+  diagnostics = false;
 
   form: FormGroup;
   private mode = 'create';

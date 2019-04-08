@@ -1,37 +1,52 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="devices.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let device of devices">
-    <mat-expansion-panel-header>
-      {{ device.devName }}
-    </mat-expansion-panel-header>
-    <mat-panel-description>
-      <p>Price: {{ device.devPrice }}</p>
-    </mat-panel-description>
-    <mat-panel-description>
-      <p>Transport Layer: {{ device.tranLayer }}</p>
-    </mat-panel-description>
-    <mat-panel-description>
-      <p>Producer: {{ device.devProducer }}</p>
-    </mat-panel-description>
-    <div class="post-image" *ngIf="device.devImgUrl">
-      <img [src]="device.devImgUrl" [alt]="device.devName" />
-    </div>
-    <mat-action-row *ngIf="userIsAuthenticated && username === device.username">
-      <a mat-button color="primary" [routerLink]="['/edit', device.id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDelete(device.id)">
-        DELETE
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
-<mat-paginator
-  *ngIf="devices.length > 0"
-  [length]="totalDevices"
-  [pageSize]="devicesPerPage"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="onChangePage($event)"
->
-</mat-paginator>
-<p class="info-text mat-body-1" *ngIf="devices.length <= 0 && !isLoading">
-  No devices added yet!
-</p>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-accordion
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    multi="true"
+    *ngIf="devices.length > 0 && !isLoading"
+  >
+    <mat-expansion-panel fxLayout="column" *ngFor="let device of devices">
+      <mat-expansion-panel-header fxLayoutAlign="center center">
+        {{ device.devName }}
+      </mat-expansion-panel-header>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Price: {{ device.devPrice }}</p>
+      </mat-panel-description>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Transport Layer: {{ device.tranLayer }}</p>
+      </mat-panel-description>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Producer: {{ device.devProducer }}</p>
+      </mat-panel-description>
+      <div fxFlex="20%" class="post-image" *ngIf="device.devImgUrl">
+        <img [src]="device.devImgUrl" [alt]="device.devName" />
+      </div>
+      <mat-action-row *ngIf="userIsAuthenticated && username === device.username">
+        <a mat-button color="primary" [routerLink]="['/edit', device.id]">EDIT</a>
+        <button mat-button color="warn" (click)="onDelete(device.id)">
+          DELETE
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-paginator
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    *ngIf="devices.length > 0"
+    [length]="totalDevices"
+    [pageSize]="devicesPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangePage($event)"
+  >
+  </mat-paginator>
+  <p class="info-text mat-body-1" *ngIf="devices.length <= 0 && !isLoading">
+    No devices added yet!
+  </p>
+</div>

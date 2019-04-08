@@ -13,16 +13,12 @@ import { DoneComponent } from './device/device-create/done/done.component';
 
 const routes: Routes = [
   {
-    path: 'stepper',
-    component: DoneComponent
-  },
-  {
     path: '',
     component: DeviceListComponent
   },
   {
     path: 'create',
-    component: DeviceCreateComponent,
+    component: DoneComponent,
     canActivate: [AuthGuard]
   },
   {

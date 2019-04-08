@@ -23,15 +23,17 @@ export class BottomSheetComponent {
     // const difference = this.data.devIDs.filter(x => !this.selectedOption.includes(x));
     console.log(this.data);
     console.log(this.selectedOption);
-    const selectedIDs = this.selectedOption.map(dev => {
-      return { _id: dev.id };
-    });
-    const setup: SetupDataDto = {
-      _id: this.data.id,
-      configName: this.data.setupName,
-      devIDs: selectedIDs
-    };
-    this.setupsService.updateSetup(setup);
+    if (this.selectedOption) {
+      const selectedIDs = this.selectedOption.map(dev => {
+        return { _id: dev.id };
+      });
+      const setup: SetupDataDto = {
+        _id: this.data.id,
+        configName: this.data.setupName,
+        devIDs: selectedIDs
+      };
+      this.setupsService.updateSetup(setup);
+    }
     this.bottomSheetRef.dismiss();
   }
   onNgModelChange($event) {

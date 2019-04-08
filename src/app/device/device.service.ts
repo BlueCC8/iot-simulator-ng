@@ -70,26 +70,27 @@ export class DevicesService {
     );
   }
 
-  // TODO: Add support for sudocuments
   updateDevice(device: Device) {
-    // const deviceData = new FormData();
-    // deviceData.append('devName', device.devName);
-    // deviceData.append('tranLayer', device.tranLayer);
-    // deviceData.append('devPrice', device.devPrice);
-    // deviceData.append('devImgUrl', device.devImgUrl, device.devName);
-
-    this.http.put(BACKEND_URL + device.id, device).subscribe(res => {
+    const deviceData = new FormData();
+    deviceData.append('devName', device.devName);
+    deviceData.append('tranLayer', device.tranLayer);
+    deviceData.append('devPrice', device.devPrice);
+    deviceData.append('devProducer', device.devProducer);
+    deviceData.append('image', device.devImgUrl, device.devName);
+    console.log(device.devImgUrl);
+    this.http.put(BACKEND_URL + device.id, deviceData).subscribe(res => {
       this.router.navigate(['/']);
     });
   }
-  // TODO: Add support for sudocuments
   addDevice(device: Device) {
-    // const deviceData = new FormData();
-    // deviceData.append('devName', device.devName);
-    // deviceData.append('tranLayer', device.tranLayer);
-    // deviceData.append('devPrice', device.devPrice);
-    // deviceData.append('devImgUrl', device.devImgUrl, device.devName);
-    this.http.post<{ device: Device }>(BACKEND_URL, device).subscribe(responseData => {
+    const deviceData = new FormData();
+    deviceData.append('devName', device.devName);
+    deviceData.append('tranLayer', device.tranLayer);
+    deviceData.append('devPrice', device.devPrice);
+    deviceData.append('devProducer', device.devProducer);
+    deviceData.append('image', device.devImgUrl, device.devName);
+
+    this.http.post<{ device: Device }>(BACKEND_URL, deviceData).subscribe(responseData => {
       this.router.navigate(['/']);
     });
   }

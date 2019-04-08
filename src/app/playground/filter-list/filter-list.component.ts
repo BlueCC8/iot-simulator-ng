@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { PlaygroundService } from '../playground.service';
 import { DevicesService } from 'src/app/device/device.service';
 import { AuthService } from 'src/app/navigation/header/auth/auth.service';
@@ -10,6 +10,7 @@ import { SearchBarService } from '../search-bar/search-bar.service';
   selector: 'app-filter-list',
   templateUrl: './filter-list.component.html',
   styleUrls: ['./filter-list.component.css']
+  // encapsulation: ViewEncapsulation.None disables encapsulation for every component
 })
 export class FilterListComponent implements OnInit, OnDestroy {
   panelOpenState = false;
