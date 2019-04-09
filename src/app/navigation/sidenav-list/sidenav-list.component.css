@@ -22,3 +22,29 @@ button:hover,
 button:active {
   color: lightgray;
 }
+.mat-list-item {
+  padding: 14px !important;
+}
+/* lt-md */
+@media only screen and (max-width: 959px) {
+  ::ng-deep .mat-list-item {
+    font-size: 14px !important;
+    height: 20px !important;
+  }
+  #profile {
+    padding-bottom: 33px !important;
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  ::ng-deep .mat-list-item {
+    padding: 14px !important;
+    height: 20px !important;
+  }
+  ::ng-deep .mat-list-item-content {
+    font-size: 14px;
+  }
+  #profile {
+    padding-bottom: 33px !important;
+  }
+}

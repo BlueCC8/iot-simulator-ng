@@ -14,9 +14,9 @@
       <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
         {{ device.devName }}
       </mat-panel-title>
-      <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+      <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
         <mat-icon>important_devices</mat-icon>
-      </mat-panel-description>
+      </mat-panel-description> -->
     </mat-expansion-panel-header>
     <mat-list>
       <mat-list-item *ngFor="let prop of (device | deviceProperties | keyvalue)">
@@ -29,11 +29,11 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.appLayerID.alName }}</mat-panel-title
           >
-          <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx" fxHide.lt-lg>
+          <!-- <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
               >settings_input_antenna</mat-icon
             >
-          </mat-panel-description>
+          </mat-panel-description> -->
         </mat-expansion-panel-header>
         <mat-list *ngFor="let appLayer of (device.appLayerID | deviceProperties | keyvalue)">
           <mat-list-item>
@@ -48,9 +48,9 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.linLayerID.llName }}
           </mat-panel-title>
-          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+          <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"> insert_link</mat-icon>
-          </mat-panel-description>
+          </mat-panel-description> -->
         </mat-expansion-panel-header>
         <mat-list *ngFor="let linLayer of (device.linLayerID | deviceProperties | keyvalue)">
           <mat-list-item>
@@ -63,11 +63,11 @@
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llEthernetID.etherName }}</mat-panel-title
               >
-              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+              <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
                   >settings_ethernet</mat-icon
                 >
-              </mat-panel-description>
+              </mat-panel-description> -->
             </mat-expansion-panel-header>
             <mat-list
               *ngFor="let ether of (device.linLayerID.llEthernetID | deviceProperties | keyvalue)"
@@ -84,9 +84,9 @@
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llWifiID.wifiName }}</mat-panel-title
               >
-              <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+              <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">network_wifi</mat-icon>
-              </mat-panel-description>
+              </mat-panel-description> -->
             </mat-expansion-panel-header>
             <mat-list
               *ngFor="let wifi of (device.linLayerID.llWifiID | deviceProperties | keyvalue)"
@@ -105,9 +105,9 @@
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.netLayerID.nlName }}
           </mat-panel-title>
-          <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+          <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">share</mat-icon>
-          </mat-panel-description>
+          </mat-panel-description> -->
         </mat-expansion-panel-header>
         <mat-list *ngFor="let netLayer of (device.netLayerID | deviceProperties | keyvalue)">
           <mat-list-item>

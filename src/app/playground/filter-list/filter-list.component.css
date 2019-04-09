@@ -42,10 +42,48 @@ span {
 ::ng-deep .mat-expansion-panel-body {
   /* background-color: rgba(0, 0, 0, 0.1) !important; */
 }
+mat-toolbar {
+  font-size: 16px;
+  height: 40px !important;
+}
+mat-action-row,
+button {
+  padding: 7px 10px !important;
+}
+mat-icon {
+  visibility: hidden;
+  display: none;
+}
+::ng-deep .mat-list-item {
+  font-size: 14px !important;
+  height: 20px !important;
+}
+/* lt-md */
+@media only screen and (max-width: 959px) {
+  ::ng-deep .mat-expansion-panel-header {
+    font-size: 14px !important;
+    height: 40px !important;
+  }
+  ::ng-deep .mat-list-item {
+    font-size: 12px !important;
+    height: 20px !important;
+  }
+  mat-action-row,
+  button {
+    line-height: 10px !important;
+    font-size: 8px !important;
+    padding: 5px !important;
+    min-width: 10px !important;
+  }
+  mat-toolbar {
+    font-size: 16px;
+    height: 40px !important;
+  }
+}
 
 @media only screen and (max-width: 599px) {
   ::ng-deep .mat-expansion-panel-header {
-    font-size: 8px !important;
+    font-size: 10px !important;
     height: 30px !important;
   }
   ::ng-deep .mat-list-item {
@@ -60,6 +98,7 @@ span {
     min-width: 10px !important;
   }
   mat-toolbar {
-    font-size: 12px;
+    font-size: 10px;
+    height: 40px !important;
   }
 }

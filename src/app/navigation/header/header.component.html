@@ -31,16 +31,18 @@
       <li *ngIf="!userIsAuthenticated">
         <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
       </li>
+      <mat-divider [vertical]="true"></mat-divider>
       <li *ngIf="userIsAuthenticated">
-        <mat-menu #appMenu="matMenu">
-          <ng-template matMenuContent let-name="name">
-            <a mat-menu-item routerLink="/auth/profile">Settings</a>
-            <button mat-menu-item (click)="onLogout()">Logout</button>
-          </ng-template>
-        </mat-menu>
-
-        <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="">
-          <mat-icon>account_box</mat-icon>
+        <button mat-button>
+          <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="">
+            <mat-icon>account_box</mat-icon>
+          </button>
+          <mat-menu #appMenu="matMenu">
+            <ng-template matMenuContent let-name="name">
+              <a mat-menu-item routerLink="/auth/profile">Settings</a>
+              <button mat-menu-item (click)="onLogout()">Logout</button>
+            </ng-template>
+          </mat-menu>
         </button>
       </li>
     </ul>
