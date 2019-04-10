@@ -7,10 +7,10 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { PlaygroundComponent } from './playground.component';
 import { SharedModule } from '../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { DevicePropertiesPipe } from './filter-list/device-properties.pipe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
+import { FilterListDevicePropertiesPipe } from './filter-list/filter-list-device-properties.pipe';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -19,10 +19,10 @@ import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
     FilterListComponent,
     SearchBarComponent,
     PlaygroundComponent,
-    DevicePropertiesPipe,
+    FilterListDevicePropertiesPipe,
     BottomSheetComponent
   ],
   imports: [SharedModule, DragDropModule, ReactiveFormsModule, FormsModule],
-  exports: [DevicePropertiesPipe]
+  exports: [FilterListDevicePropertiesPipe]
 })
 export class PlaygroundModule {}

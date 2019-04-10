@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy
 } from '@angular/core';
-import { AuthService } from './navigation/header/auth/auth.service';
+import { AuthService } from './auth/auth.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
@@ -16,7 +16,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class AppComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   @Output() sidenavClose = new EventEmitter();
 
@@ -28,14 +28,14 @@ export class AppComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit(): void {
     this.authService.autoAuthUser();
   }
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 }

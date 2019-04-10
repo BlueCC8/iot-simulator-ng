@@ -31,6 +31,7 @@ img {
 }
 
 .example-boundary {
+  margin: 5px;
   width: 50vw;
   height: 50vh;
   max-width: 100%;

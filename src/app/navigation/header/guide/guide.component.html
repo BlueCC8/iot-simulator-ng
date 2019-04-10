@@ -1,1 +1,128 @@
-<p>Hi guide</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-toolbar color="primary">
+    <span>Guidelines</span>
+  </mat-toolbar>
+</div>
+<mat-progress-bar *ngIf="!main" mode="indeterminate"></mat-progress-bar>
+<div
+  id="main"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutAlign="space-around"
+  fxLayoutGap="20px"
+  #main
+>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Operations with the devices</mat-card-title>
+        <mat-card-subtitle>Create, Edit and Delete devices</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
+        alt="People design"
+      />
+      <mat-card-content>
+        <div class="card-content">
+          <b>Create a new device</b>
+          <p>
+            Go to
+            <a matTooltip="Create a new device" mat-button routerLink="/create">New device</a>
+          </p>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-content">
+          <b>Edit/Delete device or it's components</b>
+          <p>
+            Go to
+            <a matTooltip="Edit/Detele device" mat-button routerLink="/">Devices List</a>
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Playground</mat-card-title>
+        <mat-card-subtitle>Select, Add, Search, Drag around</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1476763752342-d5cf7e5eb6cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+        alt="Playground paint"
+      />
+      <mat-card-content>
+        <ol type="1">
+          <li>
+            <p>
+              Expandable cards are available on the left side and interaction button are on the end
+              of the card.
+            </p>
+          </li>
+          <li>
+            <p>Add how many devices you need. When ready press <b>Save Configuration</b>.</p>
+          </li>
+          <li>
+            <p>
+              All the configurations are available on the left side with the same interaction.
+            </p>
+            <p>
+              <b>If you do not own that configuration you'll not pe able to interact with it. </b>
+              <b>Dotted zone is you limit of drag.</b>
+            </p>
+          </li>
+        </ol>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>User Security</mat-card-title>
+        <mat-card-subtitle>Settings and options</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1461685265823-f8d5d0b08b9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+        alt="Cameras"
+      />
+      <mat-card-content>
+        <p>
+          Check out the icon on the top left to see your settings, change username, email and the
+          password.
+        </p>
+        <p>
+          <b
+            >Your password is never stored into the database but is hashed using the best algorithm
+            possible nowadays.</b
+          >
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

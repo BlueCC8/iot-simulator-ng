@@ -6,7 +6,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { AuthService } from '../header/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MediaMatcher } from '@angular/cdk/layout';
 

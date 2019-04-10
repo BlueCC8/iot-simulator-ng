@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  hide = true;
   user: User;
   form: FormGroup;
   isLoading = false;

@@ -5,7 +5,7 @@ import { EthernetModel } from '../ethernet.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../navigation/header/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-ethernet-create',
   templateUrl: './ethernet-create.component.html',

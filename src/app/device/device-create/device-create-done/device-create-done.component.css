@@ -1,0 +1,9 @@
+mat-vertical-stepper {
+  box-shadow: 0px 2px 7px 0px grey;
+}
+#stepper {
+  padding-top: 20px !important;
+}
+button {
+  padding-bottom: 2px !important;
+}

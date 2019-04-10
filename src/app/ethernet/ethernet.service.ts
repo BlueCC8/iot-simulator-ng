@@ -7,14 +7,16 @@ import { EthernetModel } from './ethernet.model';
 import { EthernetDto } from './ethernet.dto';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NGXLogger } from 'ngx-logger';
 
 const BACKEND_URL = environment.apiUrl + '/ethernet/';
 @Injectable({ providedIn: 'root' })
 export class EthernetsService {
+  private componentName = EthernetsService.name + ' ';
   private ethers: EthernetModel[] = [];
   private ethersUpdated = new Subject<{ ethers: EthernetModel[]; maxEthers: number }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   // * Get method for getting Ethernets from the server
   getEthernets(pageSize: number, page: number) {
@@ -39,7 +41,7 @@ export class EthernetsService {
         })
       )
       .subscribe(transformedEthersData => {
-        console.log(transformedEthersData.ethers);
+        this.logger.log(this.componentName + transformedEthersData.ethers);
         this.ethers = transformedEthersData.ethers;
         this.ethersUpdated.next({
           ethers: [...this.ethers],

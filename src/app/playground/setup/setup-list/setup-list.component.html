@@ -4,7 +4,17 @@
 <div fxFlex="1 1 90%" fxLayout="column">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <mat-accordion fxLayout="column" multi="true" *ngIf="setups.length > 0 && !isLoading">
-    <mat-expansion-panel fxLayout="column" *ngFor="let setup of setups" hideToggle>
+    <mat-expansion-panel
+      [matTooltip]="
+        !userIsAuthenticated || username !== setup.username
+          ? 'Edit and delete not available, owner limited'
+          : 'Open me'
+      "
+      aria-label="Should open"
+      fxLayout="column"
+      *ngFor="let setup of setups"
+      hideToggle
+    >
       <mat-expansion-panel-header>
         <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
           {{ setup.setupName }}

@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../form.service';
-import { mimeType } from '../mime-type.validator';
-import { DeviceIntegratedModel } from '../../device.integrated-model';
-import { DevicesService } from '../../device.service';
+import { FormService } from '../../device-create-steps-form.service';
+import { mimeType } from '../../mime-type.validator';
+import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DevicesService } from '../../../device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-step-one',
-  templateUrl: './step-one.component.html',
-  styleUrls: ['./step-one.component.css']
+  selector: 'app-basic-details-step-one',
+  templateUrl: './basic-details-step-one.component.html',
+  styleUrls: ['./basic-details-step-one.component.css']
 })
-export class StepOneComponent implements OnInit, OnDestroy {
+export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -82,6 +82,10 @@ export class StepOneComponent implements OnInit, OnDestroy {
             devImgUrl: this.device.devImgUrl,
             username: this.device.username
           });
+          if (this.device.devImgUrl) {
+            this.imagePreview = this.device.devImgUrl;
+            this.step.patchValue({ devImgUrl: this.device.devImgUrl });
+          }
         });
       } else {
         this.mode = 'create';

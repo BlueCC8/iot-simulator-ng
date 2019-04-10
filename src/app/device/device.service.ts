@@ -76,8 +76,11 @@ export class DevicesService {
     deviceData.append('tranLayer', device.tranLayer);
     deviceData.append('devPrice', device.devPrice);
     deviceData.append('devProducer', device.devProducer);
-    deviceData.append('image', device.devImgUrl, device.devName);
-    console.log(device.devImgUrl);
+    if (device.devImgUrl instanceof File) {
+      deviceData.append('image', device.devImgUrl, device.devName);
+    } else {
+      deviceData.append('devImgUrl', device.devImgUrl);
+    }
     this.http.put(BACKEND_URL + device.id, deviceData).subscribe(res => {
       this.router.navigate(['/']);
     });

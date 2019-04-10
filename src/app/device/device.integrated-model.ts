@@ -11,6 +11,6 @@ export interface DeviceIntegratedModel {
   linLayerID: LinkLayerIntegratedModel;
   devProducer: string;
   devPrice: string;
-  devImgUrl: string;
+  devImgUrl: string | any;
   username: string;
 }

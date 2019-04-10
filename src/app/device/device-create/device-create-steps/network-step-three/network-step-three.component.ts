@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../form.service';
+import { FormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../device.service';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { DevicesService } from '../../../device.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../device.integrated-model';
 @Component({
-  selector: 'app-step-four',
-  templateUrl: './step-four.component.html',
-  styleUrls: ['./step-four.component.css']
+  selector: 'app-network-step-three',
+  templateUrl: './network-step-three.component.html',
+  styleUrls: ['./network-step-three.component.css']
 })
-export class StepFourComponent implements OnInit, OnDestroy {
+export class NetworkStepThreeComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -34,32 +34,17 @@ export class StepFourComponent implements OnInit, OnDestroy {
       id: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      llName: new FormControl(null, {
+      nlName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      llPriorityType: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(1)]
-      }),
-      llRole: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      llBluetooth: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(2)]
-      }),
-      llLrWpan: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      llLrWpanType: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      llCelullar: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(1)]
-      }),
-      llNFC: new FormControl(null, {
+      nlIPv4: new FormControl(null, {
         validators: [Validators.required]
       }),
-      llProducer: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+      nlIPv6: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      nlZig_LoWpan: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
@@ -78,16 +63,11 @@ export class StepFourComponent implements OnInit, OnDestroy {
           console.log(this.device);
           // * Set values
           this.step.setValue({
-            id: this.device.linLayerID.id,
-            llName: this.device.linLayerID.llName,
-            llPriorityType: this.device.linLayerID.llPriorityType,
-            llRole: this.device.linLayerID.llRole,
-            llBluetooth: this.device.linLayerID.llBluetooth,
-            llLrWpan: this.device.linLayerID.llLrWpan,
-            llLrWpanType: this.device.linLayerID.llLrWpanType,
-            llCelullar: this.device.linLayerID.llCelullar,
-            llNFC: this.device.linLayerID.llNFC,
-            llProducer: this.device.linLayerID.llProducer
+            id: this.device.netLayerID.id,
+            nlName: this.device.netLayerID.nlName,
+            nlIPv4: this.device.netLayerID.nlIPv4,
+            nlIPv6: this.device.netLayerID.nlIPv6,
+            nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
           });
         });
       } else {
@@ -95,7 +75,7 @@ export class StepFourComponent implements OnInit, OnDestroy {
         this.deviceId = null;
       }
     });
-    this.formService.stepReady(this.step, 'four');
+    this.formService.stepReady(this.step, 'three');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
 

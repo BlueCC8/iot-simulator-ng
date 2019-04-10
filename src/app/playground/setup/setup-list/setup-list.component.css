@@ -17,8 +17,13 @@ button {
   font-size: 1.2vw;
   min-width: 0.8vw;
 } */
+
 .example-tooltip-red {
   background: #b71c1c;
+}
+mat-paginator {
+  margin: 5px 0px;
+  border-radius: 5px;
 }
 ::ng-deep .mat-expansion-panel-header {
   height: 1.2vw;
@@ -29,6 +34,7 @@ button {
 mat-toolbar {
   font-size: 16px;
   height: 40px !important;
+  border-radius: 4px;
 }
 mat-action-row,
 button {

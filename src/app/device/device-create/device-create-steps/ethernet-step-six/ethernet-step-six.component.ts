@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../form.service';
+import { FormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../device.service';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { DevicesService } from '../../../device.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../device.integrated-model';
 @Component({
-  selector: 'app-step-six',
-  templateUrl: './step-six.component.html',
-  styleUrls: ['./step-six.component.css']
+  selector: 'app-ethernet-step-six',
+  templateUrl: './ethernet-step-six.component.html',
+  styleUrls: ['./ethernet-step-six.component.css']
 })
-export class StepSixComponent implements OnInit, OnDestroy {
+export class EthernetStepSixComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;

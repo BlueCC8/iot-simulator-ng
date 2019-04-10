@@ -1,14 +1,37 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <app-search-bar fxFlex="1 1 90%" (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
 </div>
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="gappx">
-  <div fxLayout="column" fxFill fxFlex="20" fxLayoutAlign=" center" fxLayoutGap="gappx">
+<div id="main" fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="gappx">
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="20"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
     <app-filter-list fxLayout="column" fxFill fxFlex="20"></app-filter-list>
   </div>
-  <div fxLayout="column" fxFill fxFlex="60" fxLayoutAlign=" center" fxLayoutGap="gappx">
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="60"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
     <app-board fxLayout="column" fxFill fxFlex="60" fxLayoutAlign="center"></app-board>
   </div>
-  <div fxLayout="column" fxFill fxFlex="20" fxLayoutAlign=" center" fxLayoutGap="gappx">
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="20"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
     <app-setup-list fxLayout="column" fxFill fxFlex="20"></app-setup-list>
   </div>
 </div>

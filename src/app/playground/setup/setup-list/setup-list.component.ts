@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SetupService } from '../setup.service';
 import { SetupModel } from '../setup.model';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { PageEvent, MatBottomSheet } from '@angular/material';
 import { BottomSheetComponent } from '../../bottom-sheet/bottom-sheet.component';
 import { SetupDevicesModel } from '../setupDevices.model';

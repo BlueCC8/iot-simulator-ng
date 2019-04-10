@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FormService } from '../form.service';
+import { FormService } from '../device-create-steps-form.service';
 import { DevicesService } from '../../device.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../device.integrated-model';
 import { NetLayersService } from 'src/app/networkLayer/networkLayer.service';
@@ -15,18 +15,18 @@ import { Device } from '../../device.model';
 import { LinkLayerModel } from 'src/app/linkLayer/linkLayer.model';
 
 @Component({
-  selector: 'app-done',
-  templateUrl: 'done.component.html',
-  styleUrls: ['done.component.css'],
+  selector: 'app-device-create-done',
+  templateUrl: 'device-create-done.component.html',
+  styleUrls: ['device-create-done.component.css'],
   providers: [FormService]
 })
-export class DoneComponent implements OnInit, OnDestroy {
-  // stepOne;
-  // stepTwo;
-  // stepThree;
-  // stepFour;
-  // stepFive;
-  // stepSix;
+export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
+  stepOne;
+  stepTwo;
+  stepThree;
+  stepFour;
+  stepFive;
+  stepSix;
   isLoading = false;
   isLinear = false;
   diagnostics = false;
@@ -64,25 +64,6 @@ export class DoneComponent implements OnInit, OnDestroy {
         this.deviceId = paramMap.get('deviceId');
         this.isLoading = false;
         // * Get instance
-
-        // this.ethernetsService.getEthernet(this.etherId).subscribe(etherData => {
-        //   this.isLoading = false;
-        //   this.ether = {
-        //     id: etherData._id,
-        //     etherName: etherData.etherName,
-        //     etherStandard: etherData.etherStandard,
-        //     etherDataRate: etherData.etherDataRate,
-        //     imagePath: etherData.imagePath,
-        //     username: etherData.username
-        //   };
-
-        //   this.form.setValue({
-        //     title: this.ether.etherName,
-        //     standard: this.ether.etherStandard,
-        //     throughput: this.ether.etherDataRate,
-        //     image: this.ether.imagePath
-        //   });
-        // });
       } else {
         this.mode = 'create';
         this.deviceId = null;
@@ -114,6 +95,7 @@ export class DoneComponent implements OnInit, OnDestroy {
       devImgUrl: device.devImgUrl,
       username: device.username
     };
+    console.log(newDevice.devImgUrl);
     const newLinLayer: LinkLayerModel = {
       id: device.linLayerID.id,
       llName: device.linLayerID.llName,

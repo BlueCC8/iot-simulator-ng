@@ -8,14 +8,31 @@
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li *ngIf="userIsAuthenticated">
-        <a mat-button routerLink="/create" routerLinkActive="mat-accent">New device</a>
+        <a
+          matBadge="!"
+          matBadgePosition="after"
+          matBadgeColor="accent"
+          mat-button
+          routerLink="/create"
+          routerLinkActive="mat-accent"
+          >New device</a
+        >
       </li>
       <li>
-        <a mat-button routerLink="/" routerLinkActive="mat-accent">Devices list</a>
+        <a
+          matBadge="!"
+          matBadgePosition="after"
+          matBadgeColor="accent"
+          mat-button
+          routerLink="/"
+          routerLinkActive="mat-accent"
+          >Devices list</a
+        >
       </li>
       <li *ngIf="userIsAuthenticated">
         <a mat-button routerLink="/playground" routerLinkActive="mat-accent">Playground</a>
       </li>
+      <mat-divider [vertical]="true"></mat-divider>
       <li *ngIf="userIsAuthenticated">
         <a mat-button routerLink="/explore" routerLinkActive="mat-accent">Explore</a>
       </li>
@@ -32,7 +49,7 @@
         <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
       </li>
       <mat-divider [vertical]="true"></mat-divider>
-      <li *ngIf="userIsAuthenticated">
+      <li *ngIf="userIsAuthenticated" matTooltip="User Settings">
         <button mat-button>
           <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="">
             <mat-icon>account_box</mat-icon>

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchBarService } from './search-bar/search-bar.service';
 import { DeviceIntegratedModel } from '../device/device.integrated-model';
 import { DevicesService } from '../device/device.service';
-import { AuthService } from '../navigation/header/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({

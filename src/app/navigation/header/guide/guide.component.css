@@ -1,0 +1,9 @@
+#main {
+  padding-top: 10px;
+}
+mat-toolbar {
+  border-radius: 10px;
+}
+.card-content {
+  padding: 14px 0px;
+}

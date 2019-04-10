@@ -4,7 +4,7 @@ import { Device } from 'src/app/device/device.model';
 @Pipe({
   name: 'deviceProperties'
 })
-export class DevicePropertiesPipe implements PipeTransform {
+export class FilterListDevicePropertiesPipe implements PipeTransform {
   transform(obj: Device): Device {
     const copyObj = JSON.parse(JSON.stringify(obj));
     Object.keys(copyObj).forEach(key => {

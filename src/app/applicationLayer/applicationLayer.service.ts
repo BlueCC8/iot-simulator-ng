@@ -13,7 +13,7 @@ export class AppLayersService {
   private appLayers: AppLayerModel[] = [];
 
   private appLayersUpdated = new Subject<{ appLayers: AppLayerModel[] }>();
-  //   private appLayerIdUpdated = new Subject<{ appLayer: AppLayerModel }>();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   // * Listener to be able to provide subscription to othe components

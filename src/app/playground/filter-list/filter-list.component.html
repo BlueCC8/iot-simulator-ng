@@ -10,7 +10,14 @@
     [attr.data-index]="i"
     hideToggle
   >
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header
+      [matTooltip]="
+        !userIsAuthenticated || username !== device.username
+          ? 'Edit and delete not available, owner limited'
+          : 'Open device'
+      "
+      aria-label="Should open"
+    >
       <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
         {{ device.devName }}
       </mat-panel-title>
@@ -24,7 +31,7 @@
       </mat-list-item>
     </mat-list>
     <mat-accordion *ngIf="device.appLayerID">
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel matTooltip="Device Application Layer" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.appLayerID.alName }}</mat-panel-title
@@ -44,7 +51,7 @@
     </mat-accordion>
     <mat-accordion *ngIf="device.linLayerID">
       <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header matTooltip="Device Link Layer">
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.linLayerID.llName }}
           </mat-panel-title>
@@ -59,7 +66,7 @@
         </mat-list>
         <mat-accordion *ngIf="device.linLayerID.llEthernetID">
           <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header matTooltip="Device Ethernet">
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llEthernetID.etherName }}</mat-panel-title
               >
@@ -80,7 +87,7 @@
         </mat-accordion>
         <mat-accordion *ngIf="device.linLayerID.llEthernetID">
           <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header matTooltip="Device Wifi">
               <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
                 {{ device.linLayerID.llWifiID.wifiName }}</mat-panel-title
               >
@@ -101,7 +108,7 @@
     </mat-accordion>
     <mat-accordion *ngIf="device.netLayerID">
       <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header matTooltip="Device Network Layer">
           <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
             {{ device.netLayerID.nlName }}
           </mat-panel-title>

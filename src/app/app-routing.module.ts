@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EthernetListComponent } from './ethernet/ethernet-list/ethernet-list.component';
 import { EthernetCreateComponent } from './ethernet/ethernet-create/ethernet-create.component';
-import { AuthGuard } from './navigation/header/auth/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { ExploreComponent } from './navigation/header/explore/explore.component';
 import { GuideComponent } from './navigation/header/guide/guide.component';
 import { AboutComponent } from './navigation/header/about/about.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { DeviceCreateComponent } from './device/device-create/device-create.component';
+
 import { DeviceListComponent } from './device/device-list/device-list.component';
-import { DoneComponent } from './device/device-create/done/done.component';
+import { DeviceCreateDoneComponent } from './device/device-create/device-create-done/device-create-done.component';
 
 const routes: Routes = [
   {
@@ -18,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'create',
-    component: DoneComponent,
+    component: DeviceCreateDoneComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -27,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'edit/:deviceId',
-    component: DoneComponent,
+    component: DeviceCreateDoneComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -53,7 +52,7 @@ const routes: Routes = [
   {
     // * Lazy loading with #Name of module
     path: 'auth',
-    loadChildren: './navigation/header/auth/auth.module#AuthModule'
+    loadChildren: './auth/auth.module#AuthModule'
   }
 ];
 

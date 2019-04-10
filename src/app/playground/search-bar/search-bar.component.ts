@@ -12,7 +12,7 @@ import { Observable, Subscription } from 'rxjs';
 import { PlaygroundService } from '../playground.service';
 import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
 import { DevicesService } from 'src/app/device/device.service';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SearchBarService } from './search-bar.service';
 
 @Component({

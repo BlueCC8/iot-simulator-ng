@@ -1,1 +1,106 @@
-<p>hi explore</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-toolbar color="primary">
+    <span>Features</span>
+  </mat-toolbar>
+</div>
+<mat-progress-bar *ngIf="!main" mode="indeterminate"></mat-progress-bar>
+<div
+  id="main"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutAlign="space-around"
+  fxLayoutGap="20px"
+  #main
+>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Smart homes at a glance</mat-card-title>
+        <mat-card-subtitle>Design the network your own house</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1545987796-b199d6abb1b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+        alt="People design"
+      />
+      <mat-card-content>
+        <p>
+          When it comes to choose the design you need, you are the architect here. Search, explore
+          all the features of each device, create your own implementation of the device.
+        </p>
+        <p>
+          The OSI model that wraps all the possible implementation of the IoT layers. As simple as a
+          drag into a room of configurations.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Interoperability</mat-card-title>
+        <mat-card-subtitle>Everyone benefits however it's possible</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+        alt="All devices connected"
+      />
+      <mat-card-content>
+        <p>
+          Making sure all your devices can interact, communicate with each other and provide
+          feedback at the highest level possibe.
+        </p>
+        <p>
+          No matter how many devices you require the network shall face it easily. Because a new
+          device bought today shouldn't mess up the greatness you built.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    class="ply-comp"
+    fxLayout="column"
+    fxFill
+    fxFlex="33"
+    fxLayoutAlign=" center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Responsive</mat-card-title>
+        <mat-card-subtitle>Progressive Web Application</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+        alt="Responsive layout"
+      />
+      <mat-card-content>
+        <p>
+          Available for all devices tablets, smartphones, PCs, notebooks, IPhones and Androids.
+          Whether you a old schooler with 320px or 4K enthusiast you are covered.
+        </p>
+        <p>
+          Why build a native application when a web one can cover you up?
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

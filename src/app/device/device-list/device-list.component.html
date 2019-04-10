@@ -8,7 +8,16 @@
     multi="true"
     *ngIf="devices.length > 0 && !isLoading"
   >
-    <mat-expansion-panel fxLayout="column" *ngFor="let device of devices">
+    <mat-expansion-panel
+      [matTooltip]="
+        !userIsAuthenticated || username !== device.username
+          ? 'Edit and delete not available, owner limited'
+          : 'Open me'
+      "
+      aria-label="Should open"
+      fxLayout="column"
+      *ngFor="let device of devices"
+    >
       <mat-expansion-panel-header fxLayoutAlign="center center">
         {{ device.devName }}
       </mat-expansion-panel-header>
@@ -25,8 +34,21 @@
         <img [src]="device.devImgUrl" [alt]="device.devName" />
       </div>
       <mat-action-row *ngIf="userIsAuthenticated && username === device.username">
-        <a mat-button color="primary" [routerLink]="['/edit', device.id]">EDIT</a>
-        <button mat-button color="warn" (click)="onDelete(device.id)">
+        <a
+          matTooltip="Edit the device"
+          aria-label="Should show edit"
+          mat-button
+          color="primary"
+          [routerLink]="['/edit', device.id]"
+          >EDIT</a
+        >
+        <button
+          matTooltip="Delete the device"
+          aria-label="Should show delete"
+          mat-button
+          color="warn"
+          (click)="onDelete(device.id)"
+        >
           DELETE
         </button>
       </mat-action-row>

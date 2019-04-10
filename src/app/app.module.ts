@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './navigation/header/header.component';
-import { AuthInterceptor } from './navigation/header/auth/auth-interceptor';
+import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { EthernetModule } from './ethernet/ethernet.module';
@@ -21,17 +21,12 @@ import { SharedModule } from './shared/shared.module';
 import { SaveDialogComponent } from './playground/save-dialog/save-dialog.component';
 import { BottomSheetComponent } from './playground/bottom-sheet/bottom-sheet.component';
 import { DeviceModule } from './device/device.module';
-
+import { NGXLogger, LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { environment } from 'src/environments/environment';
+import { HeaderModule } from './navigation/header/header.module';
+import { NavigationModule } from './navigation/navigation.module';
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    AboutComponent,
-    ExploreComponent,
-    GuideComponent,
-    ErrorComponent,
-    SidenavListComponent
-  ],
+  declarations: [AppComponent, ErrorComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -43,7 +38,15 @@ import { DeviceModule } from './device/device.module';
     PlaygroundModule,
     DeviceModule,
     HttpClientModule,
-    SharedModule
+    HeaderModule,
+    NavigationModule,
+    SharedModule,
+
+    LoggerModule.forRoot({
+      level: !environment.production ? NgxLoggerLevel.LOG : NgxLoggerLevel.OFF,
+      // serverLogLevel
+      serverLogLevel: NgxLoggerLevel.OFF
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

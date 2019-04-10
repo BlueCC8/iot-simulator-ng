@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { PlaygroundService } from '../playground.service';
 import { DevicesService } from 'src/app/device/device.service';
-import { AuthService } from 'src/app/navigation/header/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
 import { SearchBarService } from '../search-bar/search-bar.service';

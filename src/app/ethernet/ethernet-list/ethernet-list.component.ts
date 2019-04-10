@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { EthernetModel } from '../ethernet.model';
 import { EthernetsService } from '../ethernet.service';
 import { PageEvent } from '@angular/material';
-import { AuthService } from '../../navigation/header/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-ethernet-list',

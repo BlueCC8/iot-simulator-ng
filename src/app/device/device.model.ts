@@ -7,6 +7,6 @@ export interface Device {
   linLayerID: string;
   devPrice: string;
   devProducer: string;
-  devImgUrl: string;
+  devImgUrl: string | any;
   username: string;
 }

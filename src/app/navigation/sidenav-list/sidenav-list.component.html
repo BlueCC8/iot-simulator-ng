@@ -3,7 +3,7 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/create" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/create" (click)="onSidenavClose()" *ngIf="userIsAuthenticated">
     <mat-icon>create</mat-icon>
     <span class="nav-caption">New device</span>
   </a>
@@ -27,7 +27,7 @@
     <mat-icon>verified_user</mat-icon>
     <span class="nav-caption">Login</span>
   </a>
-  <mat-divider></mat-divider>
+
   <a
     mat-list-item
     routerLink="/auth/signup"
@@ -37,6 +37,7 @@
     <mat-icon>person_add</mat-icon>
     <span class="nav-caption">Signup</span>
   </a>
+  <mat-divider *ngIf="userIsAuthenticated"></mat-divider>
   <button id="profile" mat-list-item [matMenuTriggerFor]="appMenu" *ngIf="userIsAuthenticated">
     <mat-icon>account_box</mat-icon>
     <span class="nav-caption">Profile</span>

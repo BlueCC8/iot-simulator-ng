@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { DeviceIntegratedModel } from '../device.integrated-model';
-import { AppLayerModel } from 'src/app/applicationLayer/applicationLayer.model';
-import { NetLayerModel } from 'src/app/networkLayer/networkLayer.model';
-import { LinkLayerIntegratedModel } from 'src/app/linkLayer/linkLayer.integrated-model';
-import { WifiModel } from 'src/app/wifi/wifi.model';
-import { EthernetModel } from 'src/app/ethernet/ethernet.model';
 
 @Injectable()
 export class FormService {
