@@ -82,7 +82,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.logger.log(this.componentName + this.formService.initDevice.value);
+    this.logger.log(this.componentName, this.formService.initDevice.value);
     const device: DeviceIntegratedModel = this.formService.initDevice.value;
     this.isLoading = true;
 
@@ -96,9 +96,9 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
       devProducer: device.devProducer,
       devPrice: device.devPrice,
       devImgUrl: device.devImgUrl,
-      username: device.username
+      username: device.username ? device.username : this.authService.getUsername()
     };
-    this.logger.log(this.componentName + newDevice.devImgUrl);
+    this.logger.log(this.componentName, newDevice.devImgUrl);
     const newLinLayer: LinkLayerModel = {
       id: device.linLayerID.id,
       llName: device.linLayerID.llName,
@@ -114,37 +114,50 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
       llEthernetID: ''
     };
     if (this.mode === 'create') {
+      // TODO: Implement dropdowns for choosing existing subdocuments
       const netLayer = device.netLayerID;
-      this.netLayerService.addNetLayer(netLayer).subscribe(netLayerId => {
-        this.netLayerId = netLayerId;
-      });
+      if (netLayer.nlName && netLayer) {
+        this.netLayerService.addNetLayer(netLayer).subscribe(netLayerId => {
+          this.netLayerId = netLayerId;
+        });
+      }
 
       const appLayer = device.appLayerID;
-      this.appLayerService.addAppLayer(appLayer).subscribe(appLayerId => {
-        this.appLayerId = appLayerId;
-      });
+      if (appLayer.alName && appLayer) {
+        this.appLayerService.addAppLayer(appLayer).subscribe(appLayerId => {
+          this.appLayerId = appLayerId;
+        });
+      }
 
       const wifi = device.linLayerID.llWifiID;
-      this.wifiService.addWifi(wifi).subscribe(wifiId => {
-        this.wifiId = wifiId;
-      });
+      if (wifi.wifiName && wifi) {
+        this.wifiService.addWifi(wifi).subscribe(wifiId => {
+          this.wifiId = wifiId;
+        });
+      }
 
       const ether = device.linLayerID.llEthernetID;
-      this.etherService.addEthernet(ether).subscribe(etherId => {
-        this.etherId = etherId;
-      });
+      if (ether.etherName && ether) {
+        this.etherService.addEthernet(ether).subscribe(etherId => {
+          this.etherId = etherId;
+        });
+      }
 
       newLinLayer.llEthernetID = this.etherId;
       newLinLayer.llWifiID = this.wifiId;
-
-      this.linLayerService.addLinLayer(newLinLayer).subscribe(linLayerId => {
-        this.linLayerId = linLayerId;
-      });
+      if (newLinLayer.llName) {
+        this.linLayerService.addLinLayer(newLinLayer).subscribe(linLayerId => {
+          this.linLayerId = linLayerId;
+        });
+      }
       newDevice.linLayerID = this.linLayerId;
       newDevice.appLayerID = this.appLayerId;
       newDevice.netLayerID = this.netLayerId;
-
-      this.devicesService.addDevice(newDevice);
+      this.logger.log(this.componentName, newDevice);
+      if (newDevice.devName) {
+        this.devicesService.addDevice(newDevice);
+      }
+      this.isLoading = true;
     } else {
       const netLayer = device.netLayerID;
       this.netLayerService.updateNetLayer(netLayer);

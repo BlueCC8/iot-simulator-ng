@@ -76,18 +76,19 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
           this.logger.log(this.componentName, this.device);
-
-          // * Set values
-          this.step.setValue({
-            id: this.device.appLayerID.id,
-            alName: this.device.appLayerID.alName,
-            alHTTP: this.device.appLayerID.alHTTP,
-            alCoAp: this.device.appLayerID.alCoAp,
-            alWebSocket: this.device.appLayerID.alWebSocket,
-            alMQTTE: this.device.appLayerID.alMQTTE,
-            alDDS: this.device.appLayerID.alDDS,
-            alAMQP: this.device.appLayerID.alAMQP
-          });
+          if (this.device.appLayerID) {
+            // * Set values
+            this.step.setValue({
+              id: this.device.appLayerID.id,
+              alName: this.device.appLayerID.alName,
+              alHTTP: this.device.appLayerID.alHTTP,
+              alCoAp: this.device.appLayerID.alCoAp,
+              alWebSocket: this.device.appLayerID.alWebSocket,
+              alMQTTE: this.device.appLayerID.alMQTTE,
+              alDDS: this.device.appLayerID.alDDS,
+              alAMQP: this.device.appLayerID.alAMQP
+            });
+          }
         });
       } else {
         this.mode = 'create';

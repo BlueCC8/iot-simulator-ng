@@ -80,18 +80,20 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
           this.device = this.devicesService.removeUndefProp(this.device);
           this.logger.log(this.componentName, this.device);
           // * Set values
-          this.step.setValue({
-            id: this.device.linLayerID.id,
-            llName: this.device.linLayerID.llName,
-            llPriorityType: this.device.linLayerID.llPriorityType,
-            llRole: this.device.linLayerID.llRole,
-            llBluetooth: this.device.linLayerID.llBluetooth,
-            llLrWpan: this.device.linLayerID.llLrWpan,
-            llLrWpanType: this.device.linLayerID.llLrWpanType,
-            llCelullar: this.device.linLayerID.llCelullar,
-            llNFC: this.device.linLayerID.llNFC,
-            llProducer: this.device.linLayerID.llProducer
-          });
+          if (deviceData.linLayerID) {
+            this.step.setValue({
+              id: this.device.linLayerID.id,
+              llName: this.device.linLayerID.llName,
+              llPriorityType: this.device.linLayerID.llPriorityType,
+              llRole: this.device.linLayerID.llRole,
+              llBluetooth: this.device.linLayerID.llBluetooth,
+              llLrWpan: this.device.linLayerID.llLrWpan,
+              llLrWpanType: this.device.linLayerID.llLrWpanType,
+              llCelullar: this.device.linLayerID.llCelullar,
+              llNFC: this.device.linLayerID.llNFC,
+              llProducer: this.device.linLayerID.llProducer
+            });
+          }
         });
       } else {
         this.mode = 'create';

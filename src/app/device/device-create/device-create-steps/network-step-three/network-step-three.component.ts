@@ -65,13 +65,15 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
           this.device = this.devicesService.removeUndefProp(this.device);
           this.logger.log(this.componentName, this.device);
           // * Set values
-          this.step.setValue({
-            id: this.device.netLayerID.id,
-            nlName: this.device.netLayerID.nlName,
-            nlIPv4: this.device.netLayerID.nlIPv4,
-            nlIPv6: this.device.netLayerID.nlIPv6,
-            nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
-          });
+          if (this.device.netLayerID) {
+            this.step.setValue({
+              id: this.device.netLayerID.id,
+              nlName: this.device.netLayerID.nlName,
+              nlIPv4: this.device.netLayerID.nlIPv4,
+              nlIPv6: this.device.netLayerID.nlIPv6,
+              nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
+            });
+          }
         });
       } else {
         this.mode = 'create';

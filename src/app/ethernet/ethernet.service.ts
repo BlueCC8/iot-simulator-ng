@@ -84,7 +84,7 @@ export class EthernetsService {
         // this.router.navigate(['/']);
       },
       error => {
-        this.logger.error(this.componentName + error);
+        this.logger.error(this.componentName, error);
       }
     );
   }

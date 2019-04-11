@@ -24,6 +24,10 @@
       >
     </mat-form-field>
     <mat-form-field>
+      <input matInput type="text" formControlName="llLrWpan" placeholder="LrWpan" />
+      <mat-error *ngIf="step.get('llLrWpan').invalid">Please enter a LrWpan or Zigbee.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
       <input matInput type="text" formControlName="llLrWpanType" placeholder="LrWpan type" />
       <mat-error *ngIf="step.get('llLrWpanType').invalid"
         >Please enter a LrWpan type name.</mat-error

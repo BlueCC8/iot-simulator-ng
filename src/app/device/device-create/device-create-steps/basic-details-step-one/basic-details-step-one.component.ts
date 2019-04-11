@@ -46,7 +46,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
         validators: [Validators.required, Validators.minLength(3)]
       }),
       devPrice: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required, Validators.minLength(1)]
       }),
       devProducer: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]

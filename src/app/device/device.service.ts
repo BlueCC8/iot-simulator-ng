@@ -93,7 +93,7 @@ export class DevicesService {
         this.router.navigate(['/']);
       },
       error => {
-        this.logger.error(this.componentName + error);
+        this.logger.error(this.componentName, error);
       }
     );
   }
@@ -105,9 +105,14 @@ export class DevicesService {
     deviceData.append('devProducer', device.devProducer);
     deviceData.append('image', device.devImgUrl, device.devName);
 
-    this.http.post<{ device: Device }>(BACKEND_URL, deviceData).subscribe(responseData => {
-      this.router.navigate(['/']);
-    });
+    this.http.post<{ device: Device }>(BACKEND_URL, deviceData).subscribe(
+      responseData => {
+        this.router.navigate(['/']);
+      },
+      error => {
+        this.logger.error(this.componentName, error);
+      }
+    );
   }
 
   deleteDevice(deviceID: string) {

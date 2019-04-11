@@ -23,9 +23,9 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   username: string;
   isLoading = false;
   totalDevices = 0;
-  devicesPerPage = 2;
+  devicesPerPage = 5;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [1, 2, 5, 10, 20];
   private devicesSub: Subscription;
   private authListenerSubs = new Subscription();
   constructor(
