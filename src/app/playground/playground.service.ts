@@ -7,21 +7,23 @@ import {
   CdkDropList
 } from '@angular/cdk/drag-drop';
 import { DeviceIntegratedModel } from '../device/device.integrated-model';
+import { NGXLogger } from 'ngx-logger';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaygroundService {
+  private componentName = PlaygroundService.name + ' ';
   private filterDevice: any;
   private deviceSelectedListener = new Subject<DeviceIntegratedModel>();
   // private dropStatus = new Subject<CdkDragDrop<string[]>>();
-
+  constructor(private logger: NGXLogger) {}
   getDeviceStatus() {
     return this.deviceSelectedListener.asObservable();
   }
 
   setDeviceSelected(device: DeviceIntegratedModel) {
-    console.log('Set device');
+    this.logger.log(this.componentName, 'Set device');
     this.filterDevice = device;
     this.deviceSelectedListener.next(device);
   }

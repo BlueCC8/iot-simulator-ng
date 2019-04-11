@@ -6,7 +6,8 @@ import { SetupModel } from '../setup.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PageEvent, MatBottomSheet } from '@angular/material';
 import { BottomSheetComponent } from '../../bottom-sheet/bottom-sheet.component';
-import { SetupDevicesModel } from '../setupDevices.model';
+import { SetupDevicesModel } from '../setup-devices.model';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-setup-list',
@@ -14,6 +15,7 @@ import { SetupDevicesModel } from '../setupDevices.model';
   styleUrls: ['./setup-list.component.css']
 })
 export class SetupListComponent implements OnInit, OnDestroy {
+  private componentName = SetupListComponent.name + ' ';
   setups: SetupDevicesModel[] = [];
   userIsAuthenticated = false;
   username: string;
@@ -29,7 +31,8 @@ export class SetupListComponent implements OnInit, OnDestroy {
   constructor(
     private bottomSheet: MatBottomSheet,
     private setupsService: SetupService,
-    private authService: AuthService
+    private authService: AuthService,
+    private logger: NGXLogger
   ) {}
 
   ngOnInit() {
@@ -53,7 +56,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
   }
   openBottomSheet(setup: SetupDevicesModel) {
     setup.username = this.username;
-    console.log(setup);
+    this.logger.log(this.componentName, setup);
     this.bottomSheet.open(BottomSheetComponent, { data: setup });
   }
   onChangePage(pageData: PageEvent) {

@@ -23,6 +23,11 @@
           <mat-icon>keyboard_arrow_down</mat-icon>
         </mat-panel-description> -->
       </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item>
+          <p>Author: {{ setup.username }}</p>
+        </mat-list-item>
+      </mat-list>
 
       <mat-action-row *ngIf="userIsAuthenticated && username === setup.username">
         <button mat-button color="primary" (click)="openBottomSheet(setup)">

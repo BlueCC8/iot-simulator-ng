@@ -14,10 +14,12 @@ import { NetLayerModel } from '../networkLayer/networkLayer.model';
 import { WifiModel } from '../wifi/wifi.model';
 import { EthernetModel } from '../ethernet/ethernet.model';
 import { LinkLayerIntegratedModel } from '../linkLayer/linkLayer.integrated-model';
+import { NGXLogger } from 'ngx-logger';
 
 const BACKEND_URL = environment.apiUrl + '/device/';
 @Injectable({ providedIn: 'root' })
 export class DevicesService {
+  private componentName = DevicesService.name + ' ';
   private devices: DeviceIntegratedModel[] = [];
   private appLayer: AppLayerModel;
   private netLayer: NetLayerModel;
@@ -26,7 +28,7 @@ export class DevicesService {
   private linLayer: LinkLayerIntegratedModel;
   private devicesUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
   // * Get method for getting Devices from the server
   getDevices(pageSize: number, page: number, isPopulated: boolean) {
     let queryParams = '';
@@ -48,13 +50,18 @@ export class DevicesService {
           };
         })
       )
-      .subscribe(transformedDevicesData => {
-        this.devices = transformedDevicesData.devices;
-        this.devicesUpdated.next({
-          devices: [...this.devices],
-          maxDevices: transformedDevicesData.maxDevices
-        });
-      });
+      .subscribe(
+        transformedDevicesData => {
+          this.devices = transformedDevicesData.devices;
+          this.devicesUpdated.next({
+            devices: [...this.devices],
+            maxDevices: transformedDevicesData.maxDevices
+          });
+        },
+        error => {
+          this.logger.error(this.componentName + error);
+        }
+      );
   }
   // * Listener to be able to provide subscription to othe components
   getDeviceUpdateListener() {
@@ -81,9 +88,14 @@ export class DevicesService {
     } else {
       deviceData.append('devImgUrl', device.devImgUrl);
     }
-    this.http.put(BACKEND_URL + device.id, deviceData).subscribe(res => {
-      this.router.navigate(['/']);
-    });
+    this.http.put(BACKEND_URL + device.id, deviceData).subscribe(
+      res => {
+        this.router.navigate(['/']);
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   addDevice(device: Device) {
     const deviceData = new FormData();

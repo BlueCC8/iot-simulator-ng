@@ -1,0 +1,80 @@
+<div id="footer" fxLayout="column" fxLayoutAlign="center" fxFlexOffset="auto" fxFlex="100">
+  <!-- <mat-toolbar-row> <h3>Made possible by</h3></mat-toolbar-row>
+  <mat-toolbar-row
+    >&copy;
+    <a href="https://github.com/BlueCC8" mat-button>Cristian Cernat 2019</a></mat-toolbar-row
+  > -->
+  <div id="main" fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="gappx">
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="25"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+    >
+      <b class="title">Quick links</b>
+      <mat-list fxFill fxFlex="100" fxLayout="column" fxLayoutAlign="space-around centre">
+        <mat-list-item fxLayout="row" fxFlex="33" fxLayoutAlign="space-around centre" fxFill>
+          <a mat-button color="primary" routerLink="/">
+            <mat-icon>home</mat-icon>
+            <span class="nav-caption">Home </span>
+          </a></mat-list-item
+        >
+        <mat-list-item fxLayout="row" fxFlex="33" fxLayoutAlign="space-around centre" fxFill>
+          <a mat-button color="primary" routerLink="/create">
+            <mat-icon>create</mat-icon>
+            <span class="nav-caption">New device</span>
+          </a>
+        </mat-list-item>
+        <mat-list-item fxLayout="row" fxFlex="33" fxLayoutAlign="space-around centre" fxFill>
+          <a mat-button color="primary" routerLink="/playground">
+            <mat-icon>play_for_work</mat-icon>
+            <span class="nav-caption">Playground</span>
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="50"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+    >
+      <b class="title"> Made possible with:</b>
+      <mat-list>
+        <mat-list-item>
+          <img src="../../assets/images/angular7.png" alt="angular7 png" />
+          <a mat-button href="https://angular.io/"><b>Angular 7</b></a>
+        </mat-list-item>
+        <mat-list-item>
+          <img src="../../assets/images/angular-material.png" alt="angular-material png" />
+          <a mat-button href="https://material.angular.io"
+            ><span><b>Angular Material </b></span></a
+          ></mat-list-item
+        >
+        <mat-list-item>
+          <img src="../../assets/images/rxjs.png" alt="rxjs png" />
+          <a mat-button href="https://rxjs-dev.firebaseapp.com"><b>RxJS </b></a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="25"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+    >
+      <b class="title"> Developer:</b>
+      <a id="developer" href="https://github.com/BlueCC8" mat-button>
+        &copy;<b> Cristian Cernat - 2019</b></a
+      >
+    </div>
+  </div>
+</div>

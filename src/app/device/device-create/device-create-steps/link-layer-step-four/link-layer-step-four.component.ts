@@ -1,17 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../../device-create-steps-form.service';
+import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
 import { DevicesService } from '../../../device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { NGXLogger } from 'ngx-logger';
 @Component({
   selector: 'app-link-layer-step-four',
   templateUrl: './link-layer-step-four.component.html',
   styleUrls: ['./link-layer-step-four.component.css']
 })
 export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
+  private componentName = LinkLayerStepFourComponent.name + ' ';
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -28,7 +30,8 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: DeviceCreateSteptsFormService,
+    private logger: NGXLogger
   ) {
     this.step = this.formBuilder.group({
       id: new FormControl(null, {
@@ -75,7 +78,7 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
-          console.log(this.device);
+          this.logger.log(this.componentName, this.device);
           // * Set values
           this.step.setValue({
             id: this.device.linLayerID.id,

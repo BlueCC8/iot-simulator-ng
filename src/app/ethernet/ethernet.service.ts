@@ -79,9 +79,14 @@ export class EthernetsService {
   //   });
   // }
   updateEthernet(ether: EthernetModel) {
-    this.http.put(BACKEND_URL + ether.id, ether).subscribe(res => {
-      // this.router.navigate(['/']);
-    });
+    this.http.put(BACKEND_URL + ether.id, ether).subscribe(
+      res => {
+        // this.router.navigate(['/']);
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   addEthernet(ether: EthernetModel) {
     return this.http.post<EthernetDto>(BACKEND_URL, ether).pipe(

@@ -1,17 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../../device-create-steps-form.service';
+import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
 import { DevicesService } from '../../../device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { NGXLogger } from 'ngx-logger';
 @Component({
   selector: 'app-wifi-step-five',
   templateUrl: './wifi-step-five.component.html',
   styleUrls: ['./wifi-step-five.component.css']
 })
 export class WifiStepFiveComponent implements OnInit, OnDestroy {
+  private componentName = WifiStepFiveComponent.name + ' ';
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -28,7 +30,8 @@ export class WifiStepFiveComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: DeviceCreateSteptsFormService,
+    private logger: NGXLogger
   ) {
     this.step = this.formBuilder.group({
       id: new FormControl(null, {
@@ -60,7 +63,7 @@ export class WifiStepFiveComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
-          console.log(this.device);
+          this.logger.log(this.componentName, this.device);
           // * Set values
           if (this.device.linLayerID.llWifiID) {
             this.step.setValue({

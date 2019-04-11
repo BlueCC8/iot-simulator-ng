@@ -35,13 +35,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   filteredOptions: Observable<string[]>;
   searchBarSub = new Subscription();
+
   private authListenerSubs = new Subscription();
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
   @Output() onSelectedOption = new EventEmitter();
 
   constructor(
     private playgroundService: PlaygroundService,
-    // private devicesService: DevicesService,
     private searchbarService: SearchBarService,
     private authService: AuthService
   ) {}

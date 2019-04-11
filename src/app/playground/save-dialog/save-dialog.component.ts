@@ -32,8 +32,6 @@ export class SaveDialogComponent {
       username: null
     };
     this.dialogRef.close();
-    console.log(this.data);
-    console.log(setup);
     this.setupsService.addSetup(setup);
   }
 }

@@ -6,7 +6,7 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 
 @NgModule({
   declarations: [SidenavListComponent],
-  imports: [SharedModule],
-  exports: [SidenavListComponent]
+  imports: [SharedModule, HeaderModule],
+  exports: [HeaderModule, SidenavListComponent]
 })
 export class NavigationModule {}

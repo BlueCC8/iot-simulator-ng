@@ -1,7 +1,4 @@
-<mat-sidenav-container
-  class="example-sidenav-container"
-  [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
->
+<mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
   <mat-sidenav
     #sidenav
     role="navigation"
@@ -11,10 +8,12 @@
   >
     <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content fxLayout="column">
     <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
     <main>
       <router-outlet></router-outlet>
     </main>
+
+    <app-footer fxFlexOffset="auto"></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

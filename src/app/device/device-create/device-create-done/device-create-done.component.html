@@ -1,12 +1,6 @@
 <div id="stepper" fxLayout="column" fxLayoutAlign="center center" fxFill>
   <mat-spinner *ngIf="isLoading"></mat-spinner
-  ><mat-vertical-stepper
-    fxLayout="column"
-    fxFlex="80%"
-    fxFlex.gt-sm="60%"
-    [linear]="isLinear"
-    #stepper
-  >
+  ><mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
     <mat-step fxLayout="column" [stepControl]="stepOne" label="Device basic details">
       <app-basic-details-step-one></app-basic-details-step-one>
     </mat-step>

@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../../device-create-steps-form.service';
+import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { mimeType } from '../../mime-type.validator';
 import { DeviceIntegratedModel } from '../../../device.integrated-model';
 import { DevicesService } from '../../../device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-basic-details-step-one',
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./basic-details-step-one.component.css']
 })
 export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
+  private componentName = BasicDetailsStepOneComponent.name + ' ';
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -30,7 +32,8 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: DeviceCreateSteptsFormService,
+    private logger: NGXLogger
   ) {
     this.step = this.formBuilder.group({
       id: new FormControl(null, {
@@ -69,9 +72,8 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
-          console.log(this.device);
-          // console.log(etherData.username);
-          // console.log(this.ether.imagePath);
+          this.logger.log(this.componentName, this.device);
+
           // * Set values
           this.step.setValue({
             id: this.device.id,

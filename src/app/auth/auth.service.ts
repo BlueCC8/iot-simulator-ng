@@ -6,12 +6,14 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { UserDto } from './auth.dto';
 import { environment } from 'src/environments/environment';
+import { NGXLogger } from 'ngx-logger';
 const BACKEND_URL = environment.apiUrl + '/user/';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
+  private componentName = AuthService.name + ' ';
   private token: string;
   private tokenTimer: any;
   private username: string;
@@ -36,30 +38,24 @@ export class AuthService {
   createUser(userData: User) {
     this.http.post<{ mess: string; auth: boolean }>(BACKEND_URL + 'signup', userData).subscribe(
       responseData => {
-        // console.log(responseData);
         this.authStatusListener.next(true);
         this.router.navigate(['/']);
       },
       error => {
-        console.log(error);
+        this.logger.error(this.componentName + error);
         this.authStatusListener.next(false);
       }
     );
   }
   updateUser(user: User) {
-    // const userData = new FormData();
-    // userData.append('username', user.username);
-    // userData.append('email', user.email);
-    // userData.append('password', user.password);
-    console.log(user);
-    console.log(this.username);
+    this.logger.log(this.componentName + user);
 
     this.http.put(BACKEND_URL + this.username, user).subscribe(
       res => {
         this.logout();
       },
       error => {
-        console.log(error);
+        this.logger.error(this.componentName + error);
         this.authStatusListener.next(false);
       }
     );
@@ -83,7 +79,7 @@ export class AuthService {
           }
         },
         error => {
-          console.log(error);
+          this.logger.error(this.componentName + error);
           this.authStatusListener.next(false);
         }
       );
@@ -104,10 +100,9 @@ export class AuthService {
     }
   }
   logout() {
-    this.http
-      .post<{ mess: string; auth: boolean }>(BACKEND_URL + 'logout', null)
-      .subscribe(responseData => {
-        console.log(responseData);
+    this.http.post<{ mess: string; auth: boolean }>(BACKEND_URL + 'logout', null).subscribe(
+      responseData => {
+        this.logger.log(this.componentName + responseData);
         this.token = null;
         this.isAuthenticated = false;
         this.username = null;
@@ -115,10 +110,13 @@ export class AuthService {
         clearTimeout(this.tokenTimer);
         this.clearAuthData();
         this.router.navigate(['/']);
-      });
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   private setAuthTimer(duration: number) {
-    // console.log(duration);
     this.tokenTimer = window.setTimeout(() => {
       this.logout();
     }, duration * 1000);

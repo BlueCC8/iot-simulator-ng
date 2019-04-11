@@ -5,20 +5,22 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { ErrorComponent } from './error/error.component';
+import { NGXLogger } from 'ngx-logger';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private dialog: MatDialog) {}
+  private componentName = ErrorInterceptor.name + ' ';
+  constructor(private dialog: MatDialog, private logger: NGXLogger) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An unknown error occurred';
-        // console.log(error.error.message);
+        this.logger.error(this.componentName, error.error.message);
         if (error.error.message) {
           errorMessage = error.error.message.message;
         }
         this.dialog.open(ErrorComponent, { data: { message: errorMessage } });
-        // console.log(error.error.message);
-        // alert(error.error.message.message);
+        this.logger.error(this.componentName, error.error.message);
+
         return throwError(error);
       })
     );

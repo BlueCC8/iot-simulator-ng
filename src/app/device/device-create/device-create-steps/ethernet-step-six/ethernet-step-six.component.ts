@@ -1,17 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FormService } from '../../device-create-steps-form.service';
+import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
 import { DevicesService } from '../../../device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { NGXLogger } from 'ngx-logger';
 @Component({
   selector: 'app-ethernet-step-six',
   templateUrl: './ethernet-step-six.component.html',
   styleUrls: ['./ethernet-step-six.component.css']
 })
 export class EthernetStepSixComponent implements OnInit, OnDestroy {
+  private componentName = EthernetStepSixComponent.name + ' ';
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
@@ -28,7 +30,8 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: DeviceCreateSteptsFormService,
+    private logger: NGXLogger
   ) {
     this.step = this.formBuilder.group({
       id: new FormControl(null, {
@@ -57,7 +60,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.device = deviceData;
           this.device = this.devicesService.removeUndefProp(this.device);
-          console.log(this.device);
+          this.logger.log(this.componentName, this.device);
           // * Set values
           if (this.device.linLayerID.llEthernetID) {
             this.step.setValue({

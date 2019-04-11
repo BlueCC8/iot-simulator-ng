@@ -99,7 +99,7 @@ export class EthernetCreateComponent implements OnInit, OnDestroy {
       imagePath: this.form.value.image,
       username: null
     };
-    console.log(ether);
+
     this.isLoading = true;
     if (this.mode === 'create') {
       this.ethernetsService.addEthernet(ether);

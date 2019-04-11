@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
+import { NGXLogger } from 'ngx-logger';
 
 @Injectable()
-export class FormService {
+export class DeviceCreateSteptsFormService {
+  private componentName = DeviceCreateSteptsFormService.name + ' ';
+
   private stepOneSource: Subject<FormGroup> = new Subject();
   stepOne: Observable<FormGroup> = this.stepOneSource.asObservable();
 
@@ -88,79 +91,134 @@ export class FormService {
     private formBuilderEthernet: FormBuilder,
     private formBuilderWifi: FormBuilder,
     private formBuilderNetLayer: FormBuilder,
-    private formBuilderAppLayer: FormBuilder
+    private formBuilderAppLayer: FormBuilder,
+    private logger: NGXLogger
   ) {
-    this.stepOne.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const device = this.initDevice.value;
-        device.id = val.id;
-        device.devName = val.devName;
-        device.tranLayer = val.tranLayer;
-        device.devPrice = val.devPrice;
-        device.devImgUrl = val.devImgUrl;
-        device.devProducer = val.devProducer;
-        device.username = val.username;
-      })
+    this.stepOne.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const device = this.initDevice.value;
+            device.id = val.id;
+            device.devName = val.devName;
+            device.tranLayer = val.tranLayer;
+            device.devPrice = val.devPrice;
+            device.devImgUrl = val.devImgUrl;
+            device.devProducer = val.devProducer;
+            device.username = val.username;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
-    this.stepTwo.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const appLayer = this.initDevice.value.appLayerID;
-        appLayer.id = val.id;
-        appLayer.alName = val.alName;
-        appLayer.alHTTP = val.alHTTP;
-        appLayer.alCoAp = val.alCoAp;
-        appLayer.alWebSocket = val.alWebSocket;
-        appLayer.alMQTTE = val.alMQTTE;
-        appLayer.alDDS = val.alDDS;
-        appLayer.alAMQP = val.alAMQP;
-      })
+    this.stepTwo.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const appLayer = this.initDevice.value.appLayerID;
+            appLayer.id = val.id;
+            appLayer.alName = val.alName;
+            appLayer.alHTTP = val.alHTTP;
+            appLayer.alCoAp = val.alCoAp;
+            appLayer.alWebSocket = val.alWebSocket;
+            appLayer.alMQTTE = val.alMQTTE;
+            appLayer.alDDS = val.alDDS;
+            appLayer.alAMQP = val.alAMQP;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
-    this.stepThree.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const netLayer = this.initDevice.value.netLayerID;
+    this.stepThree.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const netLayer = this.initDevice.value.netLayerID;
 
-        netLayer.id = val.id;
-        netLayer.nlName = val.nlName;
-        netLayer.nlIPv4 = val.nlIPv4;
-        netLayer.nlIPv6 = val.nlIPv6;
-        netLayer.nlZig_LoWpan = val.nlZig_LoWpan;
-      })
+            netLayer.id = val.id;
+            netLayer.nlName = val.nlName;
+            netLayer.nlIPv4 = val.nlIPv4;
+            netLayer.nlIPv6 = val.nlIPv6;
+            netLayer.nlZig_LoWpan = val.nlZig_LoWpan;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
-    this.stepFour.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const linkLayer = this.initDevice.value.linLayerID;
+    this.stepFour.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const linkLayer = this.initDevice.value.linLayerID;
 
-        linkLayer.id = val.id;
-        linkLayer.llName = val.llName;
-        linkLayer.llPriorityType = val.llPriorityType;
-        linkLayer.llRole = val.llRole;
-        linkLayer.llBluetooth = val.llBluetooth;
-        linkLayer.llLrWpan = val.llLrWpan;
-        linkLayer.llLrWpanType = val.llLrWpanType;
-        linkLayer.llCelullar = val.llCelullar;
-        linkLayer.llNFC = val.llNFC;
-        linkLayer.llProducer = val.llProducer;
-      })
+            linkLayer.id = val.id;
+            linkLayer.llName = val.llName;
+            linkLayer.llPriorityType = val.llPriorityType;
+            linkLayer.llRole = val.llRole;
+            linkLayer.llBluetooth = val.llBluetooth;
+            linkLayer.llLrWpan = val.llLrWpan;
+            linkLayer.llLrWpanType = val.llLrWpanType;
+            linkLayer.llCelullar = val.llCelullar;
+            linkLayer.llNFC = val.llNFC;
+            linkLayer.llProducer = val.llProducer;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
-    this.stepFive.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const wifi = this.initDevice.value.linLayerID.llWifiID;
-        wifi.id = val.id;
-        wifi.wifiName = val.wifiName;
-        wifi.wifiFrequancy = val.wifiFrequancy;
-        wifi.wifiRange = val.wifiRange;
-        wifi.wifiDataRate = val.wifiDataRate;
-      })
+    this.stepFive.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const wifi = this.initDevice.value.linLayerID.llWifiID;
+            wifi.id = val.id;
+            wifi.wifiName = val.wifiName;
+            wifi.wifiFrequancy = val.wifiFrequancy;
+            wifi.wifiRange = val.wifiRange;
+            wifi.wifiDataRate = val.wifiDataRate;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
-    this.stepSix.subscribe(form =>
-      form.valueChanges.subscribe(val => {
-        const ether = this.initDevice.value.linLayerID.llEthernetID;
-        ether.id = val.id;
-        ether.etherName = val.etherName;
-        ether.etherStandard = val.etherStandard;
-        ether.etherDataRate = val.etherDataRate;
-        ether.imagePath = val.imagePath;
-      })
+    this.stepSix.subscribe(
+      form =>
+        form.valueChanges.subscribe(
+          val => {
+            const ether = this.initDevice.value.linLayerID.llEthernetID;
+            ether.id = val.id;
+            ether.etherName = val.etherName;
+            ether.etherStandard = val.etherStandard;
+            ether.etherDataRate = val.etherDataRate;
+            ether.imagePath = val.imagePath;
+          },
+          error => {
+            this.logger.error(this.componentName + error);
+          }
+        ),
+      error => {
+        this.logger.error(this.componentName + error);
+      }
     );
   }
 
@@ -195,21 +253,5 @@ export class FormService {
         this.stepSixSource.next(form);
       }
     }
-    // }
-    // stepReadyForms(forms: FormGroup[], part) {
-    //   switch (part) {
-    //     case 'one':
-    //       {
-    //         forms.forEach(form => {
-    //           this.stepOneSource.next(form);
-    //         });
-    //       }
-    //       break;
-    //     case 'two': {
-    //       forms.forEach(form => {
-    //         this.stepTwoSource.next(form);
-    //       });
-    //     }
-    //   }
   }
 }

@@ -7,21 +7,23 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { SetupModel } from './setup.model';
 import { SetupCreateDto } from './setup.create-dto';
-import { SetupDevicesDto } from './setupDevices.dto';
-import { SetupDevicesModel } from './setupDevices.model';
+import { SetupDevicesDto } from './setup-devices.dto';
+import { SetupDevicesModel } from './setup-devices.model';
 import { Device } from 'src/app/device/device.model';
 import { SetupDataDto } from './setup.data-dto';
+import { NGXLogger } from 'ngx-logger';
 
 const BACKEND_URL = environment.apiUrl + '/conf_device/';
 @Injectable({
   providedIn: 'root'
 })
 export class SetupService {
+  private componentName = SetupService.name + ' ';
   private devices: Device[] = [];
   private setups: SetupDevicesModel[] = [];
   private setupsUpdated = new Subject<{ setups: SetupDevicesModel[]; maxSetups: number }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   getSetups(pageSize: number, page: number, isPopulated: boolean) {
     let queryParams = '';
@@ -64,14 +66,19 @@ export class SetupService {
           };
         })
       )
-      .subscribe(transformedSetupData => {
-        console.log(transformedSetupData.setups);
-        this.setups = transformedSetupData.setups;
-        this.setupsUpdated.next({
-          setups: [...this.setups],
-          maxSetups: transformedSetupData.maxSetups
-        });
-      });
+      .subscribe(
+        transformedSetupData => {
+          this.logger.log(this.componentName, transformedSetupData.setups);
+          this.setups = transformedSetupData.setups;
+          this.setupsUpdated.next({
+            setups: [...this.setups],
+            maxSetups: transformedSetupData.maxSetups
+          });
+        },
+        error => {
+          this.logger.error(this.componentName + error);
+        }
+      );
   }
 
   getSetupUpdateStatus() {
@@ -82,18 +89,28 @@ export class SetupService {
       configName: setup.setupName,
       devIDs: setup.devIDs
     };
-    console.log(setup);
+    this.logger.log(this.componentName, setup);
 
-    this.http.post<{ setup: SetupModel }>(BACKEND_URL, setupDto).subscribe(responseData => {
-      console.log(responseData);
-      this.router.navigate(['/playground']);
-    });
+    this.http.post<{ setup: SetupModel }>(BACKEND_URL, setupDto).subscribe(
+      responseData => {
+        this.logger.log(this.componentName, responseData);
+        this.router.navigate(['/playground']);
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   updateSetup(setup: SetupDataDto) {
-    console.log(setup);
-    this.http.put(BACKEND_URL + setup._id, setup).subscribe(res => {
-      this.router.navigate(['/playground']);
-    });
+    this.logger.log(this.componentName, setup);
+    this.http.put(BACKEND_URL + setup._id, setup).subscribe(
+      res => {
+        this.router.navigate(['/playground']);
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   deleteSetup(setupID: string) {
     return this.http.delete(BACKEND_URL + setupID);

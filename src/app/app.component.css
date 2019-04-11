@@ -11,3 +11,26 @@ mat-sidenav {
 main {
   padding: 1.5rem;
 }
+/* 
+.all-wrap {
+  min-height: 100vh !important;
+}
+
+.page-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+
+.content {
+  flex: 1 !important;
+}
+
+main {
+  display: flex !important;
+  flex-direction: column !important;
+}
+main > *:not(router-outlet) {
+  flex: 1 !important;
+  display: block !important;
+} */

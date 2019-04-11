@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
 import { Subject } from 'rxjs';
 import { DevicesService } from 'src/app/device/device.service';
+import { NGXLogger } from 'ngx-logger';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchBarService {
+  private componentName = SearchBarService.name + ' ';
   searchOption = [];
   public devicesData: DeviceIntegratedModel[];
   totalDevices: number;
@@ -14,7 +16,7 @@ export class SearchBarService {
   private deviceUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
   private searchUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
 
-  constructor(private devicesService: DevicesService) {}
+  constructor(private devicesService: DevicesService, private logger: NGXLogger) {}
   // * Listener to be able to provide subscription for devices
   getDeviceUpdateListener() {
     return this.deviceUpdated.asObservable();
@@ -32,9 +34,8 @@ export class SearchBarService {
   getDevices(devicesPerPage, currentPage, isPopulated) {
     this.devicesService.getDevices(devicesPerPage, currentPage, isPopulated);
 
-    this.devicesService
-      .getDeviceUpdateListener()
-      .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
+    this.devicesService.getDeviceUpdateListener().subscribe(
+      (devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.devicesData = devicesData.devices;
         this.totalDevices = devicesData.maxDevices;
         this.deviceUpdated.next({
@@ -42,10 +43,14 @@ export class SearchBarService {
           maxDevices: devicesData.maxDevices
         });
         // this.searchbarService.devicesData = this.devices;
-      });
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
   }
   filteredListOptions() {
-    console.log(this.devicesData);
+    this.logger.log(this.componentName, this.devicesData);
     const filteredPostsList = [];
     for (const device of this.devicesData) {
       for (const options of this.searchOption) {

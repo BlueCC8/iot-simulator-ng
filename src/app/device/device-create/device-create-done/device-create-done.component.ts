@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FormService } from '../device-create-steps-form.service';
+import { DeviceCreateSteptsFormService } from '../device-create-steps-form.service';
 import { DevicesService } from '../../device.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -13,12 +13,13 @@ import { WifisService } from 'src/app/wifi/wifi.service';
 import { EthernetsService } from 'src/app/ethernet/ethernet.service';
 import { Device } from '../../device.model';
 import { LinkLayerModel } from 'src/app/linkLayer/linkLayer.model';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-device-create-done',
   templateUrl: 'device-create-done.component.html',
   styleUrls: ['device-create-done.component.css'],
-  providers: [FormService]
+  providers: [DeviceCreateSteptsFormService]
 })
 export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   stepOne;
@@ -39,6 +40,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   private wifiId: string;
   private netLayerId: string;
   private appLayerId: string;
+  private componentName = DeviceCreateDoneComponent.name + ' ';
   private authListenerSubs = new Subscription();
 
   constructor(
@@ -50,7 +52,8 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
     private wifiService: WifisService,
     private etherService: EthernetsService,
     private devicesService: DevicesService,
-    public formService: FormService
+    private logger: NGXLogger,
+    public formService: DeviceCreateSteptsFormService
   ) {
     this.form = this.formService.initDevice;
   }
@@ -79,7 +82,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(this.formService.initDevice.value);
+    this.logger.log(this.componentName + this.formService.initDevice.value);
     const device: DeviceIntegratedModel = this.formService.initDevice.value;
     this.isLoading = true;
 
@@ -95,7 +98,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
       devImgUrl: device.devImgUrl,
       username: device.username
     };
-    console.log(newDevice.devImgUrl);
+    this.logger.log(this.componentName + newDevice.devImgUrl);
     const newLinLayer: LinkLayerModel = {
       id: device.linLayerID.id,
       llName: device.linLayerID.llName,

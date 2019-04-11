@@ -4,6 +4,7 @@ import { DeviceIntegratedModel } from '../device/device.integrated-model';
 import { DevicesService } from '../device/device.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-playground',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./playground.component.css']
 })
 export class PlaygroundComponent implements OnInit, OnDestroy {
+  private componentName = PlaygroundComponent.name + ' ';
   username: string;
   isLoading: boolean;
   devicesSearch: DeviceIntegratedModel[];
@@ -23,7 +25,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   constructor(
     private searchbarService: SearchBarService,
     private devicesService: DevicesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private logger: NGXLogger
   ) {}
   ngOnInit() {
     this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
@@ -47,7 +50,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   }
 
   getFilteredExpenseList() {
-    console.log(this.searchbarService.searchOption);
+    this.logger.log(this.componentName, this.searchbarService.searchOption);
     if (this.searchbarService.searchOption.length > 0) {
       this.devicesSearch = this.searchbarService.filteredListOptions();
     } else {
