@@ -1,8 +1,12 @@
 {
   "name": "iot-sim",
   "version": "1.0.0",
-  "author": "BlueCC",
+  "author": "BlueCC ",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlueCC8/iot-simulator-ng"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

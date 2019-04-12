@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EthernetCreateComponent } from './ethernet/ethernet-create/ethernet-create.component';
+import { EthernetCreateComponent } from './core/ethernet/ethernet-create/ethernet-create.component';
 import { AuthGuard } from './auth/auth.guard';
-import { ExploreComponent } from './navigation/header/explore/explore.component';
-import { GuideComponent } from './navigation/header/guide/guide.component';
-import { AboutComponent } from './navigation/header/about/about.component';
-import { PlaygroundComponent } from './playground/playground.component';
+import { ExploreComponent } from './pages/navigation/header/explore/explore.component';
+import { GuideComponent } from './pages/navigation/header/guide/guide.component';
+import { AboutComponent } from './pages/navigation/header/about/about.component';
+import { PlaygroundComponent } from './pages/playground/playground.component';
 
-import { DeviceListComponent } from './device/device-list/device-list.component';
-import { DeviceCreateDoneComponent } from './device/device-create/device-create-done/device-create-done.component';
+import { DeviceListComponent } from './pages/device/device-list/device-list.component';
+import { DeviceCreateDoneComponent } from './pages/device/device-create/device-create-done/device-create-done.component';
 
 const routes: Routes = [
   {
