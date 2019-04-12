@@ -37,7 +37,7 @@ export class DevicesService {
     } else {
       queryParams = `?populated=${isPopulated}`;
     }
-
+    // this.logger.log(this.componentName + 'query params', queryParams);
     this.http
       .get<{ devices: DeviceIntegratedDto[]; maxDevices: number }>(BACKEND_URL + queryParams)
       .pipe(
@@ -53,6 +53,7 @@ export class DevicesService {
       .subscribe(
         transformedDevicesData => {
           this.devices = transformedDevicesData.devices;
+          this.logger.log('Devices service', this.devices);
           this.devicesUpdated.next({
             devices: [...this.devices],
             maxDevices: transformedDevicesData.maxDevices

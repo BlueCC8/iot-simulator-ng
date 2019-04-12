@@ -1,133 +1,151 @@
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <mat-toolbar color="primary">
   <span>Devices</span>
 </mat-toolbar>
-<mat-accordion fxFlex="1 1 90%" fxLayout="column">
-  <mat-expansion-panel
-    *ngFor="let device of devices; let i = index"
-    #mep="matExpansionPanel"
-    [expanded]="checkExpanded(device)"
-    [attr.data-index]="i"
-    hideToggle
-  >
-    <mat-expansion-panel-header
-      [matTooltip]="
-        !userIsAuthenticated || username !== device.username
-          ? 'Edit and delete not available, owner limited'
-          : 'Open device'
-      "
-      aria-label="Should open"
+<div fxFlex="1 1 90%" fxLayout="column">
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  <mat-accordion fxLayout="column" multi="true" *ngIf="devices.length > 0 && !isLoading">
+    <mat-expansion-panel
+      *ngFor="let device of devices; let i = index"
+      #mep="matExpansionPanel"
+      [expanded]="checkExpanded(device)"
+      [attr.data-index]="i"
+      hideToggle
     >
-      <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-        {{ device.devName }}
-      </mat-panel-title>
-      <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+      <mat-expansion-panel-header
+        [matTooltip]="
+          !userIsAuthenticated || username !== device.username
+            ? 'Edit and delete not available, owner limited'
+            : 'Open device'
+        "
+        aria-label="Should open"
+      >
+        <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+          {{ device.devName }}
+        </mat-panel-title>
+        <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
         <mat-icon>important_devices</mat-icon>
       </mat-panel-description> -->
-    </mat-expansion-panel-header>
-    <mat-list>
-      <mat-list-item *ngFor="let prop of (device | deviceProperties | keyvalue)">
-        <p matLine>{{ prop.key }}: {{ prop.value }}</p>
-      </mat-list-item>
-    </mat-list>
-    <mat-accordion *ngIf="device.appLayerID">
-      <mat-expansion-panel matTooltip="Device Application Layer" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-            {{ device.appLayerID.alName }}</mat-panel-title
-          >
-          <!-- <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx" fxHide.lt-lg>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item *ngFor="let prop of (device | deviceProperties | keyvalue)">
+          <p matLine>{{ prop.key }}: {{ prop.value }}</p>
+        </mat-list-item>
+      </mat-list>
+      <mat-accordion *ngIf="device.appLayerID">
+        <mat-expansion-panel matTooltip="Device Application Layer" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+              {{ device.appLayerID.alName }}</mat-panel-title
+            >
+            <!-- <mat-panel-description fxLayoutAlign="center center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
               >settings_input_antenna</mat-icon
             >
           </mat-panel-description> -->
-        </mat-expansion-panel-header>
-        <mat-list *ngFor="let appLayer of (device.appLayerID | deviceProperties | keyvalue)">
-          <mat-list-item>
-            <p matLine>{{ appLayer.key }}: {{ appLayer.value }}</p>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <mat-accordion *ngIf="device.linLayerID">
-      <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header matTooltip="Device Link Layer">
-          <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-            {{ device.linLayerID.llName }}
-          </mat-panel-title>
-          <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+          </mat-expansion-panel-header>
+          <mat-list *ngFor="let appLayer of (device.appLayerID | deviceProperties | keyvalue)">
+            <mat-list-item>
+              <p matLine>{{ appLayer.key }}: {{ appLayer.value }}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion *ngIf="device.linLayerID">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header matTooltip="Device Link Layer">
+            <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+              {{ device.linLayerID.llName }}
+            </mat-panel-title>
+            <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"> insert_link</mat-icon>
           </mat-panel-description> -->
-        </mat-expansion-panel-header>
-        <mat-list *ngFor="let linLayer of (device.linLayerID | deviceProperties | keyvalue)">
-          <mat-list-item>
-            <p matLine>{{ linLayer.key }}:{{ linLayer.value }}</p>
-          </mat-list-item>
-        </mat-list>
-        <mat-accordion *ngIf="device.linLayerID.llEthernetID">
-          <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header matTooltip="Device Ethernet">
-              <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-                {{ device.linLayerID.llEthernetID.etherName }}</mat-panel-title
-              >
-              <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+          </mat-expansion-panel-header>
+          <mat-list *ngFor="let linLayer of (device.linLayerID | deviceProperties | keyvalue)">
+            <mat-list-item>
+              <p matLine>{{ linLayer.key }}:{{ linLayer.value }}</p>
+            </mat-list-item>
+          </mat-list>
+          <mat-accordion *ngIf="device.linLayerID.llEthernetID">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header matTooltip="Device Ethernet">
+                <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+                  {{ device.linLayerID.llEthernetID.etherName }}</mat-panel-title
+                >
+                <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"
                   >settings_ethernet</mat-icon
                 >
               </mat-panel-description> -->
-            </mat-expansion-panel-header>
-            <mat-list
-              *ngFor="let ether of (device.linLayerID.llEthernetID | deviceProperties | keyvalue)"
-            >
-              <mat-list-item>
-                <p matLine>{{ ether.key }}: {{ ether.value }}</p>
-              </mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <mat-accordion *ngIf="device.linLayerID.llEthernetID">
-          <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header matTooltip="Device Wifi">
-              <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-                {{ device.linLayerID.llWifiID.wifiName }}</mat-panel-title
+              </mat-expansion-panel-header>
+              <mat-list
+                *ngFor="let ether of (device.linLayerID.llEthernetID | deviceProperties | keyvalue)"
               >
-              <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+                <mat-list-item>
+                  <p matLine>{{ ether.key }}: {{ ether.value }}</p>
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion *ngIf="device.linLayerID.llEthernetID">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header matTooltip="Device Wifi">
+                <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+                  {{ device.linLayerID.llWifiID.wifiName }}</mat-panel-title
+                >
+                <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
                 <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">network_wifi</mat-icon>
               </mat-panel-description> -->
-            </mat-expansion-panel-header>
-            <mat-list
-              *ngFor="let wifi of (device.linLayerID.llWifiID | deviceProperties | keyvalue)"
-            >
-              <mat-list-item>
-                <p matLine>{{ wifi.key }}: {{ wifi.value }}</p>
-              </mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <mat-accordion *ngIf="device.netLayerID">
-      <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header matTooltip="Device Network Layer">
-          <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
-            {{ device.netLayerID.nlName }}
-          </mat-panel-title>
-          <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
+              </mat-expansion-panel-header>
+              <mat-list
+                *ngFor="let wifi of (device.linLayerID.llWifiID | deviceProperties | keyvalue)"
+              >
+                <mat-list-item>
+                  <p matLine>{{ wifi.key }}: {{ wifi.value }}</p>
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion *ngIf="device.netLayerID">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header matTooltip="Device Network Layer">
+            <mat-panel-title fxLayoutAlign="center" fxLayoutGap="gappx">
+              {{ device.netLayerID.nlName }}
+            </mat-panel-title>
+            <!-- <mat-panel-description fxLayoutAlign="center" fxLayoutGap="gappx" fxHide.lt-lg>
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">share</mat-icon>
           </mat-panel-description> -->
-        </mat-expansion-panel-header>
-        <mat-list *ngFor="let netLayer of (device.netLayerID | deviceProperties | keyvalue)">
-          <mat-list-item>
-            <p matLine>{{ netLayer.key }}: {{ netLayer.value }}</p>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <mat-action-row>
-      <button mat-button color="primary" (click)="onAddDevice(device)">
-        Add
-      </button>
-      <button mat-button color="warn" (click)="mep.expanded = false">Close</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+          </mat-expansion-panel-header>
+          <mat-list *ngFor="let netLayer of (device.netLayerID | deviceProperties | keyvalue)">
+            <mat-list-item>
+              <p matLine>{{ netLayer.key }}: {{ netLayer.value }}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="onAddDevice(device)">
+          Add
+        </button>
+        <button mat-button color="warn" (click)="mep.expanded = false">Close</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-paginator
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    *ngIf="devices.length > 0"
+    [length]="totalDevices"
+    [pageSize]="devicesPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangePage($event)"
+  >
+  </mat-paginator>
+  <p class="info-text mat-body-1" *ngIf="devices.length <= 0 && !isLoading">
+    No devices added yet!
+  </p>
+</div>

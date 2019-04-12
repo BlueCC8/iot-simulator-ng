@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { DeviceIntegratedModel } from 'src/app/device/device.integrated-model';
 import { SearchBarService } from '../search-bar/search-bar.service';
 import { NGXLogger } from 'ngx-logger';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-filter-list',
@@ -25,11 +26,12 @@ export class FilterListComponent implements OnInit, OnDestroy {
   searchId: string = null;
 
   nrSubPanels = 0;
+  isPopulated = true;
   devices: DeviceIntegratedModel[] = [];
-  devicesPerPage = null;
-  currentPage = null;
   totalDevices = 0;
-
+  devicesPerPage = 5;
+  currentPage = 1;
+  pageSizeOptions = [1, 2, 5, 10, 20];
   private devicesSub = new Subscription();
   private authListenerSubs = new Subscription();
   private searchbarSubs = new Subscription();
@@ -44,15 +46,16 @@ export class FilterListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
+    // this.devicesService.getDevices(this.devicesPerPage, this.currentPage, this.isPopulated);
     this.username = this.authService.getUsername();
-
+    this.logger.log(this.componentName + 'Loading');
     this.devicesSub = this.devicesService
       .getDeviceUpdateListener()
       .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.isLoading = false;
         this.devices = devicesData.devices;
         this.totalDevices = devicesData.maxDevices;
+        this.logger.log(this.componentName + 'Devices', this.devices);
       });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
@@ -82,6 +85,13 @@ export class FilterListComponent implements OnInit, OnDestroy {
         counter++;
       }
     });
+  }
+  onChangePage(pageData: PageEvent) {
+    this.isLoading = true;
+    this.totalDevices = pageData.length;
+    this.devicesPerPage = pageData.pageSize;
+    this.currentPage = pageData.pageIndex + 1;
+    this.devicesService.getDevices(this.devicesPerPage, this.currentPage, this.isPopulated);
   }
   onSetPanelState() {
     this.panelOpenState = false;

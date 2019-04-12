@@ -59,6 +59,16 @@ mat-icon {
 mat-toolbar {
   border-radius: 4px;
 }
+mat-paginator {
+  margin: 5px 0px;
+  border-radius: 5px;
+}
+::ng-deep .mat-paginator-range-actions {
+  flex-wrap: wrap;
+}
+::ng-deep .mat-paginator-page-size {
+  flex-wrap: wrap;
+}
 /* lt-md */
 @media only screen and (max-width: 959px) {
   ::ng-deep .mat-expansion-panel-header {
@@ -88,6 +98,7 @@ mat-toolbar {
     height: 30px !important;
   }
   ::ng-deep .mat-list-item {
+    padding: 0px !important;
     font-size: 8px !important;
     height: 20px !important;
   }
@@ -101,5 +112,16 @@ mat-toolbar {
   mat-toolbar {
     font-size: 10px;
     height: 40px !important;
+  }
+  ::ng-deep .mat-paginator-range-actions {
+    font-size: 8px !important;
+    flex-wrap: wrap;
+  }
+  ::ng-deep .mat-paginator-page-size {
+    font-size: 8px !important;
+    flex-wrap: wrap;
+  }
+  ::ng-deep .mat-paginator-icon {
+    width: 10px !important;
   }
 }

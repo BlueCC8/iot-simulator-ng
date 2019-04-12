@@ -27,8 +27,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   autoCompleteList: any[];
   username: string;
   userIsAuthenticated = false;
-  devicesPerPage = null;
-  currentPage = null;
+  devicesPerPage = 5;
+  currentPage = 1;
   devices: DeviceIntegratedModel[];
   totalDevices = 0;
   searchOption;

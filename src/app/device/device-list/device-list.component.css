@@ -24,6 +24,9 @@ p {
   font-size: 15px;
   text-align: center;
 }
+.mat-expansion-panel-header {
+  padding: 0px 20px !important;
+}
 @media only screen and (min-width: 960px) {
   /* ::ng-deep .mat-list-item {
     font-size: 14px !important;
