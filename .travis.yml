@@ -8,5 +8,6 @@ branches:
     - master
 before_script:
   - npm install -g @angular/cli
-# script:
-#   - ng lint
+script:
+  - ng lint
+  - ng build --prod --base-href https://bluecc8.github.io/iot-simulator-ng/

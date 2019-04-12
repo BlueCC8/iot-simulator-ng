@@ -19,6 +19,8 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from 'src/environments/environment';
 import { NavigationModule } from './navigation/navigation.module';
 import { FooterComponent } from './footer/footer.component';
+import { AngularFireModule } from '@angular/fire';
+
 @NgModule({
   declarations: [AppComponent, ErrorComponent, FooterComponent],
   imports: [
@@ -33,7 +35,7 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule,
     NavigationModule,
     SharedModule,
-
+    AngularFireModule.initializeApp(environment.firebase),
     LoggerModule.forRoot({
       level: !environment.production ? NgxLoggerLevel.LOG : NgxLoggerLevel.OFF,
       // serverLogLevel
