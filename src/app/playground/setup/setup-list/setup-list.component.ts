@@ -21,7 +21,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
   username: string;
   isLoading = false;
   totalSetups = 0;
-  setupsPerPage = 2;
+  setupsPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private isPopulated = true;
