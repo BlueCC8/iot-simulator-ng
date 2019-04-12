@@ -38,7 +38,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   private authListenerSubs = new Subscription();
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
-  @Output() onSelectedOption = new EventEmitter();
+  @Output() selectedOption = new EventEmitter();
 
   constructor(
     private playgroundService: PlaygroundService,
@@ -79,7 +79,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   // this is where filtering the data happens according to you typed value
   filterCategoryList(val) {
-    let categoryList = [];
+    const categoryList = [];
     if (typeof val !== 'string') {
       return [];
     }
@@ -102,7 +102,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.searchbarService.searchOption = [];
     } else {
       this.searchbarService.searchOption.push(devices);
-      this.onSelectedOption.emit(this.searchbarService.searchOption);
+      this.selectedOption.emit(this.searchbarService.searchOption);
     }
     this.focusOnPlaceInput();
   }
@@ -114,7 +114,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
     this.focusOnPlaceInput();
 
-    this.onSelectedOption.emit(this.searchbarService.searchOption);
+    this.selectedOption.emit(this.searchbarService.searchOption);
   }
 
   // focus the input field and remove any unwanted text.
