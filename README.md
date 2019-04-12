@@ -1,5 +1,5 @@
 # Project Title
-## Travis [![Build Status](https://travis-ci.com/BlueCC8/iot-simulator-ng.svg?token=wimezKrCqyRNdiZF2Tdi&branch=master)](https://travis-ci.com/BlueCC8/iot-simulator-ng) Snyk [![Known Vulnerabilities](https://snyk.io/test/github/{bluecc8}/{iot-simulator-ng}/badge.svg)](https://snyk.io/test/github/{bluecc8}/{iot-simulator-ng})
+## [![Build Status](https://travis-ci.com/BlueCC8/iot-simulator-ng.svg?token=wimezKrCqyRNdiZF2Tdi&branch=master)](https://travis-ci.com/BlueCC8/iot-simulator-ng)  [![Known Vulnerabilities](https://snyk.io/test/github/BlueCC8/iot-simulator-ng/badge.svg)](https://snyk.io/test/github/BlueCC8/iot-simulator-ng)
 
 Angular app made for the IoT Simulator APP in order to get and receive different types of requests
 
