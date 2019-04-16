@@ -46,7 +46,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    // this.devicesService.getDevices(this.devicesPerPage, this.currentPage, this.isPopulated);
+    this.devicesService.getDevices(this.devicesPerPage, this.currentPage, this.isPopulated);
     this.username = this.authService.getUsername();
     this.logger.log(this.componentName + 'Loading');
     this.devicesSub = this.devicesService

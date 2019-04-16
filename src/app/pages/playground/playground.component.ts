@@ -18,8 +18,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   devicesSearch: DeviceIntegratedModel[];
   totalDevices: number;
   userIsAuthenticated: boolean;
-  devicesPerPage = null;
-  currentPage = null;
+  devicesPerPage = 5;
+  currentPage = 1;
   devicesSub = new Subscription();
   authListenerSubs = new Subscription();
   constructor(
@@ -29,16 +29,16 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     private logger: NGXLogger
   ) {}
   ngOnInit() {
-    this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
+    // this.devicesService.getDevices(this.devicesPerPage, this.currentPage, true);
     this.username = this.authService.getUsername();
 
-    this.devicesSub = this.devicesService
-      .getDeviceUpdateListener()
-      .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
-        this.isLoading = false;
-        this.devicesSearch = devicesData.devices;
-        this.totalDevices = devicesData.maxDevices;
-      });
+    // this.devicesSub = this.devicesService
+    //   .getDeviceUpdateListener()
+    //   .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
+    //     this.isLoading = false;
+    //     this.devicesSearch = devicesData.devices;
+    //     this.totalDevices = devicesData.maxDevices;
+    //   });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
