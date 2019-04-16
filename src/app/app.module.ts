@@ -35,7 +35,7 @@ import { AngularFireModule } from '@angular/fire';
     HttpClientModule,
     NavigationModule,
     SharedModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireModule.initializeApp(environment.firebase),
     LoggerModule.forRoot({
       level: !environment.production ? NgxLoggerLevel.LOG : NgxLoggerLevel.OFF,
       // serverLogLevel
