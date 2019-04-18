@@ -2,6 +2,17 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="step">
     <mat-form-field>
+      <mat-label>Application Layer</mat-label>
+      <mat-select formControlName="appLayer">
+        <mat-option *ngFor="let appLayer of appLayers" [value]="appLayer">
+          <span> {{ appLayer.alName }}</span>
+          <span *ngFor="let prop of (appLayer | appLayerProperties | keyvalue)">
+            {{ prop.value }}
+          </span></mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="alName" placeholder="Application Layer Name" />
       <mat-error *ngIf="step.get('alName').invalid"
         >Please enter an application layer name.</mat-error
@@ -36,9 +47,9 @@
       <input matInput style="display: none" />
       <mat-checkbox formControlName="alAMQP">AMQP</mat-checkbox>
       <mat-error *ngIf="step.get('alAMQP').invalid">Please select a value</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
     </div>
   </form>
 </mat-card>

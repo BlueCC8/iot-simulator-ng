@@ -30,7 +30,7 @@
       <img [src]="imagePreview" [alt]="step.value.devName" />
     </div>
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
     </div>
   </form>
 </mat-card>

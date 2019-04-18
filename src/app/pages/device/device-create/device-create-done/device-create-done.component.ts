@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../device-create-steps-form.service';
 import { DevicesService } from '../../device.service';
@@ -14,6 +14,11 @@ import { EthernetsService } from 'src/app/core/ethernet/ethernet.service';
 import { Device } from '../../device.model';
 import { LinkLayerModel } from 'src/app/core/linkLayer/linkLayer.model';
 import { NGXLogger } from 'ngx-logger';
+import { MatHorizontalStepper, MatStep, MatVerticalStepper } from '@angular/material';
+import { AppLayerModel } from 'src/app/core/applicationLayer/applicationLayer.model';
+import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
+import { WifiModel } from 'src/app/core/wifi/wifi.model';
+import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
 
 @Component({
   selector: 'app-device-create-done',
@@ -22,40 +27,45 @@ import { NGXLogger } from 'ngx-logger';
   providers: [DeviceCreateSteptsFormService]
 })
 export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
-  stepOne;
-  stepTwo;
-  stepThree;
-  stepFour;
-  stepFive;
-  stepSix;
+  stepOne: FormGroup;
+  stepTwo: FormGroup;
+  stepThree: FormGroup;
+  stepFour: FormGroup;
+  stepFive: FormGroup;
+  stepSix: FormGroup;
+  stepOneCompleted = false;
+  stepTwoCompleted = false;
+  stepThreeCompleted = false;
+  stepFourCompleted = false;
+  stepFiveCompleted = false;
+  stepSixCompleted = false;
+
   isLoading = false;
-  isLinear = false;
-  diagnostics = false;
+  diagnostics = true;
 
   form: FormGroup;
+  validCreateForm = false;
+  device: Device;
+  appLayer: AppLayerModel;
+  netLayer: NetLayerModel;
+  linkLayer: LinkLayerModel;
+  ethernet: EthernetModel;
+  wifi: WifiModel;
   private mode = 'create';
   private deviceId: string;
-  private linLayerId: string;
-  private etherId: string;
-  private wifiId: string;
-  private netLayerId: string;
-  private appLayerId: string;
   private componentName = DeviceCreateDoneComponent.name + ' ';
   private authListenerSubs = new Subscription();
+  @ViewChild(MatVerticalStepper) stepper: MatVerticalStepper;
 
   constructor(
     private authService: AuthService,
     public route: ActivatedRoute,
-    private netLayerService: NetLayersService,
-    private appLayerService: AppLayersService,
     private linLayerService: LinkLayersService,
-    private wifiService: WifisService,
-    private etherService: EthernetsService,
     private devicesService: DevicesService,
     private logger: NGXLogger,
     public formService: DeviceCreateSteptsFormService
   ) {
-    this.form = this.formService.initDevice;
+    // this.form = this.formService.initDevice;
   }
   ngOnInit() {
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
@@ -77,111 +87,106 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   keys(): Array<string> {
     return Object.keys(this.form);
   }
+
+  onSaveStepOne(form: FormGroup) {
+    this.logger.log(this.componentName, form);
+    this.stepOne = form;
+    this.stepOneCompleted = !form.invalid;
+    this.logger.log(this.componentName, !form.invalid);
+    this.logger.log(this.componentName, this.stepOneCompleted);
+    this.validCreateForm = !form.invalid;
+    const newDevice: Device = {
+      id: this.deviceId,
+      devName: form.get('devName').value,
+      appLayerID: '',
+      tranLayer: form.get('tranLayer').value,
+      netLayerID: '',
+      linLayerID: '',
+      devProducer: form.get('devProducer').value,
+      devPrice: form.get('devPrice').value,
+      devImgUrl: form.get('devImgUrl').value,
+      username: form.get('username').value
+        ? form.get('username').value
+        : this.authService.getUsername()
+    };
+    this.device = newDevice;
+  }
+  onSaveStepTwo(form: FormGroup) {
+    this.logger.log(this.componentName, this.componentName, form);
+    this.stepTwo = form;
+    this.stepTwoCompleted = !form.invalid;
+    this.logger.log(this.componentName, this.stepTwo);
+    this.validCreateForm = !form.invalid;
+
+    this.appLayer = form.get('appLayer').value;
+  }
+  onSaveStepThree(form: FormGroup) {
+    this.logger.log(this.componentName, this.componentName, form);
+    this.stepThree = form;
+    this.stepThreeCompleted = !form.invalid;
+    this.validCreateForm = !form.invalid;
+    this.netLayer = form.get('netLayer').value;
+  }
+  onSaveStepFour(form: FormGroup) {
+    this.logger.log(this.componentName, this.componentName, form);
+    this.stepFour = form;
+    this.stepFourCompleted = !form.invalid;
+    this.validCreateForm = !form.invalid;
+    this.linkLayer = form.get('linkLayer').value;
+  }
+  onSaveStepFive(form: FormGroup) {
+    this.logger.log(this.componentName, this.componentName, form);
+    this.stepFive = form;
+    this.stepFiveCompleted = !form.invalid;
+    this.validCreateForm = !form.invalid;
+    this.wifi = form.get('wifi').value;
+  }
+  onSaveStepSix(form: FormGroup) {
+    this.logger.log(this.componentName, this.componentName, form);
+    this.stepSix = form;
+    this.stepSixCompleted = !form.invalid;
+    this.validCreateForm = !form.invalid;
+    this.ethernet = form.get('ether').value;
+  }
   onSubmit() {
-    if (this.form.invalid) {
+    const isCompleted =
+      this.stepOneCompleted &&
+      this.stepTwoCompleted &&
+      this.stepThreeCompleted &&
+      this.stepFourCompleted &&
+      this.stepFiveCompleted &&
+      this.stepSixCompleted;
+
+    if (!isCompleted) {
       return;
     }
 
-    this.logger.log(this.componentName, this.formService.initDevice.value);
-    const device: DeviceIntegratedModel = this.formService.initDevice.value;
     this.isLoading = true;
+    this.linkLayer.llWifiID = this.wifi.id;
+    this.linkLayer.llEthernetID = this.ethernet.id;
 
-    const newDevice: Device = {
-      id: this.deviceId,
-      devName: device.devName,
-      appLayerID: '',
-      tranLayer: device.tranLayer,
-      netLayerID: '',
-      linLayerID: '',
-      devProducer: device.devProducer,
-      devPrice: device.devPrice,
-      devImgUrl: device.devImgUrl,
-      username: device.username ? device.username : this.authService.getUsername()
-    };
-    this.logger.log(this.componentName, newDevice.devImgUrl);
-    const newLinLayer: LinkLayerModel = {
-      id: device.linLayerID.id,
-      llName: device.linLayerID.llName,
-      llPriorityType: device.linLayerID.llPriorityType,
-      llRole: device.linLayerID.llRole,
-      llBluetooth: device.linLayerID.llBluetooth,
-      llLrWpan: device.linLayerID.llLrWpan,
-      llLrWpanType: device.linLayerID.llLrWpanType,
-      llCelullar: device.linLayerID.llCelullar,
-      llNFC: device.linLayerID.llNFC,
-      llProducer: device.linLayerID.llProducer,
-      llWifiID: '',
-      llEthernetID: ''
-    };
     if (this.mode === 'create') {
-      // TODO: Implement dropdowns for choosing existing subdocuments
-      const netLayer = device.netLayerID;
-      if (netLayer.nlName && netLayer) {
-        this.netLayerService.addNetLayer(netLayer).subscribe(netLayerId => {
-          this.netLayerId = netLayerId;
-        });
-      }
+      // * Add new because it's a new configuration
+      this.linLayerService.addLinLayer(this.linkLayer).subscribe(linkLayerId => {
+        this.device.linLayerID = linkLayerId;
+        this.device.appLayerID = this.appLayer.id;
+        this.device.netLayerID = this.netLayer.id;
 
-      const appLayer = device.appLayerID;
-      if (appLayer.alName && appLayer) {
-        this.appLayerService.addAppLayer(appLayer).subscribe(appLayerId => {
-          this.appLayerId = appLayerId;
-        });
-      }
-
-      const wifi = device.linLayerID.llWifiID;
-      if (wifi.wifiName && wifi) {
-        this.wifiService.addWifi(wifi).subscribe(wifiId => {
-          this.wifiId = wifiId;
-        });
-      }
-
-      const ether = device.linLayerID.llEthernetID;
-      if (ether.etherName && ether) {
-        this.etherService.addEthernet(ether).subscribe(etherId => {
-          this.etherId = etherId;
-        });
-      }
-
-      newLinLayer.llEthernetID = this.etherId;
-      newLinLayer.llWifiID = this.wifiId;
-      if (newLinLayer.llName) {
-        this.linLayerService.addLinLayer(newLinLayer).subscribe(linLayerId => {
-          this.linLayerId = linLayerId;
-        });
-      }
-      newDevice.linLayerID = this.linLayerId;
-      newDevice.appLayerID = this.appLayerId;
-      newDevice.netLayerID = this.netLayerId;
-      this.logger.log(this.componentName, newDevice);
-      if (newDevice.devName) {
-        this.devicesService.addDevice(newDevice);
-      }
-      this.isLoading = true;
+        this.devicesService.addDevice(this.device);
+        this.isLoading = false;
+      });
     } else {
-      const netLayer = device.netLayerID;
-      this.netLayerService.updateNetLayer(netLayer);
+      // this.logger.log(this.componentName, this.linkLayer);
+      // * History updated feature
+      this.linLayerService.addLinLayer(this.linkLayer).subscribe(linkLayerId => {
+        this.device.linLayerID = linkLayerId;
+        this.device.appLayerID = this.appLayer.id;
+        this.device.netLayerID = this.netLayer.id;
 
-      const appLayer = device.appLayerID;
-      this.appLayerService.updateAppLayer(appLayer);
-
-      const wifi = device.linLayerID.llWifiID;
-      this.wifiService.updateWifi(wifi);
-
-      const ether = device.linLayerID.llEthernetID;
-      this.etherService.updateEthernet(ether);
-
-      newLinLayer.llEthernetID = ether.id;
-      newLinLayer.llWifiID = wifi.id;
-
-      this.linLayerService.updateLinLayer(newLinLayer);
-
-      newDevice.linLayerID = newLinLayer.id;
-      newDevice.appLayerID = appLayer.id;
-      newDevice.netLayerID = netLayer.id;
-      this.devicesService.updateDevice(newDevice);
+        this.devicesService.updateDevice(this.device);
+        this.isLoading = false;
+      });
     }
-    this.form.reset();
   }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();

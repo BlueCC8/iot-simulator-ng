@@ -20,7 +20,10 @@ export class EthernetsService {
 
   // * Get method for getting Ethernets from the server
   getEthernets(pageSize: number, page: number) {
-    const queryParams = `?pagesize=${pageSize}&page=${page}`;
+    let queryParams = '';
+    if (pageSize && page) {
+      queryParams = `?pagesize=${pageSize}&page=${page}`;
+    }
     this.http
       .get<{ ethers: EthernetDto[]; maxEthers: number }>(BACKEND_URL + queryParams)
       .pipe(
@@ -41,7 +44,7 @@ export class EthernetsService {
         })
       )
       .subscribe(transformedEthersData => {
-        this.logger.log(this.componentName + transformedEthersData.ethers);
+        this.logger.log(this.componentName, transformedEthersData.ethers);
         this.ethers = transformedEthersData.ethers;
         this.ethersUpdated.next({
           ethers: [...this.ethers],

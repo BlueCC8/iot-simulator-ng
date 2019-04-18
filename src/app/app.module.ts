@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { NavigationModule } from './pages/navigation/navigation.module';
 import { FooterComponent } from './pages/footer/footer.component';
 import { AngularFireModule } from '@angular/fire';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, FooterComponent],
@@ -44,7 +45,8 @@ import { AngularFireModule } from '@angular/fire';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent, SaveDialogComponent, BottomSheetComponent]

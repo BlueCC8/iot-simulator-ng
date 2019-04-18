@@ -1,23 +1,61 @@
 <div id="stepper" fxLayout="column" fxLayoutAlign="center center" fxFill>
   <mat-spinner *ngIf="isLoading"></mat-spinner
-  ><mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
-    <mat-step fxLayout="column" [stepControl]="stepOne" label="Device basic details">
-      <app-basic-details-step-one></app-basic-details-step-one>
+  ><mat-vertical-stepper fxLayout="column" linear #stepper>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepOne"
+      [completed]="stepOneCompleted"
+      label="Device basic details"
+    >
+      <app-basic-details-step-one
+        (saveStepOneForm)="onSaveStepOne($event)"
+      ></app-basic-details-step-one>
     </mat-step>
-    <mat-step fxLayout="column" [stepControl]="stepTwo" label="Application Layer">
-      <app-application-layer-step-two></app-application-layer-step-two>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepTwo"
+      [completed]="stepTwoCompleted"
+      label="Application Layer"
+    >
+      <app-application-layer-step-two
+        (saveStepTwoForm)="onSaveStepTwo($event)"
+      ></app-application-layer-step-two>
     </mat-step>
-    <mat-step fxLayout="column" [stepControl]="stepThree" label="Network">
-      <app-network-step-three></app-network-step-three>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepThree"
+      [completed]="stepThreeCompleted"
+      label="Network"
+    >
+      <app-network-step-three
+        (saveStepThreeForm)="onSaveStepThree($event)"
+      ></app-network-step-three>
     </mat-step>
-    <mat-step fxLayout="column" [stepControl]="stepFour" label="Link Layer details">
-      <app-link-layer-step-four></app-link-layer-step-four>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepFour"
+      [completed]="stepFourCompleted"
+      label="Link Layer details"
+    >
+      <app-link-layer-step-four
+        (saveStepFourForm)="onSaveStepFour($event)"
+      ></app-link-layer-step-four>
     </mat-step>
-    <mat-step fxLayout="column" [stepControl]="stepFive" label="Link Layer: Wifi details">
-      <app-wifi-step-five></app-wifi-step-five>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepFive"
+      [completed]="stepFiveCompleted"
+      label="Link Layer: Wifi details"
+    >
+      <app-wifi-step-five (saveStepFiveForm)="onSaveStepFive($event)"></app-wifi-step-five>
     </mat-step>
-    <mat-step fxLayout="column" [stepControl]="stepSix" label="Link Layer: Ethernet details">
-      <app-ethernet-step-six></app-ethernet-step-six>
+    <mat-step
+      fxLayout="column"
+      [stepControl]="stepSix"
+      [completed]="stepSixCompleted"
+      label="Link Layer: Ethernet details"
+    >
+      <app-ethernet-step-six (saveStepSixForm)="onSaveStepSix($event)"></app-ethernet-step-six>
     </mat-step>
     <mat-step fxLayout="column">
       <ng-template matStepLabel>Done</ng-template>
@@ -25,7 +63,9 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-        <button mat-button color="accent" (click)="onSubmit()">Save</button>
+        <button mat-button [disabled]="!validCreateForm" color="accent" (click)="onSubmit()">
+          Save
+        </button>
       </div>
     </mat-step>
   </mat-vertical-stepper>

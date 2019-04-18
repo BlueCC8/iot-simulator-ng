@@ -2,6 +2,17 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="step">
     <mat-form-field>
+      <mat-label>Link Layer</mat-label>
+      <mat-select formControlName="linkLayer">
+        <mat-option *ngFor="let linkLayer of linkLayers" [value]="linkLayer">
+          <span> {{ linkLayer.llName }}</span>
+          <span *ngFor="let prop of (linkLayer | linkLayerProperties | keyvalue)">
+            {{ prop.value }}
+          </span></mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="llName" placeholder="Link Layer Name" />
       <mat-error *ngIf="step.get('llName').invalid">Please enter link layer name.</mat-error>
     </mat-form-field>
@@ -47,10 +58,10 @@
     <mat-form-field>
       <input matInput type="text" formControlName="llProducer" placeholder="Manufacturer" />
       <mat-error *ngIf="step.get('llProducer').invalid">Please enter a value</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
     </div>
   </form>
 </mat-card>

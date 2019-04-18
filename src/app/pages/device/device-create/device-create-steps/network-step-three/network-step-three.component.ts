@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceIntegratedModel } from '../../../device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
+import { NetLayersService } from 'src/app/core/networkLayer/networkLayer.service';
+import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
 @Component({
   selector: 'app-network-step-three',
   templateUrl: './network-step-three.component.html',
@@ -17,74 +19,90 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
   step: FormGroup;
   imagePreview: string;
   isLoading = false;
-  device: DeviceIntegratedModel;
-  private authListenerSubs = new Subscription();
+  netLayers: NetLayerModel[];
+  totalNetLayers: number;
   mode: string;
   deviceId: string;
-  netLayerGroup: FormGroup;
   isPopulated = true;
+  pageSize = null;
+  page = null;
+  private netLayersSubs = new Subscription();
+  @Output() saveStepThreeForm = new EventEmitter<FormGroup>();
   ngOnInit() {}
 
   constructor(
-    public devicesService: DevicesService,
-    private authService: AuthService,
+    public netLayersService: NetLayersService,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private formService: DeviceCreateSteptsFormService,
     private logger: NGXLogger
   ) {
+    // this.step = this.formBuilder.group({
+    //   id: new FormControl(null, {}),
+    //   nlName: new FormControl(null, {
+    //     validators: [Validators.required, Validators.minLength(3)]
+    //   }),
+    //   nlIPv4: new FormControl(null, {
+    //     validators: [Validators.required]
+    //   }),
+    //   nlIPv6: new FormControl(null, {
+    //     validators: [Validators.required]
+    //   }),
+    //   nlZig_LoWpan: new FormControl(null, {
+    //     validators: [Validators.required]
+    //   })
+    // });
     this.step = this.formBuilder.group({
-      id: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      nlName: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      nlIPv4: new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      nlIPv6: new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      nlZig_LoWpan: new FormControl(null, {
+      netLayer: new FormControl(null, {
         validators: [Validators.required]
       })
     });
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
-      this.isLoading = false;
-    });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('deviceId')) {
-        this.mode = 'edit';
-        this.deviceId = paramMap.get('deviceId');
-        this.isLoading = true;
-        // * Get instance
-        this.devicesService.getDevice(this.deviceId, this.isPopulated).subscribe(deviceData => {
-          this.isLoading = false;
-          this.device = deviceData;
-          this.device = this.devicesService.removeUndefProp(this.device);
-          this.logger.log(this.componentName, this.device);
-          // * Set values
-          if (this.device.netLayerID) {
-            this.step.setValue({
-              id: this.device.netLayerID.id,
-              nlName: this.device.netLayerID.nlName,
-              nlIPv4: this.device.netLayerID.nlIPv4,
-              nlIPv6: this.device.netLayerID.nlIPv6,
-              nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
-            });
-          }
-        });
-      } else {
-        this.mode = 'create';
-        this.deviceId = null;
-      }
-    });
+    this.isLoading = true;
+    this.netLayersService.getNetLayers(this.pageSize, this.page);
+    this.netLayersSubs = this.netLayersService
+      .getNetLayersUpdateListener()
+      .subscribe((netLayersData: { netLayers: NetLayerModel[]; maxNetLayers: number }) => {
+        this.isLoading = false;
+        this.logger.log(this.componentName + 'not loading');
+        this.logger.log(this.componentName + 'NetLayers', netLayersData.netLayers);
+        this.netLayers = netLayersData.netLayers;
+        this.totalNetLayers = netLayersData.maxNetLayers;
+      });
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    //   if (paramMap.has('deviceId')) {
+    //     this.mode = 'edit';
+    //     this.deviceId = paramMap.get('deviceId');
+    //     this.isLoading = true;
+    //     // * Get instance
+    //     this.devicesService.getDevice(this.deviceId, this.isPopulated).subscribe(deviceData => {
+    //       this.isLoading = false;
+    //       this.device = deviceData;
+    //       this.device = this.devicesService.removeUndefProp(this.device);
+    //       this.logger.log(this.componentName, this.device);
+    //       // * Set values
+    //       if (this.device.netLayerID) {
+    //         this.step.setValue({
+    //           id: this.device.netLayerID.id,
+    //           nlName: this.device.netLayerID.nlName,
+    //           nlIPv4: this.device.netLayerID.nlIPv4,
+    //           nlIPv6: this.device.netLayerID.nlIPv6,
+    //           nlZig_LoWpan: this.device.netLayerID.nlZig_LoWpan
+    //         });
+    //       }
+    //     });
+    //   } else {
+    //     this.mode = 'create';
+    //     this.deviceId = null;
+    //   }
+    // });
     this.formService.stepReady(this.step, 'three');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
-
+  onSave() {
+    this.saveStepThreeForm.emit(this.step);
+    this.logger.log(this.componentName, this.step);
+  }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.netLayersSubs.unsubscribe();
   }
 }

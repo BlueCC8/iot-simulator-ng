@@ -2,6 +2,17 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="step">
     <mat-form-field>
+      <mat-label>Ethernet</mat-label>
+      <mat-select formControlName="ether">
+        <mat-option *ngFor="let ether of ethers" [value]="ether">
+          <span> {{ ether.etherName }}</span>
+          <span *ngFor="let prop of (ether | ethernetProperties | keyvalue)">
+            {{ prop.value }}
+          </span></mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="etherName" placeholder="Ethernet Name" />
       <mat-error *ngIf="step.get('etherName').invalid">Please enter ethernet name.</mat-error>
     </mat-form-field>
@@ -15,10 +26,10 @@
     <mat-form-field>
       <input matInput type="text" formControlName="etherDataRate" placeholder="Data rate" />
       <mat-error *ngIf="step.get('etherDataRate').invalid">Please enter a data rate</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
     </div>
   </form>
 </mat-card>

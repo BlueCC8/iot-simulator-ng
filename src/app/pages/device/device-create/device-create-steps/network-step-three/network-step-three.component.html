@@ -2,6 +2,17 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="step">
     <mat-form-field>
+      <mat-label>Network Layer</mat-label>
+      <mat-select formControlName="netLayer">
+        <mat-option *ngFor="let netLayer of netLayers" [value]="netLayer">
+          <span> {{ netLayer.nlName }}</span>
+          <span *ngFor="let prop of (netLayer | netLayerProperties | keyvalue)">
+            {{ prop.value }}
+          </span></mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="nlName" placeholder="Network Name" />
       <mat-error *ngIf="step.get('nlName').invalid">Please enter network name.</mat-error>
     </mat-form-field>
@@ -18,10 +29,10 @@
     <mat-form-field>
       <input matInput type="text" formControlName="nlZig_LoWpan" placeholder="Zigbee/LoWpan" />
       <mat-error *ngIf="step.get('nlZig_LoWpan').invalid">Please enter a value</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
     </div>
   </form>
 </mat-card>

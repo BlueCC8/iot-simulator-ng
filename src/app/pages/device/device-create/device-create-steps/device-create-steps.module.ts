@@ -9,6 +9,11 @@ import { EthernetStepSixComponent } from './ethernet-step-six/ethernet-step-six.
 import { LinkLayerStepFourComponent } from './link-layer-step-four/link-layer-step-four.component';
 import { NetworkStepThreeComponent } from './network-step-three/network-step-three.component';
 import { WifiStepFiveComponent } from './wifi-step-five/wifi-step-five.component';
+import { ApplicationLayerPipe } from './application-layer-step-two/application-layer.pipe';
+import { NetworkLayerPipe } from './network-step-three/network-layer.pipe';
+import { EthernetPipe } from './ethernet-step-six/ethernet.pipe';
+import { WifiPipe } from './wifi-step-five/wifi.pipe';
+import { LinkLayerPipe } from './link-layer-step-four/link-layer.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { WifiStepFiveComponent } from './wifi-step-five/wifi-step-five.component
     EthernetStepSixComponent,
     LinkLayerStepFourComponent,
     NetworkStepThreeComponent,
-    WifiStepFiveComponent
+    WifiStepFiveComponent,
+    ApplicationLayerPipe,
+    NetworkLayerPipe,
+    EthernetPipe,
+    WifiPipe,
+    LinkLayerPipe
   ],
   imports: [ReactiveFormsModule, FormsModule, SharedModule]
 })

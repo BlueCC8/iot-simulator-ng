@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { mimeType } from '../../mime-type.validator';
@@ -25,6 +25,8 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
   deviceId: string;
   isPopulated = true;
 
+  @Output() saveStepOneForm = new EventEmitter<FormGroup>();
+
   ngOnInit() {}
 
   constructor(
@@ -36,9 +38,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
     private logger: NGXLogger
   ) {
     this.step = this.formBuilder.group({
-      id: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
+      id: new FormControl(null, {}),
       devName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
@@ -55,10 +55,9 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
         validators: [Validators.required],
         asyncValidators: [mimeType]
       }),
-      username: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      })
+      username: new FormControl(null, {})
     });
+
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
@@ -95,6 +94,12 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
       }
     });
     this.formService.stepReady(this.step, 'one');
+    // console.log('hi');
+    // this.saveStepOneForm.emit(this.step);
+  }
+  onSave() {
+    this.saveStepOneForm.emit(this.step);
+    this.logger.log(this.componentName, this.step);
   }
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
