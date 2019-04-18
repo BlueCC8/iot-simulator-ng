@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlaygroundService } from '../playground.service';
 import { DevicesService } from 'src/app/pages/device/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -105,6 +104,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
+    this.searchbarSubs.unsubscribe();
     this.devicesSub.unsubscribe();
   }
   // flattenDeep(arr1) {

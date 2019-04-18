@@ -45,7 +45,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
       this.username = this.authService.getUsername();
     });
   }
-  onSelectedOption(e) {
+  selectedOption(e) {
     this.getFilteredExpenseList();
   }
 

@@ -40,11 +40,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
   @Output() selectedOption = new EventEmitter();
 
-  constructor(
-    private playgroundService: PlaygroundService,
-    private searchbarService: SearchBarService,
-    private authService: AuthService
-  ) {}
+  constructor(private searchbarService: SearchBarService, private authService: AuthService) {}
 
   ngOnInit() {
     this.isLoading = true;

@@ -1,5 +1,6 @@
-<div fxLayout="row" fxLayoutAlign="center">
-  <app-search-bar fxFlex="1 1 90%" (onSelectedOption)="selectedOption($event)"></app-search-bar>
+<div fxLayout="column" fxLayoutAlign="center">
+  <app-search-bar fxFlex="1 1 90%" (selectedOption)="selectedOption($event)"></app-search-bar>
+  <app-room-list fxFlex="1 1 90%"></app-room-list>
 </div>
 <div id="main" fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="gappx">
   <div
