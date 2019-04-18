@@ -1,21 +1,23 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="step">
+  <form [formGroup]="frmStepOne">
     <mat-form-field>
       <input matInput type="text" formControlName="devName" placeholder="Device Name" />
-      <mat-error *ngIf="step.get('devName').invalid">Please enter an device name.</mat-error>
+      <mat-error *ngIf="frmStepOne.get('devName').invalid">Please enter an device name.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="tranLayer" placeholder="Transport Layer" />
-      <mat-error *ngIf="step.get('tranLayer').invalid">Please enter a value</mat-error>
+      <mat-error *ngIf="frmStepOne.get('tranLayer').invalid">Please enter a value</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="devPrice" placeholder="Price" />
-      <mat-error *ngIf="step.get('devPrice').invalid">Please enter a price</mat-error>
+      <mat-error *ngIf="frmStepOne.get('devPrice').invalid">Please enter a price</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="devProducer" placeholder="Producer" />
-      <mat-error *ngIf="step.get('devProducer').invalid">Please enter a producer name</mat-error>
+      <mat-error *ngIf="frmStepOne.get('devProducer').invalid"
+        >Please enter a producer name</mat-error
+      >
     </mat-form-field>
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">
@@ -25,12 +27,14 @@
     </div>
     <div
       class="image-preview"
-      *ngIf="imagePreview !== '' && imagePreview && step.get('devImgUrl').valid"
+      *ngIf="imagePreview !== '' && imagePreview && frmStepOne.get('devImgUrl').valid"
     >
-      <img [src]="imagePreview" [alt]="step.value.devName" />
+      <img [src]="imagePreview" [alt]="frmStepOne.value.devName" />
     </div>
     <div>
-      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
+      <button mat-button matStepperNext [disabled]="frmStepOne.invalid" (click)="onSave()">
+        Next
+      </button>
     </div>
   </form>
 </mat-card>

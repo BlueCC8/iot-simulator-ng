@@ -16,7 +16,7 @@ import { LinkLayerModel } from 'src/app/core/linkLayer/linkLayer.model';
 })
 export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
   private componentName = LinkLayerStepFourComponent.name + ' ';
-  step: FormGroup;
+  frmStepFour: FormGroup;
   imagePreview: string;
   isLoading = false;
   linkLayers: LinkLayerModel[];
@@ -70,7 +70,7 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
     //     validators: [Validators.required, Validators.minLength(3)]
     //   })
     // });
-    this.step = this.formBuilder.group({
+    this.frmStepFour = this.formBuilder.group({
       linkLayer: new FormControl(null, {
         validators: [Validators.required]
       })
@@ -118,12 +118,12 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
     //     this.deviceId = null;
     //   }
     // });
-    this.formService.stepReady(this.step, 'four');
+    // this.formService.stepReady(this.frmStepFour, 'four');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
   onSave() {
-    this.saveStepFourForm.emit(this.step);
-    this.logger.log(this.componentName, this.step);
+    // this.saveStepFourForm.emit(this.frmStepFour);
+    this.logger.log(this.componentName, this.frmStepFour);
   }
   ngOnDestroy() {
     this.linkLayersSubs.unsubscribe();

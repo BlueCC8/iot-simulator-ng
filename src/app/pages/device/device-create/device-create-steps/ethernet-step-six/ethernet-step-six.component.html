@@ -1,6 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="step">
+  <form [formGroup]="frmStepSix">
     <mat-form-field>
       <mat-label>Ethernet</mat-label>
       <mat-select formControlName="ether">
@@ -29,7 +29,9 @@
     </mat-form-field> -->
 
     <div>
-      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
+      <button mat-button matStepperNext [disabled]="frmStepSix.invalid" (click)="onSave()">
+        Next
+      </button>
     </div>
   </form>
 </mat-card>

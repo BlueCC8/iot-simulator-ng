@@ -16,7 +16,7 @@ import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
 })
 export class EthernetStepSixComponent implements OnInit, OnDestroy {
   private componentName = EthernetStepSixComponent.name + ' ';
-  step: FormGroup;
+  frmStepSix: FormGroup;
   imagePreview: string;
   isLoading = false;
   ethers: EthernetModel[];
@@ -51,7 +51,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     //     validators: [Validators.required, Validators.minLength(3)]
     //   })
     // });
-    this.step = this.formBuilder.group({
+    this.frmStepSix = this.formBuilder.group({
       ether: new FormControl(null, {
         validators: [Validators.required]
       })
@@ -93,12 +93,12 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     //     this.deviceId = null;
     //   }
     // });
-    this.formService.stepReady(this.step, 'six');
+    // this.formService.stepReady(this.frmStepSix, 'six');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
   onSave() {
-    this.saveStepSixForm.emit(this.step);
-    this.logger.log(this.componentName, this.step);
+    // this.saveStepSixForm.emit(this.frmStepSix);
+    this.logger.log(this.componentName, this.frmStepSix);
   }
   ngOnDestroy() {
     this.ethernetsSubs.unsubscribe();

@@ -16,7 +16,7 @@ import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
 })
 export class NetworkStepThreeComponent implements OnInit, OnDestroy {
   private componentName = NetworkStepThreeComponent.name + ' ';
-  step: FormGroup;
+  frmStepThree: FormGroup;
   imagePreview: string;
   isLoading = false;
   netLayers: NetLayerModel[];
@@ -52,7 +52,7 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     //     validators: [Validators.required]
     //   })
     // });
-    this.step = this.formBuilder.group({
+    this.frmStepThree = this.formBuilder.group({
       netLayer: new FormControl(null, {
         validators: [Validators.required]
       })
@@ -95,12 +95,12 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     //     this.deviceId = null;
     //   }
     // });
-    this.formService.stepReady(this.step, 'three');
+    // this.formService.stepReady(this.frmStepThree, 'three');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
   onSave() {
-    this.saveStepThreeForm.emit(this.step);
-    this.logger.log(this.componentName, this.step);
+    // this.saveStepThreeForm.emit(this.frmStepThree);
+    this.logger.log(this.componentName, this.frmStepThree);
   }
   ngOnDestroy() {
     this.netLayersSubs.unsubscribe();

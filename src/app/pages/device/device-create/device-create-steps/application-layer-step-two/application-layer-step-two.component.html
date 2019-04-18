@@ -1,6 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="step">
+  <form [formGroup]="frmStepTwo">
     <mat-form-field>
       <mat-label>Application Layer</mat-label>
       <mat-select formControlName="appLayer">
@@ -49,7 +49,9 @@
       <mat-error *ngIf="step.get('alAMQP').invalid">Please select a value</mat-error>
     </mat-form-field> -->
     <div>
-      <button mat-button matStepperNext [disabled]="step.invalid" (click)="onSave()">Next</button>
+      <button mat-button matStepperNext [disabled]="frmStepTwo.invalid" (click)="onSave()">
+        Next
+      </button>
     </div>
   </form>
 </mat-card>

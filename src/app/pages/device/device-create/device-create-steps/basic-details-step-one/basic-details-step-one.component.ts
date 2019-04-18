@@ -16,7 +16,7 @@ import { NGXLogger } from 'ngx-logger';
 })
 export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
   private componentName = BasicDetailsStepOneComponent.name + ' ';
-  step: FormGroup;
+  frmStepOne: FormGroup;
   imagePreview: string;
   isLoading = false;
   device: DeviceIntegratedModel;
@@ -37,7 +37,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
     private formService: DeviceCreateSteptsFormService,
     private logger: NGXLogger
   ) {
-    this.step = this.formBuilder.group({
+    this.frmStepOne = this.formBuilder.group({
       id: new FormControl(null, {}),
       devName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -74,7 +74,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
           this.logger.log(this.componentName, this.device);
 
           // * Set values
-          this.step.setValue({
+          this.frmStepOne.setValue({
             id: this.device.id,
             devName: this.device.devName,
             tranLayer: this.device.tranLayer,
@@ -85,7 +85,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
           });
           if (this.device.devImgUrl) {
             this.imagePreview = this.device.devImgUrl;
-            this.step.patchValue({ devImgUrl: this.device.devImgUrl });
+            this.frmStepOne.patchValue({ devImgUrl: this.device.devImgUrl });
           }
         });
       } else {
@@ -93,19 +93,19 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
         this.deviceId = null;
       }
     });
-    this.formService.stepReady(this.step, 'one');
+    // this.formService.stepReady(this.step, 'one');
     // console.log('hi');
     // this.saveStepOneForm.emit(this.step);
   }
   onSave() {
-    this.saveStepOneForm.emit(this.step);
-    this.logger.log(this.componentName, this.step);
+    // this.saveStepOneForm.emit(this.step);
+    this.logger.log(this.componentName, this.frmStepOne);
   }
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.step.patchValue({ devImgUrl: file });
+    this.frmStepOne.patchValue({ devImgUrl: file });
     // * Revalidate field
-    this.step.get('devImgUrl').updateValueAndValidity();
+    this.frmStepOne.get('devImgUrl').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;

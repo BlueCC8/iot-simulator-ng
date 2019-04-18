@@ -17,7 +17,7 @@ import { AppLayersService } from 'src/app/core/applicationLayer/applicationLayer
 })
 export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
   private componentName = ApplicationLayerStepTwoComponent.name + ' ';
-  step: FormGroup;
+  frmStepTwo: FormGroup;
   imagePreview: string;
   isLoading = false;
   device: DeviceIntegratedModel;
@@ -66,7 +66,7 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     //     validators: [Validators.required]
     //   })
     // });
-    this.step = this.formBuilder.group({
+    this.frmStepTwo = this.formBuilder.group({
       appLayer: new FormControl(null, {
         validators: [Validators.required]
       })
@@ -112,12 +112,12 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     //     this.deviceId = null;
     //   }
     // });
-    this.formService.stepReady(this.step, 'two');
+    // this.formService.stepReady(this.frmStepTwo, 'two');
     // this.formService.stepReady(this.appLayerGroup, 'two');
   }
   onSave() {
-    this.saveStepTwoForm.emit(this.step);
-    this.logger.log(this.componentName, this.step);
+    this.saveStepTwoForm.emit(this.frmStepTwo);
+    this.logger.log(this.componentName, this.frmStepTwo);
   }
   ngOnDestroy() {
     this.appLayersSubs.unsubscribe();
