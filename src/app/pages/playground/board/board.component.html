@@ -11,18 +11,19 @@
   </button>
 </div>
 
-<div fxLayout="row" class="example-boundary" fxFlexAlign="center" #board>
+<div class="example-boundary" fxFlexAlign="center" #board>
   <div
     class="example-box"
     cdkDragBoundary=".example-boundary"
     cdkDrag
     *ngFor="let device of boardDevices"
+    (dblclick)="doubleClick($event, device.id)"
   >
     <img
       matTooltip="Drag me around"
       fxFill
       *ngIf="device"
-      [src]="device.imgPath"
+      [src]="device.devImgUrl"
       [alt]="device.devName"
     />
   </div>

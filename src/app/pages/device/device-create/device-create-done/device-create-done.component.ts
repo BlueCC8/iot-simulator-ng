@@ -29,7 +29,7 @@ import { EthernetStepSixComponent } from '../device-create-steps/ethernet-step-s
 })
 export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   isLoading = false;
-  diagnostics = true;
+  diagnostics = false;
 
   form: FormGroup;
   validCreateForm = false;

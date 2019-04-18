@@ -7,6 +7,8 @@ import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-mo
 import { SearchBarService } from '../search-bar/search-bar.service';
 import { NGXLogger } from 'ngx-logger';
 import { PageEvent } from '@angular/material';
+import { BoardModel } from '../board/board.model';
+import { BoardService } from '../board/board.service';
 
 @Component({
   selector: 'app-filter-list',
@@ -37,7 +39,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
   private searchbarSubs = new Subscription();
 
   constructor(
-    private playgroundService: PlaygroundService,
+    private boardsService: BoardService,
     private searchbarService: SearchBarService,
     private devicesService: DevicesService,
     private authService: AuthService,
@@ -73,7 +75,12 @@ export class FilterListComponent implements OnInit, OnDestroy {
   }
   onAddDevice(device: DeviceIntegratedModel) {
     this.logger.log(this.componentName, device);
-    this.playgroundService.setDeviceSelected(device);
+    const boardDevice: BoardModel = {
+      id: device.id,
+      devName: device.devName,
+      devImgUrl: device.devImgUrl
+    };
+    this.boardsService.setBoardDeviceSelected(boardDevice);
   }
   checkExpanded(device: DeviceIntegratedModel) {
     return this.searchResult.filter(dev => dev.id === device.id).length > 0;

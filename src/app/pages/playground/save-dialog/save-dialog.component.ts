@@ -14,7 +14,7 @@ export class SaveDialogComponent {
   constructor(
     private setupsService: SetupService,
     public dialogRef: MatDialogRef<SaveDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string[]
+    @Inject(MAT_DIALOG_DATA) public devicesIDs: string[]
   ) {}
 
   onNoClick(): void {
@@ -28,7 +28,7 @@ export class SaveDialogComponent {
     const setup: SetupModel = {
       id: null,
       setupName: form.value.configName,
-      devIDs: this.data,
+      devIDs: this.devicesIDs,
       username: null
     };
     this.dialogRef.close();

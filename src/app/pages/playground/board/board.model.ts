@@ -1,4 +1,5 @@
 export interface BoardModel {
+  id: string;
   devName: string;
-  imgPath: string;
+  devImgUrl: string;
 }

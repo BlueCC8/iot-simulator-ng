@@ -11,10 +11,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 import { FilterListDevicePropertiesPipe } from './filter-list/filter-list-device-properties.pipe';
+import { DeleteDeviceDialogComponent } from './delete-device-dialog/delete-device-dialog.component';
 @NgModule({
   declarations: [
     BoardComponent,
     SaveDialogComponent,
+    DeleteDeviceDialogComponent,
     SetupListComponent,
     FilterListComponent,
     SearchBarComponent,

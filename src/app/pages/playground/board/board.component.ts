@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material';
 import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
 import { SaveDialogComponent } from '../save-dialog/save-dialog.component';
 import { NGXLogger } from 'ngx-logger';
+import { DeleteDeviceDialogComponent } from '../delete-device-dialog/delete-device-dialog.component';
+import { BoardService } from './board.service';
 
 @Component({
   selector: 'app-board',
@@ -18,23 +20,32 @@ export class BoardComponent implements OnInit, OnDestroy {
   boardDevices: BoardModel[] = [];
   boardDevicesIDs: string[] = [];
   deviceSub = new Subscription();
+  preventSingleClick = false;
+  timer: any;
+  delay: number;
 
   constructor(
     private dialog: MatDialog,
-    private playgroundService: PlaygroundService,
+    private boardsService: BoardService,
     private logger: NGXLogger
   ) {}
 
   ngOnInit() {
-    this.deviceSub = this.playgroundService.getDeviceStatus().subscribe(
-      device => {
-        this.boardDevices.push({ devName: device.devName, imgPath: device.devImgUrl });
-        this.boardDevicesIDs.push(device.id);
+    this.deviceSub = this.boardsService.getBoardDeviceStatus().subscribe(
+      devices => {
+        this.boardDevices = devices;
+        this.boardDevicesIDs = devices.map(device => device.id);
       },
       error => {
         this.logger.error(this.componentName + error);
       }
     );
+  }
+  doubleClick(event, deviceId) {
+    this.preventSingleClick = true;
+    clearTimeout(this.timer);
+    console.log(deviceId);
+    this.dialog.open(DeleteDeviceDialogComponent, { data: deviceId });
   }
   onSaveConfig() {
     this.dialog.open(SaveDialogComponent, { data: this.boardDevicesIDs });

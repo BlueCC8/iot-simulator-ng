@@ -21,6 +21,7 @@ import { NavigationModule } from './pages/navigation/navigation.module';
 import { FooterComponent } from './pages/footer/footer.component';
 import { AngularFireModule } from '@angular/fire';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-dialog/delete-device-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, FooterComponent],
@@ -49,6 +50,11 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent, SaveDialogComponent, BottomSheetComponent]
+  entryComponents: [
+    ErrorComponent,
+    SaveDialogComponent,
+    BottomSheetComponent,
+    DeleteDeviceDialogComponent
+  ]
 })
 export class AppModule {}

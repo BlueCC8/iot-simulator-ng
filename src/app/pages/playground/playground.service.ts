@@ -9,19 +9,19 @@ import { NGXLogger } from 'ngx-logger';
 })
 export class PlaygroundService {
   private componentName = PlaygroundService.name + ' ';
-  private filterDevice: any;
-  private deviceSelectedListener = new Subject<DeviceIntegratedModel>();
-  // private dropStatus = new Subject<CdkDragDrop<string[]>>();
-  constructor(private logger: NGXLogger) {}
-  getDeviceStatus() {
-    return this.deviceSelectedListener.asObservable();
-  }
+  // private filterDevice: any;
+  // private deviceSelectedListener = new Subject<DeviceIntegratedModel>();
+  // // private dropStatus = new Subject<CdkDragDrop<string[]>>();
+  // constructor(private logger: NGXLogger) {}
+  // getDeviceStatus() {
+  //   return this.deviceSelectedListener.asObservable();
+  // }
 
-  setDeviceSelected(device: DeviceIntegratedModel) {
-    this.logger.log(this.componentName, 'Set device');
-    this.filterDevice = device;
-    this.deviceSelectedListener.next(device);
-  }
+  // setDeviceSelected(device: DeviceIntegratedModel) {
+  //   this.logger.log(this.componentName, 'Set device');
+  //   this.filterDevice = device;
+  //   this.deviceSelectedListener.next(device);
+  // }
 
   // dropElement(event: CdkDragDrop<string[]>) {
   //   console.log(event);
