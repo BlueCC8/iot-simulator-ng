@@ -21,18 +21,29 @@ export class SetupService {
   private componentName = SetupService.name + ' ';
   private devices: Device[] = [];
   private setups: SetupDevicesModel[] = [];
-  private setupsUpdated = new Subject<{ setups: SetupDevicesModel[]; maxSetups: number }>();
+  private configIds: string[] = [];
+  private setupsUpdated = new Subject<{
+    setups: SetupDevicesModel[];
+    maxSetups: number;
+    configIds: string[];
+  }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
-  getSetups(pageSize: number, page: number, isPopulated: boolean) {
+  getSetups(pageSize: number, page: number, isPopulated: boolean, configIds: string[]) {
     let queryParams = '';
-    if (pageSize && page) {
-      queryParams = `?pagesize=${pageSize}&page=${page}&populated=${isPopulated}`;
-    } else {
-      queryParams = `?populated=${isPopulated}`;
+    let ids = '';
+    this.configIds = configIds;
+    if (configIds) {
+      ids = configIds.map(id => `&ids=${id}&`).join('');
     }
-
+    this.logger.log(this.componentName, ids);
+    if (pageSize && page) {
+      queryParams = `?pagesize=${pageSize}&page=${page}&populated=${isPopulated}${ids}`;
+    } else {
+      queryParams = `?populated=${isPopulated}${ids}`;
+    }
+    this.logger.log(this.componentName, 'queryParams', queryParams);
     this.http
       .get<{ configs: SetupDevicesDto[]; maxConfigs: number }>(BACKEND_URL + queryParams)
       .pipe(
@@ -72,7 +83,8 @@ export class SetupService {
           this.setups = transformedSetupData.setups;
           this.setupsUpdated.next({
             setups: [...this.setups],
-            maxSetups: transformedSetupData.maxSetups
+            maxSetups: transformedSetupData.maxSetups,
+            configIds: this.configIds
           });
         },
         error => {

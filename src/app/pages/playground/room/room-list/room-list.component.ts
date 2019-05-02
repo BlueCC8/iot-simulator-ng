@@ -8,6 +8,8 @@ import { NGXLogger } from 'ngx-logger';
 import { RoomService } from '../room.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RoomPolygonsModel } from '../room-polygon.model';
+import { RoomModel } from '../room.model';
+import { SetupService } from '../../setup/setup.service';
 
 @Component({
   selector: 'app-room-list',
@@ -17,6 +19,7 @@ import { RoomPolygonsModel } from '../room-polygon.model';
 export class RoomListComponent implements OnInit, OnDestroy {
   private componentName = RoomListComponent.name + ' ';
   defaultValue = 'Select room';
+  selected = '';
   rooms: RoomPolygonsModel[] = [];
   isLoading = false;
   roomsPerPage = null;
@@ -24,6 +27,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
   currentPage = null;
   isPopulated = true;
   username: string;
+  setupsPerPage = null;
+
   totalRooms = 0;
 
   authListenerSubs = new Subscription();
@@ -31,7 +36,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
   constructor(
     private logger: NGXLogger,
     private authService: AuthService,
-    private roomsService: RoomService
+    private roomsService: RoomService,
+    private setupsService: SetupService
   ) {}
 
   ngOnInit() {
@@ -54,7 +60,11 @@ export class RoomListComponent implements OnInit, OnDestroy {
       this.username = this.authService.getUsername();
     });
   }
-
+  onSelected(room: RoomModel) {
+    this.logger.log(this.componentName, room.configDevIDs);
+    const configIds = room.configDevIDs;
+    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, configIds);
+  }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
     this.roomsSubs.unsubscribe();

@@ -25,6 +25,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private isPopulated = true;
+  private ids = [];
   private setupSubs = new Subscription();
   private authListenerSubs = new Subscription();
 
@@ -37,17 +38,19 @@ export class SetupListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, this.ids);
     this.username = this.authService.getUsername();
-
     this.setupSubs = this.setupsService
       .getSetupUpdateStatus()
-      .subscribe((setupsData: { setups: SetupDevicesModel[]; maxSetups: number }) => {
-        this.isLoading = false;
-        this.setups = setupsData.setups;
-        this.totalSetups = setupsData.maxSetups;
-      });
-
+      .subscribe(
+        (setupsData: { setups: SetupDevicesModel[]; maxSetups: number; configIds: string[] }) => {
+          this.isLoading = false;
+          this.setups = setupsData.setups;
+          this.totalSetups = setupsData.maxSetups;
+          this.ids = setupsData.configIds;
+          console.log(this.totalSetups);
+        }
+      );
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
@@ -64,13 +67,18 @@ export class SetupListComponent implements OnInit, OnDestroy {
     this.totalSetups = pageData.length;
     this.setupsPerPage = pageData.pageSize;
     this.currentPage = pageData.pageIndex + 1;
-    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, this.ids);
   }
 
   onDelete(setupId: string) {
     this.isLoading = true;
     this.setupsService.deleteSetup(setupId).subscribe(() => {
-      this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+      this.setupsService.getSetups(
+        this.setupsPerPage,
+        this.currentPage,
+        this.isPopulated,
+        this.ids
+      );
     });
   }
   ngOnDestroy() {

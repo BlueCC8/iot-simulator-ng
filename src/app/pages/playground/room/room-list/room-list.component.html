@@ -1,10 +1,10 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <mat-form-field fxFill>
   <mat-label>Room</mat-label>
-  <mat-select>
+  <mat-select (selectionChange)="onSelected($event.value)">
     <mat-option *ngFor="let room of rooms" [value]="room">
       <span> {{ room.roomName }}</span>
-      <span *ngFor="let prop of (room | roomListProperties | keyvalue)">
+      <span *ngFor="let prop of room | roomListProperties | keyvalue">
         {{ prop.key }} - {{ prop.value }};
       </span></mat-option
     >
