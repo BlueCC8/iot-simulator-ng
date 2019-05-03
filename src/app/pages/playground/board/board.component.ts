@@ -48,6 +48,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.dialog.open(DeleteDeviceDialogComponent, { data: deviceId });
   }
   onSaveConfig() {
+    this.boardDevicesIDs = this.boardsService.removeDuplicateSym(this.boardDevicesIDs);
+    this.logger.log(this.componentName, this.boardDevicesIDs);
     this.dialog.open(SaveDialogComponent, { data: this.boardDevicesIDs });
   }
   ngOnDestroy() {

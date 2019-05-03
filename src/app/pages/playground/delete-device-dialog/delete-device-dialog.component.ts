@@ -20,4 +20,8 @@ export class DeleteDeviceDialogComponent {
     this.dialogRef.close();
     this.boardsService.removeBoardDeviceSelected(this.deviceId);
   }
+  onDeleteAll() {
+    this.dialogRef.close();
+    this.boardsService.removeBoardAllDevices();
+  }
 }
