@@ -14,7 +14,7 @@ const BACKEND_URL = environment.apiUrl + '/link_layer/';
 export class LinkLayersService {
   linkLayers: LinkLayerModel[] = [];
   private componentName = LinkLayersService.name + ' ';
-  private linkLayersUpdated = new Subject<{
+  private linkLayersUpdated$ = new Subject<{
     linkLayers: LinkLayerModel[];
     maxLinkLayers: number;
   }>();
@@ -23,7 +23,7 @@ export class LinkLayersService {
 
   // * Listener to be able to provide subscription to othe components
   getLinkLayersUpdateListener() {
-    return this.linkLayersUpdated.asObservable();
+    return this.linkLayersUpdated$.asObservable();
   }
   getLinkLayers(pageSize: number, page: number) {
     let queryParams = '';
@@ -60,7 +60,7 @@ export class LinkLayersService {
         transformedLinkLayersData => {
           this.linkLayers = transformedLinkLayersData.linkLayers;
           this.logger.log(this.componentName, this.linkLayers);
-          this.linkLayersUpdated.next({
+          this.linkLayersUpdated$.next({
             linkLayers: [...this.linkLayers],
             maxLinkLayers: transformedLinkLayersData.maxLinkLayers
           });

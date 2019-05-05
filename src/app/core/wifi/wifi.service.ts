@@ -14,13 +14,13 @@ const BACKEND_URL = environment.apiUrl + '/wifi/';
 export class WifisService {
   private componentName = WifisService.name + ' ';
   private wifis: WifiModel[] = [];
-  private wifisUpdated = new Subject<{ wifis: WifiModel[]; maxWifis: number }>();
+  private wifisUpdated$ = new Subject<{ wifis: WifiModel[]; maxWifis: number }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   // * Listener to be able to provide subscription to othe components
   getWifisUpdateListener() {
-    return this.wifisUpdated.asObservable();
+    return this.wifisUpdated$.asObservable();
   }
   getWifis(pageSize: number, page: number) {
     let queryParams = '';
@@ -50,7 +50,7 @@ export class WifisService {
         transformedWifisData => {
           this.wifis = transformedWifisData.wifis;
           this.logger.log(this.componentName, this.wifis);
-          this.wifisUpdated.next({
+          this.wifisUpdated$.next({
             wifis: [...this.wifis],
             maxWifis: transformedWifisData.maxWifis
           });

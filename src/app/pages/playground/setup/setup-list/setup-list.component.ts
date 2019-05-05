@@ -26,8 +26,8 @@ export class SetupListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   private isPopulated = true;
   private ids = [];
-  private setupSubs = new Subscription();
-  private authListenerSubs = new Subscription();
+  private setupSubs$ = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -40,7 +40,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, this.ids);
     this.username = this.authService.getUsername();
-    this.setupSubs = this.setupsService
+    this.setupSubs$ = this.setupsService
       .getSetupUpdateStatus()
       .subscribe(
         (setupsData: { setups: SetupDevicesModel[]; maxSetups: number; configIds: string[] }) => {
@@ -51,7 +51,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
@@ -81,7 +81,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.setupSubs.unsubscribe();
-    this.authListenerSubs.unsubscribe();
+    this.setupSubs$.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

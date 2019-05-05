@@ -27,7 +27,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
   pageSize = null;
   page = null;
   totalEthers = 0;
-  private ethernetsSubs = new Subscription();
+  private ethernetsSubs$ = new Subscription();
   @Output() saveStepSixForm = new EventEmitter<FormGroup>();
 
   ngOnInit() {}
@@ -58,7 +58,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.ethernetsService.getEthernets(this.pageSize, this.page);
-    this.ethernetsSubs = this.ethernetsService
+    this.ethernetsSubs$ = this.ethernetsService
       .getEthernetUpdateListener()
       .subscribe((ethersData: { ethers: EthernetModel[]; maxEthers: number }) => {
         this.isLoading = false;
@@ -101,6 +101,6 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepSix);
   }
   ngOnDestroy() {
-    this.ethernetsSubs.unsubscribe();
+    this.ethernetsSubs$.unsubscribe();
   }
 }

@@ -43,7 +43,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private deviceId: string;
   private componentName = DeviceCreateDoneComponent.name + ' ';
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   @ViewChild(MatVerticalStepper) stepper: MatVerticalStepper;
   @ViewChild(BasicDetailsStepOneComponent) firstFormGroup: BasicDetailsStepOneComponent;
@@ -82,7 +82,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
     return this.sixthFormGroup ? this.sixthFormGroup.frmStepSix : null;
   }
   ngOnInit() {
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
 
@@ -156,6 +156,6 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

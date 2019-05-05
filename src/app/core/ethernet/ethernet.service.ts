@@ -14,7 +14,7 @@ const BACKEND_URL = environment.apiUrl + '/ethernet/';
 export class EthernetsService {
   private componentName = EthernetsService.name + ' ';
   private ethers: EthernetModel[] = [];
-  private ethersUpdated = new Subject<{ ethers: EthernetModel[]; maxEthers: number }>();
+  private ethersUpdated$ = new Subject<{ ethers: EthernetModel[]; maxEthers: number }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
@@ -46,7 +46,7 @@ export class EthernetsService {
       .subscribe(transformedEthersData => {
         this.logger.log(this.componentName, transformedEthersData.ethers);
         this.ethers = transformedEthersData.ethers;
-        this.ethersUpdated.next({
+        this.ethersUpdated$.next({
           ethers: [...this.ethers],
           maxEthers: transformedEthersData.maxEthers
         });
@@ -54,7 +54,7 @@ export class EthernetsService {
   }
   // * Listener to be able to provide subscription to othe components
   getEthernetUpdateListener() {
-    return this.ethersUpdated.asObservable();
+    return this.ethersUpdated$.asObservable();
   }
 
   getEthernet(id: string) {

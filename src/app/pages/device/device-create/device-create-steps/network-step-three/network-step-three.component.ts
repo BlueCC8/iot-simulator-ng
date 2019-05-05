@@ -26,7 +26,7 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
   isPopulated = true;
   pageSize = null;
   page = null;
-  private netLayersSubs = new Subscription();
+  private netLayersSubs$ = new Subscription();
   @Output() saveStepThreeForm = new EventEmitter<FormGroup>();
   ngOnInit() {}
 
@@ -59,7 +59,7 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.netLayersService.getNetLayers(this.pageSize, this.page);
-    this.netLayersSubs = this.netLayersService
+    this.netLayersSubs$ = this.netLayersService
       .getNetLayersUpdateListener()
       .subscribe((netLayersData: { netLayers: NetLayerModel[]; maxNetLayers: number }) => {
         this.isLoading = false;
@@ -103,6 +103,6 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepThree);
   }
   ngOnDestroy() {
-    this.netLayersSubs.unsubscribe();
+    this.netLayersSubs$.unsubscribe();
   }
 }

@@ -14,13 +14,13 @@ const BACKEND_URL = environment.apiUrl + '/app_layer/';
 export class AppLayersService {
   private appLayers: AppLayerModel[] = [];
   private componentName = AppLayersService.name + ' ';
-  private appLayersUpdated = new Subject<{ appLayers: AppLayerModel[]; maxAppLayers: number }>();
+  private appLayersUpdated$ = new Subject<{ appLayers: AppLayerModel[]; maxAppLayers: number }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   // * Listener to be able to provide subscription to othe components
   getAppLayersUpdateListener() {
-    return this.appLayersUpdated.asObservable();
+    return this.appLayersUpdated$.asObservable();
   }
   getAppLayers(pageSize: number, page: number) {
     let queryParams = '';
@@ -53,7 +53,7 @@ export class AppLayersService {
         transformedAppLayersData => {
           this.appLayers = transformedAppLayersData.appLayers;
           this.logger.log(this.componentName, this.appLayers);
-          this.appLayersUpdated.next({
+          this.appLayersUpdated$.next({
             appLayers: [...this.appLayers],
             maxAppLayers: transformedAppLayersData.maxAppLayers
           });

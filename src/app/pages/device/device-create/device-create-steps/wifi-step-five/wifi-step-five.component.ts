@@ -26,7 +26,7 @@ export class WifiStepFiveComponent implements OnInit, OnDestroy {
   pageSize = null;
   page = null;
   totalWifis = 0;
-  private wifisSubs = new Subscription();
+  private wifisSubs$ = new Subscription();
   @Output() saveStepFiveForm = new EventEmitter<FormGroup>();
   ngOnInit() {}
 
@@ -59,7 +59,7 @@ export class WifiStepFiveComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.wifisService.getWifis(this.pageSize, this.page);
-    this.wifisSubs = this.wifisService
+    this.wifisSubs$ = this.wifisService
       .getWifisUpdateListener()
       .subscribe((wifisData: { wifis: WifiModel[]; maxWifis: number }) => {
         this.isLoading = false;
@@ -103,6 +103,6 @@ export class WifiStepFiveComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepFive);
   }
   ngOnDestroy() {
-    this.wifisSubs.unsubscribe();
+    this.wifisSubs$.unsubscribe();
   }
 }

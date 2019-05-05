@@ -22,7 +22,7 @@ export class SetupService {
   private devices: Device[] = [];
   private setups: SetupDevicesModel[] = [];
   private configIds: string[] = [];
-  private setupsUpdated = new Subject<{
+  private setupsUpdated$ = new Subject<{
     setups: SetupDevicesModel[];
     maxSetups: number;
     configIds: string[];
@@ -81,7 +81,7 @@ export class SetupService {
         transformedSetupData => {
           this.logger.log(this.componentName, transformedSetupData.setups);
           this.setups = transformedSetupData.setups;
-          this.setupsUpdated.next({
+          this.setupsUpdated$.next({
             setups: [...this.setups],
             maxSetups: transformedSetupData.maxSetups,
             configIds: this.configIds
@@ -94,7 +94,7 @@ export class SetupService {
   }
 
   getSetupUpdateStatus() {
-    return this.setupsUpdated.asObservable();
+    return this.setupsUpdated$.asObservable();
   }
   addSetup(setup: SetupModel) {
     const setupDto: SetupCreateDto = {

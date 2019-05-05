@@ -13,17 +13,17 @@ export class SearchBarService {
   public devicesData: DeviceIntegratedModel[];
   totalDevices: number;
 
-  private deviceUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
-  private searchUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
+  private deviceUpdated$ = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
+  private searchUpdated$ = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
 
   constructor(private devicesService: DevicesService, private logger: NGXLogger) {}
   // * Listener to be able to provide subscription for devices
   getDeviceUpdateListener() {
-    return this.deviceUpdated.asObservable();
+    return this.deviceUpdated$.asObservable();
   }
   // * Listener for providing subscription for searched items
   getSearchUpdateListener() {
-    return this.searchUpdated.asObservable();
+    return this.searchUpdated$.asObservable();
   }
   /**
    * Uses the service DevicesService to provide data to the search bar
@@ -38,7 +38,7 @@ export class SearchBarService {
       (devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.devicesData = devicesData.devices;
         this.totalDevices = devicesData.maxDevices;
-        this.deviceUpdated.next({
+        this.deviceUpdated$.next({
           devices: devicesData.devices,
           maxDevices: devicesData.maxDevices
         });
@@ -64,6 +64,6 @@ export class SearchBarService {
   }
 
   setSearchedData(devices: DeviceIntegratedModel[], maxDevices: number) {
-    this.searchUpdated.next({ devices, maxDevices });
+    this.searchUpdated$.next({ devices, maxDevices });
   }
 }

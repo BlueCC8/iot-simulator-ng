@@ -23,8 +23,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   boardDevices: BoardModel[] = [];
   boardDevicesIDs: string[] = [];
   currentRoom: RoomModel;
-  deviceSub = new Subscription();
-  roomSub = new Subscription();
+  deviceSub$ = new Subscription();
+  roomSub$ = new Subscription();
   preventSingleClick = false;
   timer: any;
   delay: number;
@@ -37,7 +37,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.deviceSub = this.boardsService.getBoardDeviceStatus().subscribe(
+    this.deviceSub$ = this.boardsService.getBoardDeviceStatus().subscribe(
       devices => {
         this.boardDevices = devices;
         this.boardDevicesIDs = devices.map(device => device.id);
@@ -46,7 +46,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.logger.error(this.componentName + error);
       }
     );
-    this.roomSub = this.roomsService.getRoomSelectedListener().subscribe(
+    this.roomSub$ = this.roomsService.getRoomSelectedListener().subscribe(
       room => {
         this.currentRoom = room;
       },
@@ -73,6 +73,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.dialog.open(SaveDialogComponent, { data: setupData });
   }
   ngOnDestroy() {
-    this.deviceSub.unsubscribe();
+    this.deviceSub$.unsubscribe();
   }
 }

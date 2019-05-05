@@ -28,7 +28,7 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
   page = null;
   totalLinkLayers = 0;
 
-  private linkLayersSubs = new Subscription();
+  private linkLayersSubs$ = new Subscription();
   @Output() saveStepFourForm = new EventEmitter<FormGroup>();
 
   ngOnInit() {}
@@ -77,7 +77,7 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.linkLayersService.getLinkLayers(this.pageSize, this.page);
-    this.linkLayersSubs = this.linkLayersService
+    this.linkLayersSubs$ = this.linkLayersService
       .getLinkLayersUpdateListener()
       .subscribe((linkLayersData: { linkLayers: LinkLayerModel[]; maxLinkLayers: number }) => {
         this.isLoading = false;
@@ -126,6 +126,6 @@ export class LinkLayerStepFourComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepFour);
   }
   ngOnDestroy() {
-    this.linkLayersSubs.unsubscribe();
+    this.linkLayersSubs$.unsubscribe();
   }
 }

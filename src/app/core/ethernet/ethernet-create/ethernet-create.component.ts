@@ -18,14 +18,14 @@ export class EthernetCreateComponent implements OnInit, OnDestroy {
   imagePreview: string;
   private mode = 'create';
   private etherId: string;
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
   constructor(
     public ethernetsService: EthernetsService,
     private authService: AuthService,
     public route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
     this.form = new FormGroup({
@@ -110,6 +110,6 @@ export class EthernetCreateComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

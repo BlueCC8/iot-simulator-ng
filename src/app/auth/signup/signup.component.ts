@@ -12,11 +12,11 @@ import { Subscription } from 'rxjs';
 export class SignupComponent implements OnInit, OnDestroy {
   hide = true;
   isLoading = false;
-  private authStatusSub: Subscription;
+  private authStatusSub$: Subscription;
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authStatusSub$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
   }
@@ -33,6 +33,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authService.createUser(user);
   }
   ngOnDestroy() {
-    this.authStatusSub.unsubscribe();
+    this.authStatusSub$.unsubscribe();
   }
 }

@@ -26,7 +26,7 @@ export class DevicesService {
   private wifi: WifiModel;
   private ether: EthernetModel;
   private linLayer: LinkLayerIntegratedModel;
-  private devicesUpdated = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
+  private devicesUpdated$ = new Subject<{ devices: DeviceIntegratedModel[]; maxDevices: number }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
   // * Get method for getting Devices from the server
@@ -54,7 +54,7 @@ export class DevicesService {
         transformedDevicesData => {
           this.devices = transformedDevicesData.devices;
           this.logger.log('Devices service', this.devices);
-          this.devicesUpdated.next({
+          this.devicesUpdated$.next({
             devices: [...this.devices],
             maxDevices: transformedDevicesData.maxDevices
           });
@@ -66,7 +66,7 @@ export class DevicesService {
   }
   // * Listener to be able to provide subscription to othe components
   getDeviceUpdateListener() {
-    return this.devicesUpdated.asObservable();
+    return this.devicesUpdated$.asObservable();
   }
   getDevice(id: string, isPopulated: boolean) {
     let queryParams = '';

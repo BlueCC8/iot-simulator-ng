@@ -20,8 +20,8 @@ export class EthernetListComponent implements OnInit, OnDestroy {
   ethersPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
-  private ethersSub: Subscription;
-  private authListenerSubs = new Subscription();
+  private ethersSub$: Subscription;
+  private authListenerSubs$ = new Subscription();
   constructor(public ethersService: EthernetsService, private authService: AuthService) {}
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class EthernetListComponent implements OnInit, OnDestroy {
     this.ethersService.getEthernets(this.ethersPerPage, this.currentPage);
     this.username = this.authService.getUsername();
 
-    this.ethersSub = this.ethersService
+    this.ethersSub$ = this.ethersService
       .getEthernetUpdateListener()
       .subscribe((ethersData: { ethers: EthernetModel[]; maxEthers: number }) => {
         this.isLoading = false;
@@ -38,7 +38,7 @@ export class EthernetListComponent implements OnInit, OnDestroy {
         this.totalEthers = ethersData.maxEthers;
       });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
@@ -59,7 +59,7 @@ export class EthernetListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.ethersSub.unsubscribe();
-    this.authListenerSubs.unsubscribe();
+    this.ethersSub$.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

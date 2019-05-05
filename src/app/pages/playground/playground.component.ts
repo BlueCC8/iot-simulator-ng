@@ -20,8 +20,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   userIsAuthenticated: boolean;
   devicesPerPage = 5;
   currentPage = 1;
-  devicesSub = new Subscription();
-  authListenerSubs = new Subscription();
+  devicesSub$ = new Subscription();
+  authListenerSubs$ = new Subscription();
   constructor(
     private searchbarService: SearchBarService,
     private devicesService: DevicesService,
@@ -40,7 +40,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     //     this.totalDevices = devicesData.maxDevices;
     //   });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
@@ -58,7 +58,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.devicesSub.unsubscribe();
-    this.authListenerSubs.unsubscribe();
+    this.devicesSub$.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

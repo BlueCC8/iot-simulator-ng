@@ -10,14 +10,14 @@ import { Subscription } from 'rxjs';
 export class SidenavListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
 
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
   @Output() sidenavClose = new EventEmitter();
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
   }
@@ -29,6 +29,6 @@ export class SidenavListComponent implements OnInit, OnDestroy {
     this.sidenavClose.emit();
   }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

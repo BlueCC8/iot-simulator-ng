@@ -29,7 +29,7 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
 
   private pageSize = null;
   private page = null;
-  private appLayersSubs = new Subscription();
+  private appLayersSubs$ = new Subscription();
   @Output() saveStepTwoForm = new EventEmitter<FormGroup>();
 
   ngOnInit() {}
@@ -73,7 +73,7 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.appLayersService.getAppLayers(this.pageSize, this.page);
-    this.appLayersSubs = this.appLayersService
+    this.appLayersSubs$ = this.appLayersService
       .getAppLayersUpdateListener()
       .subscribe((appLayersData: { appLayers: AppLayerModel[]; maxAppLayers: number }) => {
         this.isLoading = false;
@@ -120,6 +120,6 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepTwo);
   }
   ngOnDestroy() {
-    this.appLayersSubs.unsubscribe();
+    this.appLayersSubs$.unsubscribe();
   }
 }

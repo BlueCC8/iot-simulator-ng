@@ -31,8 +31,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
 
   totalRooms = 0;
 
-  authListenerSubs = new Subscription();
-  roomsSubs = new Subscription();
+  authListenerSubs$ = new Subscription();
+  roomsSubs$ = new Subscription();
   constructor(
     private logger: NGXLogger,
     private authService: AuthService,
@@ -45,7 +45,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.roomsService.getRooms(this.roomsPerPage, this.currentPage, this.isPopulated);
     this.username = this.authService.getUsername();
 
-    this.roomsSubs = this.roomsService
+    this.roomsSubs$ = this.roomsService
       .getRoomUpdateStatus()
       .subscribe((roomsData: { rooms: RoomPolygonsModel[]; maxRooms: number }) => {
         this.isLoading = false;
@@ -55,7 +55,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
       });
 
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
@@ -67,7 +67,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.roomsService.setRoomSelected(room);
   }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
-    this.roomsSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
+    this.roomsSubs$.unsubscribe();
   }
 }

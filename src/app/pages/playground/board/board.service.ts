@@ -14,11 +14,11 @@ export class BoardService {
   private boardDevicesIDs: string[] = [];
 
   private counterDup = 1;
-  private boardDeviceSelectedListener = new Subject<BoardModel[]>();
+  private boardDeviceSelectedListener$ = new Subject<BoardModel[]>();
 
   constructor(private logger: NGXLogger) {}
   getBoardDeviceStatus() {
-    return this.boardDeviceSelectedListener.asObservable();
+    return this.boardDeviceSelectedListener$.asObservable();
   }
 
   setBoardDeviceSelected(device: BoardModel) {
@@ -29,22 +29,22 @@ export class BoardService {
     }
     this.boardDevicesIDs.push(device.id);
     this.boardDevices.push(device);
-    this.boardDeviceSelectedListener.next(this.boardDevices);
+    this.boardDeviceSelectedListener$.next(this.boardDevices);
   }
   setBoardAllSelected(devices: BoardModel[]) {
     this.boardDevices = devices;
     this.boardDevicesIDs = devices.map(device => device.id);
-    this.boardDeviceSelectedListener.next(this.boardDevices);
+    this.boardDeviceSelectedListener$.next(this.boardDevices);
   }
   removeBoardDeviceSelected(deviceId: string) {
     this.logger.log(this.componentName, 'Remove device', deviceId);
     this.boardDevices = this.boardDevices.filter(boardDevice => boardDevice.id !== deviceId);
-    this.boardDeviceSelectedListener.next(this.boardDevices);
+    this.boardDeviceSelectedListener$.next(this.boardDevices);
   }
   removeBoardAllDevices() {
     this.logger.log(this.componentName, 'Removing all the devices from the board');
     this.boardDevices.length = 0;
-    this.boardDeviceSelectedListener.next(this.boardDevices);
+    this.boardDeviceSelectedListener$.next(this.boardDevices);
   }
   removeDuplicateSym(boardDevicesIDs: string[]) {
     return boardDevicesIDs.map(id => {

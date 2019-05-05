@@ -15,13 +15,13 @@ export class NetLayersService {
   private componentName = NetLayersService.name + ' ';
   private netLayers: NetLayerModel[] = [];
 
-  private netLayersUpdated = new Subject<{ netLayers: NetLayerModel[]; maxNetLayers: number }>();
+  private netLayersUpdated$ = new Subject<{ netLayers: NetLayerModel[]; maxNetLayers: number }>();
 
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   // * Listener to be able to provide subscription to othe components
   getNetLayersUpdateListener() {
-    return this.netLayersUpdated.asObservable();
+    return this.netLayersUpdated$.asObservable();
   }
   getNetLayers(pageSize: number, page: number) {
     let queryParams = '';
@@ -51,7 +51,7 @@ export class NetLayersService {
         transformedNetLayersData => {
           this.netLayers = transformedNetLayersData.netLayers;
           this.logger.log(this.componentName, this.netLayers);
-          this.netLayersUpdated.next({
+          this.netLayersUpdated$.next({
             netLayers: [...this.netLayers],
             maxNetLayers: transformedNetLayersData.maxNetLayers
           });
