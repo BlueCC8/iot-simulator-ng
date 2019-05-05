@@ -3,4 +3,5 @@ export interface SetupModel {
   setupName: string;
   devIDs: string[];
   username: string;
+  roomId: string;
 }

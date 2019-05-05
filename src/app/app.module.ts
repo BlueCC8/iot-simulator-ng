@@ -19,7 +19,6 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from 'src/environments/environment';
 import { NavigationModule } from './pages/navigation/navigation.module';
 import { FooterComponent } from './pages/footer/footer.component';
-import { AngularFireModule } from '@angular/fire';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-dialog/delete-device-dialog.component';
 

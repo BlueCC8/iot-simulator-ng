@@ -48,7 +48,6 @@ export class SetupListComponent implements OnInit, OnDestroy {
           this.setups = setupsData.setups;
           this.totalSetups = setupsData.maxSetups;
           this.ids = setupsData.configIds;
-          console.log(this.totalSetups);
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuthenticated();

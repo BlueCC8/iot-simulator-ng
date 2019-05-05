@@ -17,11 +17,20 @@ const BACKEND_URL = environment.apiUrl + '/room/';
 export class RoomService {
   private componentName = RoomService.name + ' ';
   private rooms: RoomPolygonsModel[] = [];
+  private currentRoom: RoomModel;
   private roomsUpdated = new Subject<{ rooms: RoomPolygonsModel[]; maxRooms: number }>();
+  private roomSelectedListener = new Subject<RoomModel>();
 
   constructor(private logger: NGXLogger, private http: HttpClient) {}
   getRoomUpdateStatus() {
     return this.roomsUpdated.asObservable();
+  }
+  getRoomSelectedListener() {
+    return this.roomSelectedListener.asObservable();
+  }
+  setRoomSelected(room: RoomModel) {
+    this.currentRoom = room;
+    this.roomSelectedListener.next(room);
   }
   getRooms(pageSize: number, page: number, isPopulated: boolean) {
     let queryParams = '';

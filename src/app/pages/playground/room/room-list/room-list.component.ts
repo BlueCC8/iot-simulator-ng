@@ -64,6 +64,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, room.configDevIDs);
     const configIds = room.configDevIDs;
     this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, configIds);
+    this.roomsService.setRoomSelected(room);
   }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();

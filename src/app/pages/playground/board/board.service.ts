@@ -12,6 +12,7 @@ export class BoardService {
   private componentName = BoardService.name + ' ';
   private boardDevices: BoardModel[] = [];
   private boardDevicesIDs: string[] = [];
+
   private counterDup = 1;
   private boardDeviceSelectedListener = new Subject<BoardModel[]>();
 
@@ -49,8 +50,6 @@ export class BoardService {
     return boardDevicesIDs.map(id => {
       const indexDuplicate = id.indexOf(this.duplicateSym);
       if (indexDuplicate !== -1) {
-        console.log(indexDuplicate);
-
         return id.substr(0, indexDuplicate);
       }
       return id;

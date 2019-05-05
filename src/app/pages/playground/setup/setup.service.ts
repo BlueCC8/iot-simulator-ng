@@ -99,7 +99,8 @@ export class SetupService {
   addSetup(setup: SetupModel) {
     const setupDto: SetupCreateDto = {
       configName: setup.setupName,
-      devIDs: setup.devIDs
+      devIDs: setup.devIDs,
+      roomId: setup.roomId
     };
     this.logger.log(this.componentName, setup);
 

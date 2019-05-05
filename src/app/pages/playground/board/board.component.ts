@@ -9,6 +9,9 @@ import { SaveDialogComponent } from '../save-dialog/save-dialog.component';
 import { NGXLogger } from 'ngx-logger';
 import { DeleteDeviceDialogComponent } from '../delete-device-dialog/delete-device-dialog.component';
 import { BoardService } from './board.service';
+import { RoomService } from '../room/room.service';
+import { RoomModel } from '../room/room.model';
+import { SetupCreateDto } from '../setup/setup.create-dto';
 
 @Component({
   selector: 'app-board',
@@ -19,7 +22,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   private componentName = BoardComponent.name + ' ';
   boardDevices: BoardModel[] = [];
   boardDevicesIDs: string[] = [];
+  currentRoom: RoomModel;
   deviceSub = new Subscription();
+  roomSub = new Subscription();
   preventSingleClick = false;
   timer: any;
   delay: number;
@@ -27,6 +32,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private boardsService: BoardService,
+    private roomsService: RoomService,
     private logger: NGXLogger
   ) {}
 
@@ -35,6 +41,14 @@ export class BoardComponent implements OnInit, OnDestroy {
       devices => {
         this.boardDevices = devices;
         this.boardDevicesIDs = devices.map(device => device.id);
+      },
+      error => {
+        this.logger.error(this.componentName + error);
+      }
+    );
+    this.roomSub = this.roomsService.getRoomSelectedListener().subscribe(
+      room => {
+        this.currentRoom = room;
       },
       error => {
         this.logger.error(this.componentName + error);
@@ -50,7 +64,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   onSaveConfig() {
     this.boardDevicesIDs = this.boardsService.removeDuplicateSym(this.boardDevicesIDs);
     this.logger.log(this.componentName, this.boardDevicesIDs);
-    this.dialog.open(SaveDialogComponent, { data: this.boardDevicesIDs });
+    const setupData: SetupCreateDto = {
+      configName: '',
+      devIDs: this.boardDevicesIDs,
+      roomId: this.currentRoom.id
+    };
+    console.log(setupData);
+    this.dialog.open(SaveDialogComponent, { data: setupData });
   }
   ngOnDestroy() {
     this.deviceSub.unsubscribe();
