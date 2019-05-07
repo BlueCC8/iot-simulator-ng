@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchBarService } from './search-bar/search-bar.service';
-import { DeviceIntegratedModel } from '../device/device.integrated-model';
-import { DevicesService } from '../device/device.service';
+import { SearchBarService } from '../../core/services/search-bar.service';
+import { DeviceIntegratedModel } from '../../core/models/device.integrated-model';
+import { DevicesService } from '../../core/services/device.service';
 import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';

@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { mimeType } from '../../mime-type.validator';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
-import { DevicesService } from '../../../device.service';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';

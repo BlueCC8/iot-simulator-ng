@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { SetupService } from '../setup.service';
-import { SetupModel } from '../setup.model';
+import { SetupService } from '../../../../core/services/setup.service';
+import { SetupModel } from '../../../../core/models/setup.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PageEvent, MatBottomSheet } from '@angular/material';
 import { BottomSheetComponent } from '../../bottom-sheet/bottom-sheet.component';
-import { SetupDevicesModel } from '../setup-devices.model';
+import { SetupDevicesModel } from '../../../../core/models/setup-devices.model';
 import { NGXLogger } from 'ngx-logger';
 
 @Component({

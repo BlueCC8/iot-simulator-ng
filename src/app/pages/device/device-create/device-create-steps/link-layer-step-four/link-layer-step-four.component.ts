@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../../device.service';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
-import { LinkLayersService } from 'src/app/core/linkLayer/linkLayer.service';
-import { LinkLayerModel } from 'src/app/core/linkLayer/linkLayer.model';
+import { LinkLayersService } from 'src/app/core/services/linkLayer.service';
+import { LinkLayerModel } from 'src/app/core/models/linkLayer.model';
 @Component({
   selector: 'app-link-layer-step-four',
   templateUrl: './link-layer-step-four.component.html',

@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { PlaygroundService } from '../playground.service';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
-import { DevicesService } from 'src/app/pages/device/device.service';
+import { PlaygroundService } from '../../../core/services/playground.service';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
+import { DevicesService } from 'src/app/core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { SearchBarService } from './search-bar.service';
+import { SearchBarService } from '../../../core/services/search-bar.service';
 
 @Component({
   selector: 'app-search-bar',

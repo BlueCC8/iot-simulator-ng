@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LinkLayerModel } from 'src/app/core/linkLayer/linkLayer.model';
+import { LinkLayerModel } from 'src/app/core/models/linkLayer.model';
 
 @Pipe({
   name: 'linkLayerProperties'

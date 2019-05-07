@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 import { ErrorComponent } from './core/error/error.component';
-import { EthernetModule } from './core/ethernet/ethernet.module';
+import { EthernetModule } from './core/obsolete/ethernet.module';
 import { PlaygroundModule } from './pages/playground/playground.module';
 import { SharedModule } from './shared/shared.module';
 import { SaveDialogComponent } from './pages/playground/save-dialog/save-dialog.component';

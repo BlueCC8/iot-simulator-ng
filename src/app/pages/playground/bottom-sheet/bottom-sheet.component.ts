@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MatSelectionList } from '@angular/material';
-import { SetupDevicesModel } from '../setup/setup-devices.model';
-import { SetupService } from '../setup/setup.service';
-import { SetupDataDto } from '../setup/setup.data-dto';
+import { SetupDevicesModel } from '../../../core/models/setup-devices.model';
+import { SetupService } from '../../../core/services/setup.service';
+import { SetupDataDto } from '../../../core/dtos/setup.data-dto';
 import { NGXLogger } from 'ngx-logger';
-import { BoardService } from '../board/board.service';
-import { BoardModel } from '../board/board.model';
+import { BoardService } from '../../../core/services/board.service';
+import { BoardModel } from '../../../core/models/board.model';
 
 @Component({
   selector: 'app-bottom-sheet',

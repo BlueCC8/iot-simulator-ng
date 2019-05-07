@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PlaygroundService } from '../playground.service';
+import { PlaygroundService } from '../../../core/services/playground.service';
 import { Subscription } from 'rxjs';
-import { BoardModel } from './board.model';
+import { BoardModel } from '../../../core/models/board.model';
 import { MatDialog } from '@angular/material';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
 import { SaveDialogComponent } from '../save-dialog/save-dialog.component';
 import { NGXLogger } from 'ngx-logger';
 import { DeleteDeviceDialogComponent } from '../delete-device-dialog/delete-device-dialog.component';
-import { BoardService } from './board.service';
-import { RoomService } from '../room/room.service';
-import { RoomModel } from '../room/room.model';
-import { SetupCreateDto } from '../setup/setup.create-dto';
+import { BoardService } from '../../../core/services/board.service';
+import { RoomService } from '../../../core/services/room.service';
+import { RoomModel } from '../../../core/models/room.model';
+import { SetupCreateDto } from '../../../core/dtos/setup.create-dto';
 
 @Component({
   selector: 'app-board',

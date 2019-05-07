@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../../device.service';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
-import { EthernetsService } from 'src/app/core/ethernet/ethernet.service';
-import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
+import { EthernetsService } from 'src/app/core/services/ethernet.service';
+import { EthernetModel } from 'src/app/core/models/ethernet.model';
 @Component({
   selector: 'app-ethernet-step-six',
   templateUrl: './ethernet-step-six.component.html',

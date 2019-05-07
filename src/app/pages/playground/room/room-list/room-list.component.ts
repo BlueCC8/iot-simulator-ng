@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PlaygroundService } from '../../playground.service';
+import { PlaygroundService } from '../../../../core/services/playground.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
 
 import { NGXLogger } from 'ngx-logger';
-import { RoomService } from '../room.service';
+import { RoomService } from '../../../../core/services/room.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { RoomPolygonsModel } from '../room-polygon.model';
-import { RoomModel } from '../room.model';
-import { SetupService } from '../../setup/setup.service';
+import { RoomPolygonsModel } from '../../../../core/models/room-polygon.model';
+import { RoomModel } from '../../../../core/models/room.model';
+import { SetupService } from '../../../../core/services/setup.service';
 
 @Component({
   selector: 'app-room-list',
@@ -26,6 +26,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   currentPage = null;
   isPopulated = false;
+  setupPopulated = true;
   username: string;
   setupsPerPage = null;
 
@@ -63,7 +64,12 @@ export class RoomListComponent implements OnInit, OnDestroy {
   onSelected(room: RoomModel) {
     this.logger.log(this.componentName, room.configDevIDs);
     const configIds = room.configDevIDs;
-    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, configIds);
+    this.setupsService.getSetups(
+      this.setupsPerPage,
+      this.currentPage,
+      this.setupPopulated,
+      configIds
+    );
     this.roomsService.setRoomSelected(room);
   }
   ngOnDestroy() {

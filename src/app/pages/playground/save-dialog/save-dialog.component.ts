@@ -1,11 +1,11 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject, Component } from '@angular/core';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
 import { NgForm } from '@angular/forms';
-import { SetupModel } from '../setup/setup.model';
-import { SetupIntegratedModel } from '../setup/setup.integrated-model';
-import { SetupService } from '../setup/setup.service';
-import { SetupCreateDto } from '../setup/setup.create-dto';
+import { SetupModel } from '../../../core/models/setup.model';
+import { SetupIntegratedModel } from '../../../core/models/setup.integrated-model';
+import { SetupService } from '../../../core/services/setup.service';
+import { SetupCreateDto } from '../../../core/dtos/setup.create-dto';
 
 @Component({
   selector: 'app-save-dialog',

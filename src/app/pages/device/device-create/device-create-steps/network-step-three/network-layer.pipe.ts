@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
+import { NetLayerModel } from 'src/app/core/models/networkLayer.model';
 
 @Pipe({
   name: 'netLayerProperties'

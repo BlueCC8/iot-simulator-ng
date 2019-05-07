@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DevicesService } from 'src/app/pages/device/device.service';
+import { DevicesService } from 'src/app/core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
-import { SearchBarService } from '../search-bar/search-bar.service';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
+import { SearchBarService } from '../../../core/services/search-bar.service';
 import { NGXLogger } from 'ngx-logger';
 import { PageEvent } from '@angular/material';
-import { BoardModel } from '../board/board.model';
-import { BoardService } from '../board/board.service';
+import { BoardModel } from '../../../core/models/board.model';
+import { BoardService } from '../../../core/services/board.service';
 
 @Component({
   selector: 'app-filter-list',
