@@ -25,7 +25,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   roomsPerPage = null;
   userIsAuthenticated = false;
   currentPage = null;
-  isPopulated = true;
+  isPopulated = false;
   username: string;
   setupsPerPage = null;
 
