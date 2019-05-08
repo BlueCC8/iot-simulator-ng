@@ -12,7 +12,7 @@ import { SaveDialogComponent } from './save-dialog/save-dialog.component';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 import { FilterListDevicePropertiesPipe } from './filter-list/filter-list-device-properties.pipe';
 import { DeleteDeviceDialogComponent } from './delete-device-dialog/delete-device-dialog.component';
-import { RoomModule } from './room/room.module';
+import { RoomModule } from '../room/room.module';
 @NgModule({
   declarations: [
     BoardComponent,

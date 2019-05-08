@@ -21,6 +21,8 @@ import { NavigationModule } from './pages/navigation/navigation.module';
 import { FooterComponent } from './pages/footer/footer.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-dialog/delete-device-dialog.component';
+import { RoomModule } from './pages/room/room.module';
+import { PolygonModule } from './pages/polygon/polygon.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, FooterComponent],
@@ -36,6 +38,7 @@ import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-di
     HttpClientModule,
     NavigationModule,
     SharedModule,
+    PolygonModule,
     // AngularFireModule.initializeApp(environment.firebase),
     LoggerModule.forRoot({
       level: !environment.production ? NgxLoggerLevel.LOG : NgxLoggerLevel.OFF,

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { WifiModel } from 'src/app/core/models/wifi.model';
-import { RoomPolygonsModel } from '../../../../core/models/room-polygon.model';
+import { RoomPolygonsModel } from '../../../core/models/room-polygon.model';
 
 @Pipe({
   name: 'roomListProperties'

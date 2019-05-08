@@ -53,6 +53,11 @@ const routes: Routes = [
     // * Lazy loading with #Name of module
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
+  },
+  {
+    // * Lazy loading with #Name of module
+    path: 'polygon',
+    loadChildren: './pages/polygon/polygon.module#PolygonModule'
   }
 ];
 
