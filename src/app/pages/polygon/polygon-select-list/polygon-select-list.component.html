@@ -1,0 +1,12 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<mat-form-field fxFill>
+  <mat-label>Room</mat-label>
+  <mat-select (selectionChange)="onSelected($event.value)">
+    <mat-option *ngFor="let polygon of polygons" [value]="polygon">
+      <span> {{ polygon.polName }}</span>
+      <span *ngFor="let prop of polygon | polygonSelectListProperties | keyvalue">
+        {{ prop.key }} - {{ prop.value }};
+      </span></mat-option
+    >
+  </mat-select>
+</mat-form-field>

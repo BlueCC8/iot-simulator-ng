@@ -3,9 +3,9 @@ import { WifiModel } from 'src/app/core/models/wifi.model';
 import { RoomPolygonsModel } from '../../../core/models/room-polygon.model';
 
 @Pipe({
-  name: 'roomListProperties'
+  name: 'roomSelectListProperties'
 })
-export class RoomListPipe implements PipeTransform {
+export class RoomSelectListPipe implements PipeTransform {
   transform(obj: RoomPolygonsModel): RoomPolygonsModel {
     const copyObj = JSON.parse(JSON.stringify(obj));
     Object.keys(copyObj).forEach(key => {

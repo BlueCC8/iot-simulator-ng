@@ -29,6 +29,7 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private polId: string;
   private authListenerSubs$ = new Subscription();
+
   constructor(
     public polygonsService: PolygonsService,
     private authService: AuthService,
@@ -48,6 +49,8 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
       polDots: this.formBuilder.array([])
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      this.logger.log(this.componentName, 'Editing mode');
+
       if (paramMap.has('polygonId')) {
         this.mode = 'edit';
         this.polId = paramMap.get('polygonId');
@@ -63,11 +66,12 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
           this.polygon = {
             id: polygonData.id,
             polName: polygonData.polName,
-            polDots: this.dots
+            polDots: this.dots,
+            username: polygonData.username
           };
 
           this.dots.forEach((dot, index) => {
-            this.addControl(dot.dotX, dot.dotY);
+            this.addControl(dot.dotX, dot.dotY, index);
           });
 
           // * Patch values
@@ -86,19 +90,25 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
   get polDots() {
     return this.form.get('polDots') as FormArray;
   }
-  addItem(valueX, valueY, index) {
+  addItem(ev: Event, valueX: number, valueY: number, index: number) {
+    ev.preventDefault();
+
+    this.logger.log(this.componentName, 'Add item index', index);
     const dot: DotModel = {
       id: '',
       dotX: valueX,
       dotY: valueY
     };
-    this.dots.push(dot);
-    this.addControl(valueX, valueY);
+    this.dots.splice(index, 0, dot);
+    this.logger.log(this.componentName, 'After add dots', this.dots);
+    this.addControl(valueX, valueY, index);
+    this.logger.log(this.componentName, 'Form', this.form);
   }
-  private addControl(valueX: number, valueY: number) {
+  private addControl(valueX: number, valueY: number, index: number) {
     this.keyX = `dotX`;
     this.keyY = `dotY`;
-    this.polDots.push(
+    this.polDots.insert(
+      index,
       this.formBuilder.group({
         [this.keyX]: new FormControl(valueX, {
           validators: [Validators.required, Validators.min(0)]
@@ -110,44 +120,34 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeItem(indexDot) {
-    this.dots = this.dots.filter(el => el.id !== indexDot);
+  removeItem(ev: Event, indexDot) {
+    ev.preventDefault();
+
+    this.dots = this.dots.filter((el, index) => index !== indexDot);
+    this.logger.log(this.componentName, 'After delete dots', this.dots);
     this.polDots.removeAt(indexDot);
+    this.logger.log(this.componentName, 'Form', this.form);
   }
-
-  // onImagePicked(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.form.patchValue({ image: file });
-  //   // * Revalidate field
-  //   this.form.get('image').updateValueAndValidity();
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result as string;
-  //   };
-
-  //   reader.readAsDataURL(file);
-  // }
-  // TODO: Implement save
   onSavePolygon() {
     if (this.form.invalid) {
       return;
     }
-    // const ether: PolygonModel = {
-    //   id: null,
-    //   etherName: this.form.value.title,
-    //   etherStandard: this.form.value.standard,
-    //   etherDataRate: this.form.value.throughput,
-    //   imagePath: this.form.value.image,
-    //   username: null
-    // };
+    const polygon: PolygonModel = {
+      id: null,
+      polName: this.form.value.polName,
+      polDots: this.form.value.polDots,
+      username: this.authService.getUsername()
+    };
+    this.logger.log(this.componentName, 'Result poldots', polygon.polDots);
+    this.isLoading = true;
 
-    // this.isLoading = true;
-    // if (this.mode === 'create') {
-    //   this.ethernetsService.addEthernet(ether);
-    // } else {
-    //   ether.id = this.polId;
-    //   this.ethernetsService.updateEthernet(ether);
-    // }
+    if (this.mode === 'create') {
+      this.polygonsService.addPolygon(polygon);
+    } else {
+      polygon.id = this.polId;
+      this.polygonsService.updatePolygon(polygon);
+      this.logger.log(this.componentName, 'Succes edit');
+    }
     this.form.reset();
   }
   ngOnDestroy() {

@@ -15,11 +15,19 @@ export class PolygonsService {
   private componentName = PolygonsService.name + ' ';
   private polygons: PolygonModel[] = [];
   private polygonsUpdated$ = new Subject<{ polygons: PolygonModel[]; maxPolygons: number }>();
-
+  private polygonSelectedListener$ = new Subject<PolygonModel>();
+  private currentPolygon: PolygonModel;
   constructor(private http: HttpClient, private router: Router, private logger: NGXLogger) {}
 
   getPolygonUpdateListener() {
     return this.polygonsUpdated$.asObservable();
+  }
+  getPolygonSelectedListener() {
+    return this.polygonSelectedListener$.asObservable();
+  }
+  setPolygonSelected(polygon: PolygonModel) {
+    this.currentPolygon = polygon;
+    this.polygonSelectedListener$.next(polygon);
   }
   getPolygons(pageSize: number, page: number) {
     let queryParams = '';
@@ -41,7 +49,8 @@ export class PolygonsService {
                     dotX: dot.dotX,
                     dotY: dot.dotY
                   };
-                })
+                }),
+                username: polygon.username
               };
             }),
             maxPolygons: polygonsData.maxPolygons
@@ -71,7 +80,7 @@ export class PolygonsService {
   }
   updatePolygon(polygon: PolygonModel) {
     this.http.put(BACKEND_URL + polygon.id, polygon).subscribe(res => {
-      // this.router.navigate(['/']);
+      this.router.navigate(['/']);
     });
   }
   deletePolygon(polygonId: string) {
@@ -89,7 +98,8 @@ export class PolygonsService {
               dotX: dot.dotX,
               dotY: dot.dotY
             };
-          })
+          }),
+          username: polygonData.username
         };
       })
     );

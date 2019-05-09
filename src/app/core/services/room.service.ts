@@ -18,6 +18,7 @@ export class RoomService {
   private componentName = RoomService.name + ' ';
   private rooms: RoomPolygonsModel[] = [];
   private currentRoom: RoomModel;
+  private polygonId: string;
   private roomsUpdated$ = new Subject<{ rooms: RoomPolygonsModel[]; maxRooms: number }>();
   private roomSelectedListener$ = new Subject<RoomModel>();
 
@@ -32,8 +33,9 @@ export class RoomService {
     this.currentRoom = room;
     this.roomSelectedListener$.next(room);
   }
-  getRooms(pageSize: number, page: number, isPopulated: boolean) {
+  getRooms(pageSize: number, page: number, isPopulated: boolean, polId: string) {
     let queryParams = '';
+    this.polygonId = polId;
     if (pageSize && page) {
       queryParams = `?pagesize=${pageSize}&page=${page}&populated=${isPopulated}`;
     } else {
@@ -63,7 +65,8 @@ export class RoomService {
                   polygon = {
                     id: polygonDto._id,
                     polName: polygonDto.polName,
-                    polDots: dots
+                    polDots: dots,
+                    username: polygonDto.username
                   };
                 }
               }

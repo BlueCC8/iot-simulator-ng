@@ -4,4 +4,5 @@ export interface PolygonModel {
   id: string;
   polName: string;
   polDots: DotModel[];
+  username: string;
 }
