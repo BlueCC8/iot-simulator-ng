@@ -83,6 +83,13 @@ export class PolygonCreateComponent implements OnInit, OnDestroy {
       } else {
         this.mode = 'create';
         this.polId = null;
+        const dot: DotModel = {
+          id: '',
+          dotX: 0,
+          dotY: 0
+        };
+        this.dots.push(dot);
+        this.addControl(dot.dotX, dot.dotY, 0);
       }
     });
   }

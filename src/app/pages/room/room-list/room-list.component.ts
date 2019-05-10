@@ -52,9 +52,9 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.roomsService.getRooms(this.roomsPerPage, this.currentPage, this.isPopulated);
   }
 
-  onDelete(etherId: string) {
+  onDelete(roomId: string) {
     this.isLoading = true;
-    this.roomsService.deleteRoom(etherId).subscribe(() => {
+    this.roomsService.deleteRoom(roomId).subscribe(() => {
       this.roomsService.getRooms(this.roomsPerPage, this.currentPage, this.isPopulated);
     });
   }
