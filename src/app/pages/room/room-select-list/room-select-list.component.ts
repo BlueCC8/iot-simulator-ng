@@ -43,7 +43,7 @@ export class RoomSelectListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.roomsService.getRooms(this.roomsPerPage, this.currentPage, this.isPopulated, null);
+    this.roomsService.getRooms(this.roomsPerPage, this.currentPage, this.isPopulated);
     this.username = this.authService.getUsername();
 
     this.roomsSubs$ = this.roomsService

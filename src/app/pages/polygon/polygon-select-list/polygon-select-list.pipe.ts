@@ -1,6 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { WifiModel } from 'src/app/core/models/wifi.model';
-import { RoomPolygonsModel } from '../../../core/models/room-polygon.model';
 import { PolygonModel } from 'src/app/core/models/polygon.model';
 
 @Pipe({
@@ -15,6 +13,7 @@ export class PolygonSelectListPipe implements PipeTransform {
         key === 'id' ||
         key === 'polDots' ||
         key === 'username' ||
+        key === 'polName' ||
         key === 'polID'
       ) {
         delete copyObj[key];

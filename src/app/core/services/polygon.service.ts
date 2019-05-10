@@ -80,7 +80,7 @@ export class PolygonsService {
   }
   updatePolygon(polygon: PolygonModel) {
     this.http.put(BACKEND_URL + polygon.id, polygon).subscribe(res => {
-      this.router.navigate(['/']);
+      this.router.navigate(['./']);
     });
   }
   deletePolygon(polygonId: string) {
@@ -89,6 +89,9 @@ export class PolygonsService {
   getPolygon(id: string) {
     return this.http.get<PolygonDto>(BACKEND_URL + id).pipe(
       map(polygonData => {
+        if (!polygonData) {
+          return;
+        }
         return {
           id: polygonData._id,
           polName: polygonData.polName,

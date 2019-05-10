@@ -1,34 +1,75 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="ethers.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let ether of ethers">
-    <mat-expansion-panel-header>
-      {{ ether.etherName }}
-    </mat-expansion-panel-header>
-    <mat-panel-description>
-      <p>Standard: {{ ether.etherStandard }}</p>
-    </mat-panel-description>
-    <mat-panel-description>
-      <p>Data rate: {{ ether.etherDataRate }}</p>
-    </mat-panel-description>
-    <div class="post-image" *ngIf="ether.imagePath">
+<div fxLayout="row" fxLayoutAlign="center start" fxFill>
+  <mat-accordion
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    multi="false"
+    *ngIf="rooms.length > 0 && !isLoading"
+  >
+    <mat-expansion-panel
+      [matTooltip]="
+        !userIsAuthenticated || username !== room.username
+          ? 'Edit and delete not available, owner limited'
+          : 'Open me'
+      "
+      aria-label="Should open"
+      fxLayout="column"
+      *ngFor="let room of rooms"
+    >
+      <mat-expansion-panel-header fxLayoutAlign="center center">
+        {{ room.roomName }}
+      </mat-expansion-panel-header>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Room type: {{ room.roomType }}</p>
+      </mat-panel-description>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Room height: {{ room.roomHeight }}</p>
+      </mat-panel-description>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Polygon name: {{ room.polID.polName }}</p>
+      </mat-panel-description>
+      <!-- <div class="post-image" *ngIf="ether.imagePath">
       <img [src]="ether.imagePath" [alt]="ether.etherName" />
-    </div>
-    <mat-action-row *ngIf="userIsAuthenticated && username === ether.username">
-      <a mat-button color="primary" [routerLink]="['/edit', ether.id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDelete(ether.id)">
-        DELETE
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
-<mat-paginator
-  *ngIf="ethers.length > 0"
-  [length]="totalEthers"
-  [pageSize]="ethersPerPage"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="onChangePage($event)"
->
-</mat-paginator>
-<p class="info-text mat-body-1" *ngIf="ethers.length <= 0 && !isLoading">
-  No ethernets added yet!
-</p>
+    </div> -->
+      <mat-action-row *ngIf="userIsAuthenticated && username === room.username">
+        <a
+          matTooltip="Edit the room"
+          aria-label="Should show edit"
+          mat-button
+          color="primary"
+          [routerLink]="['./edit', room.id]"
+          >Edit</a
+        >
+        <button
+          matTooltip="Delete the room"
+          aria-label="Should show delete"
+          mat-button
+          color="warn"
+          (click)="onDelete(room.id)"
+        >
+          Delete
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-paginator
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    *ngIf="rooms.length > 0"
+    [length]="totalRooms"
+    [pageSize]="roomsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons="true"
+    (page)="onChangePage($event)"
+  >
+  </mat-paginator>
+  <p class="info-text mat-body-1" *ngIf="rooms.length <= 0 && !isLoading">
+    No rooms added yet!
+  </p>
+</div>

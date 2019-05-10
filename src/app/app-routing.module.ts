@@ -58,6 +58,11 @@ const routes: Routes = [
     // * Lazy loading with #Name of module
     path: 'polygon',
     loadChildren: './pages/polygon/polygon.module#PolygonModule'
+  },
+  {
+    // * Lazy loading with #Name of module
+    path: 'room',
+    loadChildren: './pages/room/room.module#RoomModule'
   }
 ];
 

@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-card fxLayout="column" fxFlex="80%" fxFlex.gt-sm="50%">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onSaveRoom()" *ngIf="!isLoading">
+      <mat-form-field>
+        <input matInput type="text" formControlName="roomName" placeholder="Room Name" />
+        <mat-error *ngIf="form.get('roomName').invalid">Please enter a room name .</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="roomType" placeholder="Room type" />
+        <mat-error *ngIf="form.get('roomType').invalid">Please enter a room type .</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="roomHeight" placeholder="Room height" />
+        <mat-error *ngIf="form.get('roomHeight').invalid">Please enter a room height .</mat-error>
+      </mat-form-field>
+
+      <app-select-polygon-list></app-select-polygon-list>
+
+      <button mat-raised-button color="accent" type="submit">Save</button>
+    </form>
+  </mat-card>
+</div>

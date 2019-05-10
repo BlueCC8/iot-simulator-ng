@@ -25,14 +25,14 @@
         </mat-menu>
         <mat-menu #rooms="matMenu">
           <ng-template matMenuContent>
-            <a mat-menu-item routerLinkActive="mat-accent">New Room</a>
-            <a mat-menu-item routerLinkActive="mat-accent">Rooms list</a>
+            <a mat-menu-item routerLink="/room/create" routerLinkActive="mat-accent">New Room</a>
+            <a mat-menu-item routerLink="/room" routerLinkActive="mat-accent">Rooms list</a>
           </ng-template>
         </mat-menu>
         <mat-menu #polygons="matMenu">
           <ng-template matMenuContent>
-            <a mat-menu-item routerLinkActive="mat-accent">New Area</a>
-            <a mat-menu-item routerLinkActive="mat-accent">Areas list</a>
+            <a mat-menu-item routerLink="/polygon/create" routerLinkActive="mat-accent">New Area</a>
+            <a mat-menu-item routerLink="/polygon" routerLinkActive="mat-accent">Areas list</a>
           </ng-template>
         </mat-menu>
       </li>

@@ -14,7 +14,7 @@ import { RoomService } from 'src/app/core/services/room.service';
 export class PolygonSelectListComponent implements OnInit, OnDestroy {
   private componentName = PolygonSelectListComponent.name + ' ';
   defaultValue = 'Select polygon';
-  selected = '';
+  selected: PolygonModel;
   polygons: PolygonModel[] = [];
   isLoading = false;
   polygonsPerPage = null;
@@ -28,6 +28,7 @@ export class PolygonSelectListComponent implements OnInit, OnDestroy {
 
   authListenerSubs$ = new Subscription();
   polygonsSubs$ = new Subscription();
+  polygonSubs$ = new Subscription();
   constructor(
     private logger: NGXLogger,
     private authService: AuthService,
@@ -48,7 +49,12 @@ export class PolygonSelectListComponent implements OnInit, OnDestroy {
         this.totalPolygons = polygonsData.maxPolygons;
         this.logger.log(this.componentName, this.polygons);
       });
-
+    this.polygonSubs$ = this.polygonsService
+      .getPolygonSelectedListener()
+      .subscribe((polygon: PolygonModel) => {
+        this.selected = polygon;
+        this.logger.log(this.componentName, 'Selected', polygon);
+      });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
     this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
@@ -58,15 +64,16 @@ export class PolygonSelectListComponent implements OnInit, OnDestroy {
   onSelected(polygon: PolygonModel) {
     this.logger.log(this.componentName, polygon);
 
-    this.roomsService.getRooms(
-      this.roomsPerPage,
-      this.currentPage,
-      this.roomsPopulated,
-      polygon.id
-    );
+    // this.roomsService.getRooms(
+    //   this.roomsPerPage,
+    //   this.currentPage,
+    //   this.roomsPopulated,
+    //   polygon.id
+    // );
     this.polygonsService.setPolygonSelected(polygon);
   }
   ngOnDestroy() {
+    this.polygonSubs$.unsubscribe();
     this.authListenerSubs$.unsubscribe();
     this.polygonsSubs$.unsubscribe();
   }
