@@ -18,14 +18,14 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
 
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private authService: AuthService) {}
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
   }
@@ -36,6 +36,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
   ngOnDestroy(): void {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EthernetCreateComponent } from './core/ethernet/ethernet-create/ethernet-create.component';
+import { EthernetCreateComponent } from './core/obsolete/ethernet-create/ethernet-create.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ExploreComponent } from './pages/navigation/header/explore/explore.component';
 import { GuideComponent } from './pages/navigation/header/guide/guide.component';
@@ -53,6 +53,16 @@ const routes: Routes = [
     // * Lazy loading with #Name of module
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
+  },
+  {
+    // * Lazy loading with #Name of module
+    path: 'polygon',
+    loadChildren: './pages/polygon/polygon.module#PolygonModule'
+  },
+  {
+    // * Lazy loading with #Name of module
+    path: 'room',
+    loadChildren: './pages/room/room.module#RoomModule'
   }
 ];
 

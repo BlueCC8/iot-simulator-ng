@@ -3,10 +3,65 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/create" (click)="onSidenavClose()" *ngIf="userIsAuthenticated">
+  <button
+    *ngIf="userIsAuthenticated"
+    id="actionButton"
+    mat-list-item
+    [matMenuTriggerFor]="features"
+  >
     <mat-icon>create</mat-icon>
-    <span class="nav-caption">New device</span>
-  </a>
+    <span class="nav-caption">Action Menu</span>
+  </button>
+
+  <mat-menu #features="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item [matMenuTriggerFor]="devices">Devices</button>
+      <button mat-menu-item [matMenuTriggerFor]="rooms">Rooms</button>
+      <button mat-menu-item [matMenuTriggerFor]="polygons">Area</button>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #devices="matMenu">
+    <ng-template matMenuContent>
+      <a mat-menu-item routerLink="/create" routerLinkActive="mat-accent" (click)="onSidenavClose()"
+        >New device</a
+      >
+      <a mat-menu-item routerLink="/" routerLinkActive="mat-accent" (click)="onSidenavClose()"
+        >Devices list</a
+      >
+    </ng-template>
+  </mat-menu>
+  <mat-menu #rooms="matMenu">
+    <ng-template matMenuContent>
+      <a
+        mat-menu-item
+        routerLink="/room/create"
+        routerLinkActive="mat-accent"
+        (click)="onSidenavClose()"
+        >New Room</a
+      >
+      <a mat-menu-item routerLink="/room" routerLinkActive="mat-accent" (click)="onSidenavClose()"
+        >Rooms list</a
+      >
+    </ng-template>
+  </mat-menu>
+  <mat-menu #polygons="matMenu">
+    <ng-template matMenuContent>
+      <a
+        mat-menu-item
+        routerLink="/polygon/create"
+        routerLinkActive="mat-accent"
+        (click)="onSidenavClose()"
+        >New Area</a
+      >
+      <a
+        mat-menu-item
+        routerLink="/polygon"
+        routerLinkActive="mat-accent"
+        (click)="onSidenavClose()"
+        >Areas list</a
+      >
+    </ng-template>
+  </mat-menu>
   <a mat-list-item routerLink="/playground" (click)="onSidenavClose()" *ngIf="userIsAuthenticated">
     <mat-icon>play_for_work</mat-icon>
     <span class="nav-caption">Playground</span>

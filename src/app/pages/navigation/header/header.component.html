@@ -8,27 +8,35 @@
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li *ngIf="userIsAuthenticated">
-        <a
-          matBadge="!"
-          matBadgePosition="after"
-          matBadgeColor="accent"
-          mat-button
-          routerLink="/create"
-          routerLinkActive="mat-accent"
-          >New device</a
-        >
+        <button mat-button [matMenuTriggerFor]="features">Action Menu</button>
+
+        <mat-menu #features="matMenu">
+          <ng-template matMenuContent>
+            <button mat-menu-item [matMenuTriggerFor]="devices">Devices</button>
+            <button mat-menu-item [matMenuTriggerFor]="rooms">Rooms</button>
+            <button mat-menu-item [matMenuTriggerFor]="polygons">Area</button>
+          </ng-template>
+        </mat-menu>
+        <mat-menu #devices="matMenu">
+          <ng-template matMenuContent>
+            <a mat-menu-item routerLink="/create" routerLinkActive="mat-accent">New device</a>
+            <a mat-menu-item routerLink="/" routerLinkActive="mat-accent">Devices list</a>
+          </ng-template>
+        </mat-menu>
+        <mat-menu #rooms="matMenu">
+          <ng-template matMenuContent>
+            <a mat-menu-item routerLink="/room/create" routerLinkActive="mat-accent">New Room</a>
+            <a mat-menu-item routerLink="/room" routerLinkActive="mat-accent">Rooms list</a>
+          </ng-template>
+        </mat-menu>
+        <mat-menu #polygons="matMenu">
+          <ng-template matMenuContent>
+            <a mat-menu-item routerLink="/polygon/create" routerLinkActive="mat-accent">New Area</a>
+            <a mat-menu-item routerLink="/polygon" routerLinkActive="mat-accent">Areas list</a>
+          </ng-template>
+        </mat-menu>
       </li>
-      <li>
-        <a
-          matBadge="!"
-          matBadgePosition="after"
-          matBadgeColor="accent"
-          mat-button
-          routerLink="/"
-          routerLinkActive="mat-accent"
-          >Devices list</a
-        >
-      </li>
+
       <li *ngIf="userIsAuthenticated">
         <a mat-button routerLink="/playground" routerLinkActive="mat-accent">Playground</a>
       </li>

@@ -14,11 +14,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
   form: FormGroup;
   isLoading = false;
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
     this.form = new FormGroup({
@@ -64,6 +64,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
   ngOnDestroy(): void {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

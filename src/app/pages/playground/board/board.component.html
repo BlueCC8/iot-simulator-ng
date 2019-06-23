@@ -1,5 +1,6 @@
 <div fxLayout="row" fxFlexAlign="center" fxFill>
   <button
+    [disabled]="!currentRoom"
     (click)="onSaveConfig()"
     mat-raised-button
     matTooltip="Save your configuration here"

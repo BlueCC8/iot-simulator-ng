@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 import { ErrorComponent } from './core/error/error.component';
-import { EthernetModule } from './core/ethernet/ethernet.module';
+import { EthernetModule } from './core/obsolete/ethernet.module';
 import { PlaygroundModule } from './pages/playground/playground.module';
 import { SharedModule } from './shared/shared.module';
 import { SaveDialogComponent } from './pages/playground/save-dialog/save-dialog.component';
@@ -19,9 +19,10 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from 'src/environments/environment';
 import { NavigationModule } from './pages/navigation/navigation.module';
 import { FooterComponent } from './pages/footer/footer.component';
-import { AngularFireModule } from '@angular/fire';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-dialog/delete-device-dialog.component';
+import { RoomModule } from './pages/room/room.module';
+import { PolygonModule } from './pages/polygon/polygon.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, FooterComponent],
@@ -37,6 +38,7 @@ import { DeleteDeviceDialogComponent } from './pages/playground/delete-device-di
     HttpClientModule,
     NavigationModule,
     SharedModule,
+    PolygonModule,
     // AngularFireModule.initializeApp(environment.firebase),
     LoggerModule.forRoot({
       level: !environment.production ? NgxLoggerLevel.LOG : NgxLoggerLevel.OFF,

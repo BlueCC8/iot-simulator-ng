@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { mimeType } from '../../mime-type.validator';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
-import { DevicesService } from '../../../device.service';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
   imagePreview: string;
   isLoading = false;
   device: DeviceIntegratedModel;
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
   mode: string;
   deviceId: string;
   isPopulated = true;
@@ -58,7 +58,7 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
       username: new FormControl(null, {})
     });
 
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -114,6 +114,6 @@ export class BasicDetailsStepOneComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

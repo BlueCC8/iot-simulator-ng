@@ -41,7 +41,7 @@ Go ahead blame me for anything I am still learning
 
 ## Versioning
 
-Version 1.0.0
+Version 2.0.0
 
 ## Authors
 

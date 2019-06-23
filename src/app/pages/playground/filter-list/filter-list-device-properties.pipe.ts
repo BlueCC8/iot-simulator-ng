@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Device } from 'src/app/pages/device/device.model';
+import { Device } from 'src/app/core/models/device.model';
 
 @Pipe({
   name: 'deviceProperties'

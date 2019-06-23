@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../../device.service';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
-import { EthernetsService } from 'src/app/core/ethernet/ethernet.service';
-import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
+import { EthernetsService } from 'src/app/core/services/ethernet.service';
+import { EthernetModel } from 'src/app/core/models/ethernet.model';
 @Component({
   selector: 'app-ethernet-step-six',
   templateUrl: './ethernet-step-six.component.html',
@@ -27,7 +27,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
   pageSize = null;
   page = null;
   totalEthers = 0;
-  private ethernetsSubs = new Subscription();
+  private ethernetsSubs$ = new Subscription();
   @Output() saveStepSixForm = new EventEmitter<FormGroup>();
 
   ngOnInit() {}
@@ -58,7 +58,7 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.ethernetsService.getEthernets(this.pageSize, this.page);
-    this.ethernetsSubs = this.ethernetsService
+    this.ethernetsSubs$ = this.ethernetsService
       .getEthernetUpdateListener()
       .subscribe((ethersData: { ethers: EthernetModel[]; maxEthers: number }) => {
         this.isLoading = false;
@@ -101,6 +101,6 @@ export class EthernetStepSixComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepSix);
   }
   ngOnDestroy() {
-    this.ethernetsSubs.unsubscribe();
+    this.ethernetsSubs$.unsubscribe();
   }
 }

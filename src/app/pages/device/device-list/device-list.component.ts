@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 
 import { PageEvent, TooltipPosition } from '@angular/material';
 import { AuthService } from '../../../auth/auth.service';
-import { DeviceIntegratedModel } from '../device.integrated-model';
-import { DevicesService } from '../device.service';
+import { DeviceIntegratedModel } from '../../../core/models/device.integrated-model';
+import { DevicesService } from '../../../core/services/device.service';
 import { FormControl } from '@angular/forms';
 import { NGXLogger } from 'ngx-logger';
 

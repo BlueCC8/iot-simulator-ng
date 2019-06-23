@@ -1,9 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MatSelectionList } from '@angular/material';
-import { SetupDevicesModel } from '../setup/setup-devices.model';
-import { SetupService } from '../setup/setup.service';
-import { SetupDataDto } from '../setup/setup.data-dto';
+import { SetupDevicesModel } from '../../../core/models/setup-devices.model';
+import { SetupService } from '../../../core/services/setup.service';
+import { SetupDataDto } from '../../../core/dtos/setup.data-dto';
 import { NGXLogger } from 'ngx-logger';
+import { BoardService } from '../../../core/services/board.service';
+import { BoardModel } from '../../../core/models/board.model';
 
 @Component({
   selector: 'app-bottom-sheet',
@@ -18,6 +20,7 @@ export class BottomSheetComponent {
   constructor(
     private logger: NGXLogger,
     private setupsService: SetupService,
+    private boardsService: BoardService,
     private bottomSheetRef: MatBottomSheetRef<BottomSheetComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: SetupDevicesModel
   ) {
@@ -37,6 +40,18 @@ export class BottomSheetComponent {
       };
       this.setupsService.updateSetup(setup);
     }
+    this.bottomSheetRef.dismiss();
+  }
+  onLoad(selectionList: MatSelectionList) {
+    const devices: BoardModel[] = this.data.devIDs.map(device => {
+      return {
+        id: device.id,
+        devName: device.devName,
+        devImgUrl: device.devImgUrl
+      };
+    });
+    this.boardsService.setBoardAllSelected(devices);
+
     this.bottomSheetRef.dismiss();
   }
   onNgModelChange($event) {

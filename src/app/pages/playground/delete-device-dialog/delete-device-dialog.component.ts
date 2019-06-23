@@ -1,6 +1,6 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject, Component } from '@angular/core';
-import { BoardService } from '../board/board.service';
+import { BoardService } from '../../../core/services/board.service';
 
 @Component({
   selector: 'app-delete-device-dialog',
@@ -19,5 +19,9 @@ export class DeleteDeviceDialogComponent {
   onConfirm() {
     this.dialogRef.close();
     this.boardsService.removeBoardDeviceSelected(this.deviceId);
+  }
+  onDeleteAll() {
+    this.dialogRef.close();
+    this.boardsService.removeBoardAllDevices();
   }
 }

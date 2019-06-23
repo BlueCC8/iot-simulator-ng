@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../../device.service';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
-import { NetLayersService } from 'src/app/core/networkLayer/networkLayer.service';
-import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
+import { NetLayersService } from 'src/app/core/services/networkLayer.service';
+import { NetLayerModel } from 'src/app/core/models/networkLayer.model';
 @Component({
   selector: 'app-network-step-three',
   templateUrl: './network-step-three.component.html',
@@ -26,7 +26,7 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
   isPopulated = true;
   pageSize = null;
   page = null;
-  private netLayersSubs = new Subscription();
+  private netLayersSubs$ = new Subscription();
   @Output() saveStepThreeForm = new EventEmitter<FormGroup>();
   ngOnInit() {}
 
@@ -59,7 +59,7 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.netLayersService.getNetLayers(this.pageSize, this.page);
-    this.netLayersSubs = this.netLayersService
+    this.netLayersSubs$ = this.netLayersService
       .getNetLayersUpdateListener()
       .subscribe((netLayersData: { netLayers: NetLayerModel[]; maxNetLayers: number }) => {
         this.isLoading = false;
@@ -103,6 +103,6 @@ export class NetworkStepThreeComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepThree);
   }
   ngOnDestroy() {
-    this.netLayersSubs.unsubscribe();
+    this.netLayersSubs$.unsubscribe();
   }
 }

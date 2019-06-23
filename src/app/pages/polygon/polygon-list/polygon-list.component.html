@@ -1,0 +1,73 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div fxLayout="row" fxLayoutAlign="center start" fxFill>
+  <mat-accordion
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    multi="false"
+    *ngIf="polygons.length > 0 && !isLoading"
+  >
+    <mat-expansion-panel
+      [matTooltip]="
+        !userIsAuthenticated || username !== polygon.username
+          ? 'Edit and delete not available, owner limited'
+          : 'Open me'
+      "
+      aria-label="Should open"
+      fxLayout="column"
+      *ngFor="let polygon of polygons"
+    >
+      <mat-expansion-panel-header fxLayoutAlign="center center">
+        {{ polygon.polName }}
+      </mat-expansion-panel-header>
+      <mat-panel-description fxLayoutAlign="center center">
+        <p>Polygon dots:</p>
+        <mat-list *ngFor="let dot of polygon.polDots">
+          <mat-list-item> DotX: {{ dot.dotX }} DotY: {{ dot.dotY }} </mat-list-item>
+        </mat-list>
+      </mat-panel-description>
+
+      <!-- <div class="post-image" *ngIf="ether.imagePath">
+      <img [src]="ether.imagePath" [alt]="ether.etherName" />
+    </div> -->
+      <mat-action-row *ngIf="userIsAuthenticated && username === polygon.username">
+        <a
+          matTooltip="Edit the polygon"
+          aria-label="Should show edit"
+          mat-button
+          color="primary"
+          [routerLink]="['./edit', polygon.id]"
+          >Edit</a
+        >
+        <button
+          matTooltip="Delete the polygon"
+          aria-label="Should show delete"
+          mat-button
+          color="warn"
+          (click)="onDelete(polygon.id)"
+        >
+          Delete
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-paginator
+    fxLayout="column"
+    fxFlex="80%"
+    fxFlex.gt-sm="60%"
+    fxFill
+    *ngIf="polygons.length > 0"
+    [length]="totalPolygons"
+    [pageSize]="polygonsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons="true"
+    (page)="onChangePage($event)"
+  >
+  </mat-paginator>
+  <p class="info-text mat-body-1" *ngIf="polygons.length <= 0 && !isLoading">
+    No polygons added yet!
+  </p>
+</div>

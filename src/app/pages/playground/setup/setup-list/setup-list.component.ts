@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { SetupService } from '../setup.service';
-import { SetupModel } from '../setup.model';
+import { SetupService } from '../../../../core/services/setup.service';
+import { SetupModel } from '../../../../core/models/setup.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PageEvent, MatBottomSheet } from '@angular/material';
 import { BottomSheetComponent } from '../../bottom-sheet/bottom-sheet.component';
-import { SetupDevicesModel } from '../setup-devices.model';
+import { SetupDevicesModel } from '../../../../core/models/setup-devices.model';
 import { NGXLogger } from 'ngx-logger';
 
 @Component({
@@ -25,8 +25,9 @@ export class SetupListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   private isPopulated = true;
-  private setupSubs = new Subscription();
-  private authListenerSubs = new Subscription();
+  private ids = [];
+  private setupSubs$ = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -37,19 +38,20 @@ export class SetupListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, this.ids);
     this.username = this.authService.getUsername();
-
-    this.setupSubs = this.setupsService
+    this.setupSubs$ = this.setupsService
       .getSetupUpdateStatus()
-      .subscribe((setupsData: { setups: SetupDevicesModel[]; maxSetups: number }) => {
-        this.isLoading = false;
-        this.setups = setupsData.setups;
-        this.totalSetups = setupsData.maxSetups;
-      });
-
+      .subscribe(
+        (setupsData: { setups: SetupDevicesModel[]; maxSetups: number; configIds: string[] }) => {
+          this.isLoading = false;
+          this.setups = setupsData.setups;
+          this.totalSetups = setupsData.maxSetups;
+          this.ids = setupsData.configIds;
+        }
+      );
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
@@ -64,17 +66,22 @@ export class SetupListComponent implements OnInit, OnDestroy {
     this.totalSetups = pageData.length;
     this.setupsPerPage = pageData.pageSize;
     this.currentPage = pageData.pageIndex + 1;
-    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+    this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated, this.ids);
   }
 
   onDelete(setupId: string) {
     this.isLoading = true;
     this.setupsService.deleteSetup(setupId).subscribe(() => {
-      this.setupsService.getSetups(this.setupsPerPage, this.currentPage, this.isPopulated);
+      this.setupsService.getSetups(
+        this.setupsPerPage,
+        this.currentPage,
+        this.isPopulated,
+        this.ids
+      );
     });
   }
   ngOnDestroy() {
-    this.setupSubs.unsubscribe();
-    this.authListenerSubs.unsubscribe();
+    this.setupSubs$.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

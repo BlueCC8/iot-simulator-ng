@@ -1,0 +1,49 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-card fxLayout="column" fxFlex="80%" fxFlex.gt-sm="90%">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onSavePolygon()" *ngIf="!isLoading">
+      <mat-form-field>
+        <input matInput type="text" formControlName="polName" placeholder="Polygon Name" />
+        <mat-error *ngIf="form.get('polName').invalid">Please enter a polygon name .</mat-error>
+      </mat-form-field>
+      <div fxLayout="row wrap " fxLayoutAlign="space-evenly center" fxFill>
+        <div
+          fxFlex="50%"
+          fxLayoutAlign="center center"
+          formArrayName="polDots"
+          *ngFor="let dot of dots; let i = index"
+        >
+          <mat-card fxLayout="row" fxFlex.gt-sm="60%" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxFlex="50%">
+              <mat-form-field fxLayout="column" fxFlex="50%" fxFlex.gt-sm="50%">
+                <input
+                  matInput
+                  type="text"
+                  [formControl]="polDots.controls[i].controls.dotX"
+                  placeholder="DotX"
+                />
+              </mat-form-field>
+              <mat-form-field fxLayout="column" fxFlex="50%" fxFlex.gt-sm="50%">
+                <input
+                  matInput
+                  type="text"
+                  [formControl]="polDots.controls[i].controls.dotY"
+                  placeholder="DotY"
+                />
+              </mat-form-field>
+            </div>
+          </mat-card>
+          <div fxLayout="column" fxLayoutAlign="start center">
+            <button mat-mini-fab color="primary" (click)="addItem($event, 0, 0, i)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="removeItem($event, i)">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button color="accent" type="submit">Save</button>
+    </form>
+  </mat-card>
+</div>

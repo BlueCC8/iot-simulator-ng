@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
+import { EthernetModel } from 'src/app/core/models/ethernet.model';
 
 @Pipe({
   name: 'ethernetProperties'

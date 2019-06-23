@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/cor
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../../device-create-steps-form.service';
 import { Subscription } from 'rxjs';
-import { DevicesService } from '../../../device.service';
+import { DevicesService } from '../../../../../core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceIntegratedModel } from '../../../device.integrated-model';
+import { DeviceIntegratedModel } from '../../../../../core/models/device.integrated-model';
 import { NGXLogger } from 'ngx-logger';
-import { AppLayerModel } from 'src/app/core/applicationLayer/applicationLayer.model';
-import { AppLayersService } from 'src/app/core/applicationLayer/applicationLayer.service';
+import { AppLayerModel } from 'src/app/core/models/applicationLayer.model';
+import { AppLayersService } from 'src/app/core/services/applicationLayer.service';
 
 @Component({
   selector: 'app-application-layer-step-two',
@@ -29,7 +29,7 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
 
   private pageSize = null;
   private page = null;
-  private appLayersSubs = new Subscription();
+  private appLayersSubs$ = new Subscription();
   @Output() saveStepTwoForm = new EventEmitter<FormGroup>();
 
   ngOnInit() {}
@@ -73,7 +73,7 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.appLayersService.getAppLayers(this.pageSize, this.page);
-    this.appLayersSubs = this.appLayersService
+    this.appLayersSubs$ = this.appLayersService
       .getAppLayersUpdateListener()
       .subscribe((appLayersData: { appLayers: AppLayerModel[]; maxAppLayers: number }) => {
         this.isLoading = false;
@@ -120,6 +120,6 @@ export class ApplicationLayerStepTwoComponent implements OnInit, OnDestroy {
     this.logger.log(this.componentName, this.frmStepTwo);
   }
   ngOnDestroy() {
-    this.appLayersSubs.unsubscribe();
+    this.appLayersSubs$.unsubscribe();
   }
 }

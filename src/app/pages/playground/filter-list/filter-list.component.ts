@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DevicesService } from 'src/app/pages/device/device.service';
+import { DevicesService } from 'src/app/core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
-import { SearchBarService } from '../search-bar/search-bar.service';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
+import { SearchBarService } from '../../../core/services/search-bar.service';
 import { NGXLogger } from 'ngx-logger';
 import { PageEvent } from '@angular/material';
-import { BoardModel } from '../board/board.model';
-import { BoardService } from '../board/board.service';
+import { BoardModel } from '../../../core/models/board.model';
+import { BoardService } from '../../../core/services/board.service';
 
 @Component({
   selector: 'app-filter-list',
@@ -33,9 +33,9 @@ export class FilterListComponent implements OnInit, OnDestroy {
   devicesPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10, 20];
-  private devicesSub = new Subscription();
-  private authListenerSubs = new Subscription();
-  private searchbarSubs = new Subscription();
+  private devicesSub$ = new Subscription();
+  private authListenerSubs$ = new Subscription();
+  private searchbarSubs$ = new Subscription();
 
   constructor(
     private boardsService: BoardService,
@@ -50,7 +50,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
     this.devicesService.getDevices(this.devicesPerPage, this.currentPage, this.isPopulated);
     this.username = this.authService.getUsername();
     this.logger.log(this.componentName + 'Loading');
-    this.devicesSub = this.devicesService
+    this.devicesSub$ = this.devicesService
       .getDeviceUpdateListener()
       .subscribe((devicesData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.isLoading = false;
@@ -59,12 +59,12 @@ export class FilterListComponent implements OnInit, OnDestroy {
         this.logger.log(this.componentName + 'Devices', this.devices);
       });
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.username = this.authService.getUsername();
     });
 
-    this.searchbarSubs = this.searchbarService
+    this.searchbarSubs$ = this.searchbarService
       .getSearchUpdateListener()
       .subscribe((searchData: { devices: DeviceIntegratedModel[]; maxDevices: number }) => {
         this.searchResult = searchData.devices;
@@ -103,9 +103,9 @@ export class FilterListComponent implements OnInit, OnDestroy {
     this.panelOpenState = false;
   }
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
-    this.searchbarSubs.unsubscribe();
-    this.devicesSub.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
+    this.searchbarSubs$.unsubscribe();
+    this.devicesSub$.unsubscribe();
   }
   // flattenDeep(arr1) {
   //   return arr1.reduce(function iter(r, a) {

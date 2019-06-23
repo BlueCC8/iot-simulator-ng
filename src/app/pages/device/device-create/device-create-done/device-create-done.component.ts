@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DeviceCreateSteptsFormService } from '../device-create-steps-form.service';
-import { DevicesService } from '../../device.service';
+import { DevicesService } from '../../../../core/services/device.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { LinkLayersService } from 'src/app/core/linkLayer/linkLayer.service';
-import { Device } from '../../device.model';
-import { LinkLayerModel } from 'src/app/core/linkLayer/linkLayer.model';
+import { LinkLayersService } from 'src/app/core/services/linkLayer.service';
+import { Device } from '../../../../core/models/device.model';
+import { LinkLayerModel } from 'src/app/core/models/linkLayer.model';
 import { NGXLogger } from 'ngx-logger';
 import { MatVerticalStepper } from '@angular/material';
-import { AppLayerModel } from 'src/app/core/applicationLayer/applicationLayer.model';
-import { NetLayerModel } from 'src/app/core/networkLayer/networkLayer.model';
-import { WifiModel } from 'src/app/core/wifi/wifi.model';
-import { EthernetModel } from 'src/app/core/ethernet/ethernet.model';
+import { AppLayerModel } from 'src/app/core/models/applicationLayer.model';
+import { NetLayerModel } from 'src/app/core/models/networkLayer.model';
+import { WifiModel } from 'src/app/core/models/wifi.model';
+import { EthernetModel } from 'src/app/core/models/ethernet.model';
 import { ApplicationLayerStepTwoComponent } from '../device-create-steps/application-layer-step-two/application-layer-step-two.component';
 import { BasicDetailsStepOneComponent } from '../device-create-steps/basic-details-step-one/basic-details-step-one.component';
 import { NetworkStepThreeComponent } from '../device-create-steps/network-step-three/network-step-three.component';
@@ -43,7 +43,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private deviceId: string;
   private componentName = DeviceCreateDoneComponent.name + ' ';
-  private authListenerSubs = new Subscription();
+  private authListenerSubs$ = new Subscription();
 
   @ViewChild(MatVerticalStepper) stepper: MatVerticalStepper;
   @ViewChild(BasicDetailsStepOneComponent) firstFormGroup: BasicDetailsStepOneComponent;
@@ -82,7 +82,7 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
     return this.sixthFormGroup ? this.sixthFormGroup.frmStepSix : null;
   }
   ngOnInit() {
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(authStatus => {
+    this.authListenerSubs$ = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = false;
     });
 
@@ -156,6 +156,6 @@ export class DeviceCreateDoneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs$.unsubscribe();
   }
 }

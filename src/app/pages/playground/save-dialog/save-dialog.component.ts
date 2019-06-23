@@ -1,10 +1,11 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject, Component } from '@angular/core';
-import { DeviceIntegratedModel } from 'src/app/pages/device/device.integrated-model';
+import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
 import { NgForm } from '@angular/forms';
-import { SetupModel } from '../setup/setup.model';
-import { SetupIntegratedModel } from '../setup/setup.integrated-model';
-import { SetupService } from '../setup/setup.service';
+import { SetupModel } from '../../../core/models/setup.model';
+import { SetupIntegratedModel } from '../../../core/models/setup.integrated-model';
+import { SetupService } from '../../../core/services/setup.service';
+import { SetupCreateDto } from '../../../core/dtos/setup.create-dto';
 
 @Component({
   selector: 'app-save-dialog',
@@ -14,7 +15,7 @@ export class SaveDialogComponent {
   constructor(
     private setupsService: SetupService,
     public dialogRef: MatDialogRef<SaveDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public devicesIDs: string[]
+    @Inject(MAT_DIALOG_DATA) public setupData: SetupCreateDto
   ) {}
 
   onNoClick(): void {
@@ -28,7 +29,8 @@ export class SaveDialogComponent {
     const setup: SetupModel = {
       id: null,
       setupName: form.value.configName,
-      devIDs: this.devicesIDs,
+      devIDs: this.setupData.devIDs,
+      roomId: this.setupData.roomId,
       username: null
     };
     this.dialogRef.close();

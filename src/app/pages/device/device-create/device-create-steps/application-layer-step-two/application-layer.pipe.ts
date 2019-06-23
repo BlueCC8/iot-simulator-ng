@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLayerModel } from 'src/app/core/applicationLayer/applicationLayer.model';
+import { AppLayerModel } from 'src/app/core/models/applicationLayer.model';
 
 @Pipe({
   name: 'appLayerProperties'

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { WifiModel } from 'src/app/core/wifi/wifi.model';
+import { WifiModel } from 'src/app/core/models/wifi.model';
 
 @Pipe({
   name: 'wifiProperties'

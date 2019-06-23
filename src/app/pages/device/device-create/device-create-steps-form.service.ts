@@ -7,23 +7,23 @@ import { NGXLogger } from 'ngx-logger';
 export class DeviceCreateSteptsFormService {
   private componentName = DeviceCreateSteptsFormService.name + ' ';
 
-  private stepOneSource: Subject<FormGroup> = new Subject();
-  stepOne: Observable<FormGroup> = this.stepOneSource.asObservable();
+  private stepOneSource$: Subject<FormGroup> = new Subject();
+  stepOne$: Observable<FormGroup> = this.stepOneSource$.asObservable();
 
-  private stepTwoSource: Subject<FormGroup> = new Subject();
-  stepTwo: Observable<FormGroup> = this.stepTwoSource.asObservable();
+  private stepTwoSource$: Subject<FormGroup> = new Subject();
+  stepTwo$: Observable<FormGroup> = this.stepTwoSource$.asObservable();
 
-  private stepThreeSource: Subject<FormGroup> = new Subject();
-  stepThree: Observable<FormGroup> = this.stepThreeSource.asObservable();
+  private stepThreeSource$: Subject<FormGroup> = new Subject();
+  stepThree$: Observable<FormGroup> = this.stepThreeSource$.asObservable();
 
-  private stepFourSource: Subject<FormGroup> = new Subject();
-  stepFour: Observable<FormGroup> = this.stepFourSource.asObservable();
+  private stepFourSource$: Subject<FormGroup> = new Subject();
+  stepFour$: Observable<FormGroup> = this.stepFourSource$.asObservable();
 
-  private stepFiveSource: Subject<FormGroup> = new Subject();
-  stepFive: Observable<FormGroup> = this.stepFiveSource.asObservable();
+  private stepFiveSource$: Subject<FormGroup> = new Subject();
+  stepFive$: Observable<FormGroup> = this.stepFiveSource$.asObservable();
 
-  private stepSixSource: Subject<FormGroup> = new Subject();
-  stepSix: Observable<FormGroup> = this.stepSixSource.asObservable();
+  private stepSixSource$: Subject<FormGroup> = new Subject();
+  stepSix$: Observable<FormGroup> = this.stepSixSource$.asObservable();
 
   initAppLayer: FormGroup = this.formBuilderAppLayer.group({
     id: '',
@@ -94,7 +94,7 @@ export class DeviceCreateSteptsFormService {
     private formBuilderAppLayer: FormBuilder,
     private logger: NGXLogger
   ) {
-    this.stepOne.subscribe(
+    this.stepOne$.subscribe(
       form =>
         form.valueChanges.subscribe(
           val => {
@@ -115,7 +115,7 @@ export class DeviceCreateSteptsFormService {
         this.logger.error(this.componentName + error);
       }
     );
-    this.stepTwo.subscribe(
+    this.stepTwo$.subscribe(
       form => {
         this.initAppLayer = form;
         this.logger.log(this.componentName, this.initAppLayer);
@@ -124,25 +124,25 @@ export class DeviceCreateSteptsFormService {
         this.logger.error(this.componentName + error);
       }
     );
-    this.stepThree.subscribe(
+    this.stepThree$.subscribe(
       form => (this.initNetLayer = form),
       error => {
         this.logger.error(this.componentName + error);
       }
     );
-    this.stepFour.subscribe(
+    this.stepFour$.subscribe(
       form => (this.initLinkLayer = form),
       error => {
         this.logger.error(this.componentName + error);
       }
     );
-    this.stepFive.subscribe(
+    this.stepFive$.subscribe(
       form => (this.initWifi = form),
       error => {
         this.logger.error(this.componentName + error);
       }
     );
-    this.stepSix.subscribe(
+    this.stepSix$.subscribe(
       form => (this.initEthernet = form),
       error => {
         this.logger.error(this.componentName + error);
@@ -154,31 +154,31 @@ export class DeviceCreateSteptsFormService {
     switch (part) {
       case 'one':
         {
-          this.stepOneSource.next(form);
+          this.stepOneSource$.next(form);
         }
         break;
       case 'two':
         {
-          this.stepTwoSource.next(form);
+          this.stepTwoSource$.next(form);
         }
         break;
       case 'three':
         {
-          this.stepThreeSource.next(form);
+          this.stepThreeSource$.next(form);
         }
         break;
       case 'four':
         {
-          this.stepFourSource.next(form);
+          this.stepFourSource$.next(form);
         }
         break;
       case 'five':
         {
-          this.stepFiveSource.next(form);
+          this.stepFiveSource$.next(form);
         }
         break;
       case 'six': {
-        this.stepSixSource.next(form);
+        this.stepSixSource$.next(form);
       }
     }
   }
