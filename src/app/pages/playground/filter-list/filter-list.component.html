@@ -27,7 +27,7 @@
       </mat-panel-description> -->
       </mat-expansion-panel-header>
       <mat-list>
-        <mat-list-item *ngFor="let prop of (device | deviceProperties | keyvalue)">
+        <mat-list-item *ngFor="let prop of device | deviceProperties | keyvalue">
           <p matLine>{{ prop.key }}: {{ prop.value }}</p>
         </mat-list-item>
       </mat-list>
@@ -43,7 +43,7 @@
             >
           </mat-panel-description> -->
           </mat-expansion-panel-header>
-          <mat-list *ngFor="let appLayer of (device.appLayerID | deviceProperties | keyvalue)">
+          <mat-list *ngFor="let appLayer of device.appLayerID | deviceProperties | keyvalue">
             <mat-list-item>
               <p matLine>{{ appLayer.key }}: {{ appLayer.value }}</p>
             </mat-list-item>
@@ -60,7 +60,7 @@
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx"> insert_link</mat-icon>
           </mat-panel-description> -->
           </mat-expansion-panel-header>
-          <mat-list *ngFor="let linLayer of (device.linLayerID | deviceProperties | keyvalue)">
+          <mat-list *ngFor="let linLayer of device.linLayerID | deviceProperties | keyvalue">
             <mat-list-item>
               <p matLine>{{ linLayer.key }}:{{ linLayer.value }}</p>
             </mat-list-item>
@@ -78,7 +78,7 @@
               </mat-panel-description> -->
               </mat-expansion-panel-header>
               <mat-list
-                *ngFor="let ether of (device.linLayerID.llEthernetID | deviceProperties | keyvalue)"
+                *ngFor="let ether of device.linLayerID.llEthernetID | deviceProperties | keyvalue"
               >
                 <mat-list-item>
                   <p matLine>{{ ether.key }}: {{ ether.value }}</p>
@@ -97,7 +97,7 @@
               </mat-panel-description> -->
               </mat-expansion-panel-header>
               <mat-list
-                *ngFor="let wifi of (device.linLayerID.llWifiID | deviceProperties | keyvalue)"
+                *ngFor="let wifi of device.linLayerID.llWifiID | deviceProperties | keyvalue"
               >
                 <mat-list-item>
                   <p matLine>{{ wifi.key }}: {{ wifi.value }}</p>
@@ -117,7 +117,7 @@
             <mat-icon fxLayoutAlign="center center" fxLayoutGap="gappx">share</mat-icon>
           </mat-panel-description> -->
           </mat-expansion-panel-header>
-          <mat-list *ngFor="let netLayer of (device.netLayerID | deviceProperties | keyvalue)">
+          <mat-list *ngFor="let netLayer of device.netLayerID | deviceProperties | keyvalue">
             <mat-list-item>
               <p matLine>{{ netLayer.key }}: {{ netLayer.value }}</p>
             </mat-list-item>

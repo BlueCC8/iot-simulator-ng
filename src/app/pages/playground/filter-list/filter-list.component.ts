@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
 import { DevicesService } from 'src/app/core/services/device.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { DeviceIntegratedModel } from 'src/app/core/models/device.integrated-model';
 import { SearchBarService } from '../../../core/services/search-bar.service';
 import { NGXLogger } from 'ngx-logger';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatExpansionPanel } from '@angular/material';
 import { BoardModel } from '../../../core/models/board.model';
 import { BoardService } from '../../../core/services/board.service';
 
@@ -16,6 +16,7 @@ import { BoardService } from '../../../core/services/board.service';
   // encapsulation: ViewEncapsulation.None disables encapsulation for every component
 })
 export class FilterListComponent implements OnInit, OnDestroy {
+  @ViewChild('#mep') matExpansionPanel: MatExpansionPanel;
   private componentName = FilterListComponent.name + ' ';
   panelOpenState = false;
   isLoading = false;
@@ -36,6 +37,8 @@ export class FilterListComponent implements OnInit, OnDestroy {
   private devicesSub$ = new Subscription();
   private authListenerSubs$ = new Subscription();
   private searchbarSubs$ = new Subscription();
+
+  @Output() sidenavClose = new EventEmitter();
 
   constructor(
     private boardsService: BoardService,
@@ -101,6 +104,11 @@ export class FilterListComponent implements OnInit, OnDestroy {
   }
   onSetPanelState() {
     this.panelOpenState = false;
+  }
+  onSidenavClose() {
+    console.log('trigger close');
+    this.matExpansionPanel.expanded = false;
+    this.sidenavClose.emit();
   }
   ngOnDestroy() {
     this.authListenerSubs$.unsubscribe();

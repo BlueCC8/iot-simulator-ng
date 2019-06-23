@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { SearchBarService } from '../../core/services/search-bar.service';
 import { DeviceIntegratedModel } from '../../core/models/device.integrated-model';
 import { DevicesService } from '../../core/services/device.service';
 import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-playground',
@@ -13,6 +14,7 @@ import { NGXLogger } from 'ngx-logger';
 })
 export class PlaygroundComponent implements OnInit, OnDestroy {
   private componentName = PlaygroundComponent.name + ' ';
+
   username: string;
   isLoading: boolean;
   devicesSearch: DeviceIntegratedModel[];
@@ -48,7 +50,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   selectedOption(e) {
     this.getFilteredExpenseList();
   }
-
+  onToggleSidenavLeft() {}
   getFilteredExpenseList() {
     this.logger.log(this.componentName, this.searchbarService.searchOption);
     if (this.searchbarService.searchOption.length > 0) {

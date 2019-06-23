@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { SetupService } from '../../../../core/services/setup.service';
 import { SetupModel } from '../../../../core/models/setup.model';
 import { AuthService } from 'src/app/auth/auth.service';
-import { PageEvent, MatBottomSheet } from '@angular/material';
+import { PageEvent, MatBottomSheet, MatAccordion } from '@angular/material';
 import { BottomSheetComponent } from '../../bottom-sheet/bottom-sheet.component';
 import { SetupDevicesModel } from '../../../../core/models/setup-devices.model';
 import { NGXLogger } from 'ngx-logger';
@@ -15,6 +15,8 @@ import { NGXLogger } from 'ngx-logger';
   styleUrls: ['./setup-list.component.css']
 })
 export class SetupListComponent implements OnInit, OnDestroy {
+  @ViewChild(MatAccordion) accordion: MatAccordion;
+
   private componentName = SetupListComponent.name + ' ';
   setups: SetupDevicesModel[] = [];
   userIsAuthenticated = false;
@@ -28,6 +30,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
   private ids = [];
   private setupSubs$ = new Subscription();
   private authListenerSubs$ = new Subscription();
+  @Output() sidenavClose = new EventEmitter();
 
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -57,6 +60,7 @@ export class SetupListComponent implements OnInit, OnDestroy {
     });
   }
   openBottomSheet(setup: SetupDevicesModel) {
+    this.onSidenavClose();
     setup.username = this.username;
     this.logger.log(this.componentName, setup);
     this.bottomSheet.open(BottomSheetComponent, { data: setup });
@@ -79,6 +83,10 @@ export class SetupListComponent implements OnInit, OnDestroy {
         this.ids
       );
     });
+  }
+  onSidenavClose() {
+    this.accordion.closeAll();
+    this.sidenavClose.emit();
   }
   ngOnDestroy() {
     this.setupSubs$.unsubscribe();

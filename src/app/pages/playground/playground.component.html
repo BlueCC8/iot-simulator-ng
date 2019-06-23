@@ -2,37 +2,74 @@
   <app-search-bar fxFlex="1 1 90%" (selectedOption)="selectedOption($event)"></app-search-bar>
   <app-select-room-list fxFlex="1 1 90%"></app-select-room-list>
 </div>
-<div id="main" fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="gappx">
-  <div
-    class="ply-comp"
-    fxLayout="column"
-    fxFill
-    fxFlex="20"
-    fxLayoutAlign=" center"
-    fxLayoutGap="10px"
-  >
-    <app-filter-list fxLayout="column" fxFill fxFlex="20"></app-filter-list>
+<mat-sidenav-container>
+  <div id="main" fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="gappx">
+    <div fxHide.gt-sm>
+      <button mat-button (click)="sidenavLeft.toggle()"><mat-icon>devices</mat-icon></button>
+    </div>
+    <mat-sidenav
+      #sidenavLeft
+      style="left: 55px"
+      role="navigation"
+      position="start"
+      mode="push"
+      fixedTopGap="56"
+    >
+      <app-filter-list (sidenavClose)="sidenavLeft.close()" fxLayout="column"></app-filter-list>
+    </mat-sidenav>
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="20"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+      fxHide.lt-md
+    >
+      <app-filter-list fxLayout="column" fxFill fxFlex="20"> </app-filter-list>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="60"
+      fxFlex.lt-md="80"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+    >
+      <app-board
+        fxLayout="column"
+        fxFill
+        fxFlex="60"
+        fxFlex.lt-md="80"
+        fxLayoutAlign="center"
+      ></app-board>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div fxHide.gt-sm>
+      <button mat-button (click)="sidenavRight.toggle()"><mat-icon>devices</mat-icon></button>
+    </div>
+    <mat-sidenav
+      #sidenavRight
+      style="right: 55px"
+      role="navigation"
+      position="end"
+      mode="push"
+      fixedTopGap="56"
+    >
+      <app-setup-list (sidenavClose)="sidenavRight.close()" fxLayout="column"></app-setup-list>
+    </mat-sidenav>
+    <div
+      class="ply-comp"
+      fxLayout="column"
+      fxFill
+      fxFlex="20"
+      fxLayoutAlign=" center"
+      fxLayoutGap="10px"
+      fxHide.lt-md
+    >
+      <app-setup-list fxLayout="column" fxFill fxFlex="20"> </app-setup-list>
+    </div>
   </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div
-    class="ply-comp"
-    fxLayout="column"
-    fxFill
-    fxFlex="60"
-    fxLayoutAlign=" center"
-    fxLayoutGap="10px"
-  >
-    <app-board fxLayout="column" fxFill fxFlex="60" fxLayoutAlign="center"></app-board>
-  </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div
-    class="ply-comp"
-    fxLayout="column"
-    fxFill
-    fxFlex="20"
-    fxLayoutAlign=" center"
-    fxLayoutGap="10px"
-  >
-    <app-setup-list fxLayout="column" fxFill fxFlex="20"></app-setup-list>
-  </div>
-</div>
+</mat-sidenav-container>
