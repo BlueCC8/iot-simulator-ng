@@ -16,7 +16,7 @@ import { BoardService } from '../../../core/services/board.service';
   // encapsulation: ViewEncapsulation.None disables encapsulation for every component
 })
 export class FilterListComponent implements OnInit, OnDestroy {
-  @ViewChild('#mep') matExpansionPanel: MatExpansionPanel;
+  @ViewChild('mep') matExpansionPanel: MatExpansionPanel;
   private componentName = FilterListComponent.name + ' ';
   panelOpenState = false;
   isLoading = false;
@@ -105,9 +105,11 @@ export class FilterListComponent implements OnInit, OnDestroy {
   onSetPanelState() {
     this.panelOpenState = false;
   }
+  onClose() {
+    this.matExpansionPanel.close();
+    this.onSidenavClose();
+  }
   onSidenavClose() {
-    console.log('trigger close');
-    this.matExpansionPanel.expanded = false;
     this.sidenavClose.emit();
   }
   ngOnDestroy() {

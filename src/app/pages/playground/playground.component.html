@@ -9,7 +9,7 @@
     </div>
     <mat-sidenav
       #sidenavLeft
-      style="left: 55px"
+      style="left: 0px"
       role="navigation"
       position="start"
       mode="push"
@@ -48,11 +48,11 @@
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div fxHide.gt-sm>
-      <button mat-button (click)="sidenavRight.toggle()"><mat-icon>devices</mat-icon></button>
+      <button mat-button (click)="sidenavRight.toggle()"><mat-icon>storage</mat-icon></button>
     </div>
     <mat-sidenav
       #sidenavRight
-      style="right: 55px"
+      style="right: 0px"
       role="navigation"
       position="end"
       mode="push"

@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
-  <span>Configuration</span>
+  <div fxFlex="1 1 100%" fxLayout="row" fxLayoutAlign="space-between center">
+    <span>Configurations </span>
+
+    <button mat-button (click)="onSidenavClose()" fxHide.gt-sm>
+      <mat-icon>storage</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 <div fxFlex="1 1 90%" fxLayout="column">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>

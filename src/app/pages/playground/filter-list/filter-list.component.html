@@ -1,5 +1,10 @@
 <mat-toolbar color="primary">
-  <span>Devices</span>
+  <div fxFlex="1 1 100%" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button (click)="onClose()" fxHide.gt-sm>
+      <mat-icon>devices</mat-icon>
+    </button>
+    <span>Devices </span>
+  </div>
 </mat-toolbar>
 <div fxFlex="1 1 90%" fxLayout="column">
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
@@ -128,7 +133,7 @@
         <button mat-button color="primary" (click)="onAddDevice(device)">
           Add
         </button>
-        <button mat-button color="warn" (click)="mep.expanded = false">Close</button>
+        <button mat-button color="warn" (click)="onClose()">Close</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

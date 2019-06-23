@@ -48,10 +48,10 @@ mat-action-row,
 button {
   padding: 7px 10px !important;
 }
-mat-icon {
+/* mat-icon {
   visibility: hidden;
   display: none;
-}
+} */
 ::ng-deep .mat-list-item {
   font-size: 14px !important;
   height: 20px !important;
