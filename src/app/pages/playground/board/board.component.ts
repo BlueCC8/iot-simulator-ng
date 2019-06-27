@@ -12,7 +12,8 @@ import { BoardService } from '../../../core/services/board.service';
 import { RoomService } from '../../../core/services/room.service';
 import { RoomModel } from '../../../core/models/room.model';
 import { SetupCreateDto } from '../../../core/dtos/setup.create-dto';
-
+import { Link } from 'src/app/core/d3/models/link';
+import { Node } from 'src/app/core/d3/models/node';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -29,12 +30,62 @@ export class BoardComponent implements OnInit, OnDestroy {
   timer: any;
   delay: number;
 
+  // D3 paint
+  nodes: Node[] = [];
+  links: Link[] = [];
+
   constructor(
     private dialog: MatDialog,
     private boardsService: BoardService,
     private roomsService: RoomService,
     private logger: NGXLogger
-  ) {}
+  ) {
+    // const N = APP_CONFIG.N;
+    const N = 8;
+    /** constructing the nodes array */
+    for (let i = 1; i <= N; i++) {
+      this.nodes.push(new Node(i));
+    }
+    let source = 1;
+    let target = 2;
+    // this.nodes[this.getIndex(source)].linkCount++;
+    // this.nodes[this.getIndex(source * target)].linkCount++;
+    // this.links.push(new Link(source, source * target));
+
+    source = 1;
+    target = 3;
+    this.nodes[this.getIndex(source)].linkCount++;
+    this.nodes[this.getIndex(source * target)].linkCount++;
+    this.links.push(new Link(source, source * target));
+
+    source = 2;
+    target = 2;
+    this.nodes[this.getIndex(source)].linkCount++;
+    this.nodes[this.getIndex(source * target)].linkCount++;
+    this.links.push(new Link(source, source * target));
+    source = 2;
+    target = 3;
+    this.nodes[this.getIndex(source)].linkCount++;
+    this.nodes[this.getIndex(source * target)].linkCount++;
+    this.links.push(new Link(source, source * target));
+    source = 2;
+    target = 4;
+    this.nodes[this.getIndex(source)].linkCount++;
+    this.nodes[this.getIndex(source * target)].linkCount++;
+    this.links.push(new Link(source, source * target));
+
+    // for (let source = 1; source <= N; source++) {
+    //   for (let target = 2; source * target <= N; target++) {
+    //     /** increasing connections toll on connecting nodes */
+    //     this.nodes[this.getIndex(source)].linkCount++;
+    //     this.nodes[this.getIndex(source * target)].linkCount++;
+
+    //     /** connecting the nodes before starting the simulation */
+    //     this.links.push(new Link(source, source * target));
+    //   }
+    // }
+  }
+  getIndex = index => index - 1;
 
   ngOnInit() {
     this.deviceSub$ = this.boardsService.getBoardDeviceStatus().subscribe(
@@ -72,6 +123,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log(setupData);
     this.dialog.open(SaveDialogComponent, { data: setupData });
   }
+
   ngOnDestroy() {
     this.deviceSub$.unsubscribe();
   }

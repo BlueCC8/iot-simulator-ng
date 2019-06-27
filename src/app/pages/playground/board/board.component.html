@@ -20,12 +20,21 @@
     *ngFor="let device of boardDevices"
     (dblclick)="doubleClick($event, device.id)"
   >
-    <img
+    <!-- <img
       matTooltip="Drag me around"
       fxFill
       *ngIf="device"
       [src]="device.devImgUrl"
       [alt]="device.devName"
     />
+  </div> -->
   </div>
+  <app-graph
+    fxLayout="column"
+    fxFlex="100"
+    fxLayoutAlign=" center center"
+    fxLayoutGap="10px"
+    [nodes]="nodes"
+    [links]="links"
+  ></app-graph>
 </div>

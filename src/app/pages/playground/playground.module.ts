@@ -13,6 +13,7 @@ import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 import { FilterListDevicePropertiesPipe } from './filter-list/filter-list-device-properties.pipe';
 import { DeleteDeviceDialogComponent } from './delete-device-dialog/delete-device-dialog.component';
 import { RoomModule } from '../room/room.module';
+import { VisualsModule } from 'src/app/core/visuals/visuals.module';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -25,7 +26,14 @@ import { RoomModule } from '../room/room.module';
     FilterListDevicePropertiesPipe,
     BottomSheetComponent
   ],
-  imports: [SharedModule, DragDropModule, ReactiveFormsModule, FormsModule, RoomModule],
+  imports: [
+    SharedModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RoomModule,
+    VisualsModule
+  ],
   exports: [FilterListDevicePropertiesPipe]
 })
 export class PlaygroundModule {}

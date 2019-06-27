@@ -1,0 +1,20 @@
+<svg
+  fxLayout="column"
+  fxFlex="100"
+  fxLayoutAlign=" center center"
+  fxLayoutGap="10px"
+  fxFill
+  #svg
+  [attr.width]="options.width"
+  [attr.height]="options.height"
+>
+  <g [zoomableOf]="svg">
+    <g [linkVisual]="link" *ngFor="let link of links"></g>
+    <g
+      [nodeVisual]="node"
+      *ngFor="let node of nodes"
+      [draggableNode]="node"
+      [draggableInGraph]="graph"
+    ></g>
+  </g>
+</svg>

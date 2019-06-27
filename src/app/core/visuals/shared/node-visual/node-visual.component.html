@@ -1,0 +1,17 @@
+<svg:g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+  <svg:circle
+    class="node"
+    [attr.fill]="node.color"
+    cx="0"
+    cy="0"
+    [attr.r]="node.r"
+  ></svg:circle>
+  <!-- <svg:image
+    xlink:href="http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png"
+    height="20"
+    width="20"
+  /> -->
+  <svg:text class="node-name" [attr.font-size]="node.fontSize">
+    {{ node.id }}
+  </svg:text>
+</svg:g>
