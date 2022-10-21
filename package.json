@@ -14,7 +14,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepare": "npm run snyk-protect"
   },
   "private": true,
@@ -34,9 +34,9 @@
     "hammerjs": "^2.0.8",
     "ngx-logger": "^3.3.13",
     "rxjs": "~6.3.3",
-    "snyk": "^1.189.0",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.8",
